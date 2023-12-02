@@ -1,0 +1,78 @@
+{
+	"info": {
+		"_postman_id": "d7fed177-c216-4e9f-bc77-a2d043bbd82d",
+		"name": "Placement_Portal_Routes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29143500"
+	},
+	"item": [
+		{
+			"name": "Student",
+			"item": [
+				{
+					"name": "SIGNUP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n       \"personalDetail\": {\r\n        \"firstName\": \"student\",\r\n        \"lastName\":  \"lastName\",\r\n        \"fathersName\" : \"father\",\r\n        \"mothersName\" : \"mother\",\r\n        \"emailID\" : \"abc@example.com\",\r\n        \"password\":\"123\",\r\n        \"phone\" : 435\r\n    },\r\n    \r\n    \"educationalDetails\": {  \r\n        \"collegeName\": \"ABCD\",\r\n        \"degree\":  \"BTech\",\r\n        \"cgpa\": 7,\r\n        \"yearOfPassing\": 2017\r\n    },\r\n\r\n    \"placementStatus\": {\r\n        \"isPlaced\": false,\r\n        \"companyName\": \"Comp-XYZ\",\r\n        \"packageOffered\": 15\r\n    },\r\n\r\n    \"pastInternshipsProjects\": {\r\n        \"internships\": [{\r\n            \"company\": \"Comp-ABC\",\r\n            \"role\": \"SDE\",\r\n            \"duration\": \"2y\",\r\n            \"description\": \"randonkladns\"\r\n        }],\r\n        \"projects\": [{\r\n            \"title\": \"Tic TAC Toe\",\r\n            \"duration\": \"2y\",\r\n            \"description\": \"random klk\",\r\n            \"link\": \"link\"\r\n        }]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/student/signup"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "College_Staff",
+			"item": [
+				{
+					"name": "SIGNUP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"personalDetail\" : \r\n   {\r\n        \"firstName\": \"staff 1\",\r\n        \"lastName\": \"staff last1\",\r\n        \"emailID\" : \"abc@example.cofgm\",\r\n        \"password\":\"1233r\",\r\n        \"phone\" : 435,\r\n        \"staffID\" : 4536453\r\n    },\r\n    \"designation\" :\"TPO Head\"\r\n    }\r\n    // enum options \"HOD\" , \"Placement Coordinator\"",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/staff/signup"
+					},
+					"response": []
+				},
+				{
+					"name": "SIGNIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"emailID\": \"abc@example.cofgm\",\r\n    \"password\": \"1233r\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:5000/staff/signin"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Hiring_Manager",
+			"item": []
+		}
+	]
+}
