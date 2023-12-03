@@ -8,7 +8,8 @@ const cors = require('cors')
 const cookieParser = require("cookie-parser");
 const studentRouter = require('./routes/student')
 const staffRouter  = require('./routes/college_staff')
-const asyncHandler = require("express-async-handler");
+const companyRouter  = require('./routes/company')
+const asyncHandler = require("express-async-handler"); 
 const jwt = require("jsonwebtoken");
 
 const app = express()
@@ -87,8 +88,9 @@ app.get('/' , asyncHandler( async = ( req , res , next ) => {
   
 app.use('/student' , studentRouter)
 app.use('/college-staff' , staffRouter )
+app.use('/company',companyRouter)
 
 //at the end
 app.use(errorHandler)
-
+ 
  

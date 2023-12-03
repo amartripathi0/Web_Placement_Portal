@@ -46,6 +46,11 @@ const studentSchema = new mongoose.Schema({
   }
   ,
   
+  notifications : [{
+      title: String,
+      from : String,
+      body : String
+  }],
   pastInternshipsProjects: {
     internships: [
       {

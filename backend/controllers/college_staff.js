@@ -5,6 +5,7 @@ const asyncHandler = require("express-async-handler");
 const { generateToken } = require("../utils/index");
 const Student = require("../models/student");
 const uploadToCloudinaryModule = require("../utils/index");
+const Company = require("../models/Company");
 
 const handleCollegeSignUP = asyncHandler(async (req, res , next ) => {
   try {
@@ -12,7 +13,7 @@ const handleCollegeSignUP = asyncHandler(async (req, res , next ) => {
     // First Name , Last Name , Email , phnono password confirm pass
     const { emailID, firstName, lastName, phone, password, cpass, staffID } =
       req.body;
-      // console.log(req.body);
+      // console.log(req.body); 
 
     if (!emailID || !password || !firstName || !lastName || !phone || !cpass || !staffID) {
       res.status(401);
@@ -49,9 +50,11 @@ const handleCollegeSignUP = asyncHandler(async (req, res , next ) => {
       const pass = hashedPass;
 
       const students = await Student.find();
+      const company = await Company.find();
       // console.log(students);
       let College;
-      if (students) {
+      if (students || company) {
+        // console.log(students);
         College = await CollegeStaff.create({
           personalDetail: {
             emailID,
@@ -62,10 +65,11 @@ const handleCollegeSignUP = asyncHandler(async (req, res , next ) => {
             staffID,
           },
           studentDetails: students,
+          companyDetails: company
         });
       }
 
-      //   console.log(College);
+        // console.log(College);
       if (College) {
         // console.log(College);
         const usrTyp = "college-staff";

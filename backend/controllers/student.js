@@ -5,6 +5,7 @@ const asyncHandler = require("express-async-handler");
 const { generateToken } = require("../utils/index");
 const uploadToCloudinaryModule = require("../utils/index");
 const CollegeStaff = require("../models/college_staff");
+const Company = require("../models/Company");
 const handleStudentSignUP = asyncHandler(async (req, res , next) => {
   try {
     
@@ -36,10 +37,19 @@ const handleStudentSignUP = asyncHandler(async (req, res , next) => {
       { "personalDetail.phone": phone },
     ],
   });
+
+  const company = await Company.find()
+  const college = await CollegeStaff.find()
+ 
   if (existingStudent) {
     res.status(409);
     throw new Error("Student Already Exists!");
-  } else {
+  } 
+
+  else if(company.length === 0 || college === 0){
+      throw new Error("Internal Server Error")
+  }
+  else {
     let hashedPass = await bcrypt.hash(password, 10);
     // const updatedStudent = { ...data , personalDetail : { password : hashedPass , ...personalDetail} }
     const pass = hashedPass;
@@ -53,18 +63,20 @@ const handleStudentSignUP = asyncHandler(async (req, res , next) => {
     // console.log(studentID);
 
     const settingStudentIdInCollege = await CollegeStaff.updateMany({$push : {"studentDetails" : studentID}})
+    const settingStudentIdInCompany = await Company.updateMany({$push : {"studentDetails" : studentID}})
     // console.log(settingStudentIdInCollege);
-    if (student && settingStudentIdInCollege.modifiedCount >=1) {
+    if (student && settingStudentIdInCollege.modifiedCount >=1 && settingStudentIdInCompany.modifiedCount >=1 ) {
 
       const populatedCollegeStaff = await CollegeStaff.find({}).populate({ path: "studentDetails" , select: "-personalDetail.password" })
-      res.json({msg : populatedCollegeStaff})  
+      const populatedCompany = await Company.find({}).populate({ path: "studentDetails" , select: "-personalDetail.password" })
+      // res.json({msg : populatedCollegeStaff})  
       // .populate({ path: "studentDetails" , select: "-personalDetails.password" })
 
       
       const usrTyp = "student"
       const token = generateToken(student._id.toString(), usrTyp); 
 
-      console.log(token);
+      // console.log(token);
       res.cookie("token", token, {
         path: "/", 
         httpOnly: true,

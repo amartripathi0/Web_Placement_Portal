@@ -68,45 +68,38 @@ const router = createBrowserRouter(
         <Route path="/student/profile" element={<StudentProfile />} />
         <Route path="/student/academicDetails" element={<AcademicDetail />} />
         <Route path="/student/resume" element={<Resume />} />
-        <Route
-          path="/student/previousInternships"
-          element={<PreviousInternships />}
-        />
+        <Route path="/student/previousInternships" element={<PreviousInternships />}/>
         <Route path="/student/projects" element={<Project />} />
-        <Route
-          path="/student/applicationStatus"
-          element={<ApplicationStatus />}
-        />
+        <Route path="/student/applicationStatus" element={<ApplicationStatus />}/>
         <Route path="/student/interview" element={<Interview />} />
         <Route path="/student/resetPassword" element={<ResetPassword />} />
       </Route>
 
       <Route path="/college-staff" element={<CollegeDashboard />}>
-        <Route path="/college-staff/profile" element={<ProfileCollege />} />
+        <Route path="college-staff/profile" element={<ProfileCollege />} />
         <Route path="/college-staff/students" element={<StudentsToCollege />} />
-        <Route
-          path="/college-staff/studentDetails/:id"
-          element={<StudentDetailToClg />}
-        />
-        <Route
-          path="/college-staff/companies"
-          element={<CompaniesToCollege />}
-        />
-        <Route
-          path="/college-staff/companyDetails"
-          element={<CompanyToCollege />}
-        />
-        <Route
-          path="/college-staff/resetPassword"
-          element={<ResetPasswordClg />}
-        />
+        <Route path="/college-staff/studentDetails/:id" element={<StudentDetailToClg />}/>
+        <Route path="/college-staff/companies" element={<CompaniesToCollege />}/>
+        <Route path="/college-staff/companyDetails" element={<CompanyToCollege />}/>
+        <Route path="/college-staff/resetPassword" element={<ResetPasswordClg />}/>
       </Route>
+
     </Route>
+
+      // <Route path="/company" element={<CollegeDashboard />}>
+      //   <Route path="/company/profile" element={<ProfileCollege />} />
+      //   <Route path="/company/students" element={<StudentsToCollege />} />
+      //   <Route path="/company/studentDetails/:id" element={<StudentDetailToClg />}/>
+      //   <Route path="/company/companies" element={<CompaniesToCollege />}/>
+      //   <Route path="/company/companyDetails" element={<CompanyToCollege />}/>
+      //   <Route path="/company/resetPassword" element={<ResetPasswordClg />}/>
+      // </Route>
+  
   )
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <React.StrictMode>
+  <React.StrictMode>
   <RouterProvider router={router} />
-  // </React.StrictMode>
+  </React.StrictMode>
 );

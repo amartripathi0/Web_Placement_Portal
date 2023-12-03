@@ -4,14 +4,18 @@ import globalAuthReducer from './features/common/globalSlice'
 import studentUtilReducer from './features/student/utilsServices/utilSlice'
 import collegeAuthReducer from './features/college/auth/authSlice'
 import collegeStaffUtilReducer from './features/college/utilServices/collegeUtilSlice'
+import companyAuthReducer from './features/company/auth/authSlice'
 
 export const store = configureStore({
     reducer : {
-        studentAuth  : studentAuthReducer ,
         globalAuth : globalAuthReducer,
-        studentUtils : studentUtilReducer,
 
+        studentAuth  : studentAuthReducer ,
+        studentUtils : studentUtilReducer,
+        
         collegeStaffAuth : collegeAuthReducer,
-        collegeStaffUtil : collegeStaffUtilReducer
+        collegeStaffUtil : collegeStaffUtilReducer,
+
+        companyStaffAuth  : companyAuthReducer ,
     }
 })

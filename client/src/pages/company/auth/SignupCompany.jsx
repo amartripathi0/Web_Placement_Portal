@@ -7,142 +7,226 @@ import { Link, useNavigate } from "react-router-dom";
 import LoadingPage from '../../LoadingPage'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { RESET, companyStaffSignUp } from '../../../redux/features/company/auth/authSlice';
 
 const SignupCompany = () => {
-    const form = useForm()
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const {register , watch , getValues , handleSubmit ,formState : {errors}} = form
+  const form = useForm();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {
+    register,
+    watch,
+    getValues,
+    handleSubmit,
+    formState: { errors },
+  } = form;
+  const { isLoading, isLoggedIn, isError, isSuccess, message } = useSelector((state) => state.companyStaffAuth);
+  function handleCompanyStaffSignUp(data) {
+    // console.log(data);
+    dispatch(companyStaffSignUp(data));
+
+    dispatch(RESET())
+  }
+
+  useEffect(() => {
+    if(isLoggedIn && isSuccess){
+      navigate('/company')
+    }
+    
+    if(isSuccess && !isLoggedIn &&  message === "Company Already Exists!"){
+      navigate('/signin/company')
+      toast.info("Please,Sigin", {
+        position : toast.POSITION.TOP_RIGHT
+    })
+    }
+
+    dispatch(RESET())
+
+  }, [isSuccess , isLoggedIn]);
 
     
 
   return (
-    <div className='w-screen h-screen flex  justify-center items-center  text-2xl '>
-    {/* {isLoading && <LoadingPage height = "screen" width= "screen" />} */}
-      <form action="" onSubmit={handleSubmit()} noValidate>
-      <div className='border-2 w-[70vw] border-black  gap-5 p-5 pl-10 pr-10  flex flex-col items-center rounded-md `' >
-      <div className='flex item-center justify-around  flex-wrap '>
+<div
+      className={`h-screen w-screen bg-pink-200  flex justify-center items-center ${
+        isLoading && " opacity-70 bg-gray-400"
+      }`}
+    >
+      {isLoading && <LoadingPage height="screen" width="screen" />}
 
-          <InputField 
-           placeholder='Enter your first name'
-           label="First Name"
-           labelName = ""
+      <div className="bg-slate-100  w-[80%] h-[80%] rounded-lg shadow-slate-300 shadow-md flex flex-col gap-10 justify-center items-center">
+        <div className="flex flex-col px-14 py-5 bg-white rounded-md shadow-grey-300 shadow-md text-4xl font-medium">
+          Company SignUp Form
+        </div>
+
+        <form
+          action=""
+          onSubmit={handleSubmit(handleCompanyStaffSignUp)}
+          noValidate
+          className="flex flex-col p-10 py-20 gap-14 bg-white rounded-md w-1/2 shadow-grey-300 shadow-md"
+        >
+          <div className="flex item-center  justify-around px-10  gap-3 flex-wrap">
+            <div className="flex gap-14 w-full justify-between px-5">
+
+            
+            <InputField
+              placeholder="Enter your first name"
+              label="First Name"
+              labelName=""
+              validationObj={{
+                ...register("firstName", {
+                  required: {
+                    value: true,
+                    message: "Please enter your first name.",
+                  },
+                }),
+              }}
+              error={errors.firstName?.message}
+            />
+
+            <InputField
+              placeholder="Enter your last name"
+              label="Last Name"
+              labelName=""
+              validationObj={{
+                ...register("lastName", {
+                  required: {
+                    value: true,
+                    message: "Please enter your last name.",
+                  },
+                }),
+              }}
+              error={errors.lastName?.message}
+            />
+</div>
+
+            <InputField
+              placeholder="Enter your Email Address"
+              label="E-Mail"
+              labelName=""
+              xtraStyle= "w-full px-5"
+              validationObj={{
+                ...register("emailID", {
+                  required: {
+                    value: true,
+                    message: "Please enter your email address.",
+                  },
+                  validate: {
+                    matchPattern: (v) =>
+                      /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+                      "Email address must be a valid address",
+                  },
+                }),
+              }}
+              error={errors.emailID?.message}
+            />
+
+            <div className="flex  justify-between w-full px-5">
+              <InputField
+                placeholder="Enter your Phone Number"
+                label="Phone No."
+                labelName=""
+                type="number"
+                validationObj={{
+                  ...register("phone", {
+                    required: {
+                      value: true,
+                      message: "Please enter your Phone No.",
+                    },
+                    maxLength: {
+                      value: 10,
+                      message: "Please Enter Phone Number under 10 digits",
+                    },
+                    minLength: {
+                      value: 10,
+                      message: "Please Enter Phone Number under 10 digits",
+                    },
+                  }),
+                }}
+                error={errors.phone?.message}
+              />
+
+              <InputField
+                placeholder="Enter your Staff-ID"
+                label="Staff-ID"
+                labelName=""
+                type="number"
+                validationObj={{
+                  ...register("staffID", {
+                    required: {
+                      value: true,
+                      message: "Please enter your Staff ID.",
+                    },
+                    // validate : (v) => {
+                    //    v >= 1 || {message: "Please enter a valid Staff ID"}
+                    // }
+                  }),
+                }}
+                error={errors.staffID?.message}
+              />
+            </div>
+            <div className="flex  justify-between w-full px-5">
+              <PasswordInput
+                placeholder="Enter your Password"
+                label="Password"
+                labelName=""
+                validationObj={{
+                  ...register("password", {
+                    required: {
+                      value: true,
+                      message: "Please enter your Password.",
+                    },
+                    // validate : {
+                    //   // passwrd : v =>
+                    // }
+                  }),
+                }}
+                error={errors.password?.message}
+              />
           
-           validationObj={{
-            ...register('firstName', {
-              required: {
-                value: true,
-                message: "Please enter your first name.",
-              },
-            }),
-          }}
-          error = {errors.firstName?.message }
-           />
+            <PasswordInput
+              placeholder="Enter your Confirm Password"
+              label="Confirm Password"
+              labelName=""
+              validationObj={{
+                ...register("cpass", {
+                  required: {
+                    value: true,
+                    message: "Please enter your Confirm Password.",
+                  },
+                  validate: {
+                    same: (v) =>
+                      v === getValues().password ||
+                      "Password and Confirm Password don't match!",
+                  },
+                }),
+              }}
+              error={errors.cpass?.message}
+            />
+          </div>
+          </div>
 
-          <InputField 
-           placeholder='Enter your last name'
-           label="Last Name"
-           labelName = ""
-           validationObj={{
-            ...register('lastName', {
-              required: {
-                value: true,
-                message: "Please enter your last name.",
-              },
-            }),
-          }}
-          error = {errors.lastName?.message }
-           />
-
-          <InputField 
-           placeholder='Enter your Email Address'
-           label="E-Mail"
-           labelName = ""
-           validationObj={ {...register('emailID' , {
-            required :{
-             value : true ,
-             message : "Please enter your email address."
-            },
-            validate : {
-              matchPattern: (v) =>
-              /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-              "Email address must be a valid address",
-            }   
-         })}}
-          error = {errors.emailID?.message }
-           />
-
-          <InputField 
-           placeholder='Enter your Phone Number'
-           label="Phone No."
-           labelName = ""
-           type="number"
-           validationObj={{...register('phone' , {
-              required :{
-               value : true ,
-               message : "Please enter your Phone No."
-              },
-              maxLength : {
-                  value : 10 , 
-                  message : "Please Enter Phone Number under 10 digits"
-              },
-              minLength : {
-                  value : 10 , 
-                  message : "Please Enter Phone Number under 10 digits"
-              },
-              
-           })}
-          }
-          error = {errors.phone?.message }
-           />
-
-          <PasswordInput
-            placeholder='Enter your Password'
-            label="Password"
-            labelName = ""
-            validationObj={{
-             ...register('password', {
-               required: {
-                 value: true,
-                 message:"Please enter your Password."
-               },
-                // validate : {
-                //   // passwrd : v => 
-                // }
-             }),
-           }}
-           error = {errors.password?.message }
-          />
-        
-          <PasswordInput
-            placeholder='Enter your Confirm Password'
-            label="Confirm Password"
-            labelName = ""
-            validationObj={{
-             ...register('cpass', {
-               required: {
-                 value: true,
-                 message:"Please enter your Confirm Password."
-               },
-               validate : {
-                same: v => v  ===  getValues().password || "Password and Confirm Password don't match!"
-               }
-             }),
-           }}
-           error = {errors.cpass?.message }
-          />
-        
-
-
-
+          <div className="flex flex-col items-center gap-1">
+            <p className="font-medium">
+              Already have an account?{" "}
+              <span
+                onClick={() => navigate("/signin/company")}
+                className="text-blue-700 font-semibold underline cursor-pointer"
+              >
+                SignIn
+              </span>
+            </p>
+            <p className="text-center">or</p>
+            <button
+              type="submit"
+              className="w-40  font-semibold text-white bg-pink-500 hover:bg-pink-600 p-3 pl-6 pr-6 rounded-lg flex items-center justify-center"
+            >
+              Signup
+            </button>
+          </div>
+        </form>
       </div>
-    
-      <button type='submit' className='border-2 border-black w-28 text-xl p-3 pt-1 pb-1 mt-3 rounded-lg'>Submit</button>
-      <p>Already have an account? <span onClick= {() => navigate('/signin/company')} className='text-blue-700 font-semibold underline'>SignIn</span></p>
-
-      </div>
-      </form>
-  </div>
+    </div>
   )
 }
 

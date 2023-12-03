@@ -12,6 +12,11 @@ const collegeStaffSchema = new mongoose.Schema(
       profilePicture: {type : String, default : ""}
 
     },
+    notifications : [{
+      title: String,
+      from : String,
+      body : String
+  }],
     designation: {
       type: String,
       enum: ["TPO Head", "Assitant Professor", "Placement Coordinator"],
@@ -29,10 +34,10 @@ const collegeStaffSchema = new mongoose.Schema(
         ref: "Student",
       }, 
     ],
-    recruiterDetails: [
+    companyDetails: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Recruiter",
+        ref: "Company",
       },
     ],
   },
