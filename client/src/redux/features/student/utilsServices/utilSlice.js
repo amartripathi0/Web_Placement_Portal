@@ -33,6 +33,18 @@ export const uploadResume = createAsyncThunk(
     }
 )
 
+export const getJobs = createAsyncThunk(
+    "util/getJobs" , 
+    async( _ , thunkAPI) => {
+        try {
+            const response = await utilService.getJobs()
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+)
+
 const utilSlice = createSlice({
     name : "studentUtil",
     initialState,
@@ -71,6 +83,21 @@ const utilSlice = createSlice({
             state.message= action.payload.message
         })
         builder.addCase(uploadResume.rejected , (state,action) => {
+
+
+            state.isLoading = false
+            state.isSuccess= false
+            state.message= action.payload.message
+        })
+        builder.addCase(getJobs.pending , (state,action) => {
+            state.isLoading = true
+        })
+        builder.addCase(getJobs.fulfilled , (state,action) => {
+            state.isLoading = false
+            state.isSuccess= true
+            state.message= action.payload.message
+        })
+        builder.addCase(getJobs.rejected , (state,action) => {
 
 
             state.isLoading = false

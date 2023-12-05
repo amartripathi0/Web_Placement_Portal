@@ -43,6 +43,7 @@ app.get('/' , asyncHandler( async = ( req , res , next ) => {
 
             if (userType === "student") {
                 const isVerified = jwt.verify(token, process.env.JWT_SECRET_KEY_STUDENT);
+                
                 if (isVerified) {
                     res.status(200).json({value : true , message :userType})
                   } 
@@ -61,7 +62,7 @@ app.get('/' , asyncHandler( async = ( req , res , next ) => {
                 const isVerified = jwt.verify(token, process.env.JWT_SECRET_KEY_COMPANY);
                 if (isVerified) {
                     res.status(200).json({value : true , message :userType})
-                  } 
+                  }  
             }
             else{
                 res.status(401).json({value : false , message : "Session Expired, Please signin again."})

@@ -18,11 +18,18 @@ const uploadResume = async(data) => {
     return response.data
 }
 
+const getJobs = async() =>  {
+  const response = await axios.get(API_URL + "getJobs")
+return response.data
+}
+
+
 
 
 const utilService = {
     uploadProfilePicture,
-    uploadResume
+    uploadResume,
+    getJobs
 } 
 
 export default utilService

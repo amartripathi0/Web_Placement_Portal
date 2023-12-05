@@ -20,10 +20,16 @@ const SignupCompany = () => {
     handleSubmit,
     formState: { errors },
   } = form;
-  const { isLoading, isLoggedIn, isError, isSuccess, message } = useSelector((state) => state.companyStaffAuth);
+  const { isLoading, isLoggedIn, isError, isSuccess, message } = useSelector((state) => state.companyAuth);
   function handleCompanyStaffSignUp(data) {
-    // console.log(data);
-    dispatch(companyStaffSignUp(data));
+    const {cpass , emailID,firstName,lastName,password,phone ,staffID} = data
+      // console.log(data);
+    dispatch(companyStaffSignUp({
+      personalDetail : {
+        cpass , emailID,firstName,lastName,password,phone ,staffID
+      },
+      company : data.company
+    }));
 
     dispatch(RESET())
   }
@@ -100,11 +106,12 @@ const SignupCompany = () => {
             />
 </div>
 
+<div className="flex gap-14 w-full justify-between px-5">
+
             <InputField
               placeholder="Enter your Email Address"
               label="E-Mail"
               labelName=""
-              xtraStyle= "w-full px-5"
               validationObj={{
                 ...register("emailID", {
                   required: {
@@ -121,6 +128,22 @@ const SignupCompany = () => {
               error={errors.emailID?.message}
             />
 
+<InputField
+              placeholder="Enter your company name"
+              label="Company Name"
+              labelName=""
+              validationObj={{
+                ...register("company", {
+                  required: {
+                    value: true,
+                    message: "Please enter your company name.",
+                  },
+                }),
+              }}
+              error={errors.company?.message}
+            />
+       
+</div>       
             <div className="flex  justify-between w-full px-5">
               <InputField
                 placeholder="Enter your Phone Number"

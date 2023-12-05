@@ -11,11 +11,12 @@ const generateToken = (id , usrTyp) => {
      secretKey = process.env.JWT_SECRET_KEY_COLLEGE
   }
   else if(usrTyp === "company"){
-     secretKey = process.env.JWT_SECRET_KEY_STUDENT
+     secretKey = process.env.JWT_SECRET_KEY_COMPANY
   }
   // console.log("secretKey" , secretKey);
   return jwt.sign({ id }, secretKey, { expiresIn: "1d" });
 };
+
 
 
 cloudinary.config({

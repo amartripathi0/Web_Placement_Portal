@@ -17,8 +17,8 @@ import {
   RESET_UTILS,
 } from "../../../../redux/features/student/utilsServices/utilSlice";
 import { toast } from "react-toastify";
-import { getCollegeStaffData } from "../../../../redux/features/college/utilServices/collegeUtilSlice";
 import InputField from "../../../../Components/inputField/InputField";
+import { getCollegeStaffData } from "../../../../redux/features/college/utilServices/collegeUtilSlice";
 
 const StudentsToCollege = () => {
   const globalAuth = useSelector((state) => state.globalAuth);

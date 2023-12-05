@@ -1,7 +1,7 @@
 const express = require('express');
 const { handleCollegeSignUP, handleCollegeSignIN, handleGetCollegeStaffData, handleCollegeSignOUT , handleCollegeStaffProfileUpdate, handleUploadProfilePicture, handleGetStudentDetails, handleUpdateStudentDetails} = require('../controllers/college_staff')
 const router = express.Router()
-const { isSignedIn} = require('../middlewares/auth.middleware');
+const { isSignedIn, handleResetPassword} = require('../middlewares/auth.middleware');
 const { uploadImg } = require('../middlewares/fileUploadMiddlware');
 
 router
@@ -13,5 +13,7 @@ router
 .post('/uploadProfilePicture' , isSignedIn("college-staff") ,  uploadImg.single("profilePicture") , handleUploadProfilePicture)
 .get('/getStudentDetails/:id' ,isSignedIn("college-staff")  ,handleGetStudentDetails )
 .put('/updateStudentDetails' , isSignedIn("college-staff") , handleUpdateStudentDetails )
+.put('/resetPassword' , isSignedIn('college-staff') , handleResetPassword("college-staff") )
+
 // .get('/students' , handleGetAllStudents)
 module.exports = router 

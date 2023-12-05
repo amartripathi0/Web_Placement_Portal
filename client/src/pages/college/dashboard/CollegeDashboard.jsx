@@ -92,10 +92,10 @@ const CollegeDashboard = () => {
   //   }
   // }, [collegeStaff]);
 
-  const [sidemenuExpanded, setsDdemenuExpanded] = useState(true);
+  const [sidemenuExpanded, setSidemenuExpanded] = useState(true);
 
   function sidemenuState(val) {
-    setsDdemenuExpanded(!val);
+    setSidemenuExpanded(!val);
     // console.log(sidemenuExpanded);
   }
 

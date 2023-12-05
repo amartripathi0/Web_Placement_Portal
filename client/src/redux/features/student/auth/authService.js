@@ -24,6 +24,7 @@ const updateProfileDetail = async(userData) => {
 
 const getUserData = async() => {
     const response = await axios.get(API_URL + "getUserData" )
+    console.log(response.data);
     return response.data
 }
 

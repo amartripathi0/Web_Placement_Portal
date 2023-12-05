@@ -21,7 +21,7 @@ const LoginCompany = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { isLoading, isLoggedIn, isError, isSuccess, message } = useSelector(
-    (state) => state.companyStaffAuth
+    (state) => state.companyAuth
   );
 
   function handleCompanyStaffSignin(data){

@@ -39,11 +39,18 @@ const studentSchema = new mongoose.Schema({
       default: "Allowed",
     },
   },
-  applicationStatus : {
-    type : String,
-    enum : ["Allowed", "Debarred" , "Form Submitted" , "Shortlisted" , "Online Assessment" , "Technical Interview" , "HR Interview" , "Offer Letter" ] ,
-    default: "Allowed"
-  }
+  applicationStatus : [{
+        
+    appliedJobID :  {
+      type: mongoose.Schema.Types.ObjectId,
+      ref : "Company.jobs"
+    },
+    status : {
+      type : String,
+      enum : ["Allowed", "Debarred" , "Form Submitted" , "Shortlisted" , "Online Assessment" , "Technical Interview" , "HR Interview" , "Offer Letter" ] ,
+      default: "Allowed"
+    }
+  }]
   ,
   
   notifications : [{

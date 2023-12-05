@@ -50,7 +50,7 @@ export const companyStaffSignOut = createAsyncThunk(
     }
 )
 const authSlice = createSlice({
-    name : "companyStaffAuth",
+    name : "companyAuth",
     initialState,
     reducers : {
         RESET(state) {

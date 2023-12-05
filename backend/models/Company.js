@@ -21,8 +21,10 @@ const CompanySchema = new Schema({
       },
     company: {
         type: String,
+        requried : true,
+        default : ''
     },
-    role : {
+    role : { 
         type : String,
         enum : ["Allowed" , "Suspended"],
         default : "Allowed"
@@ -32,7 +34,8 @@ const CompanySchema = new Schema({
         from : String,
         body : String
     }],
-    vacancies: [{
+    jobs: [{
+        jobId : { type: mongoose.Schema.Types.ObjectId, default: mongoose.Types.ObjectId },
         role: {type: String,required: true,default : "" },
         description: {type: String,required: true,default : "" },
         qualifications: [{type: String,required: true,default : "" },],

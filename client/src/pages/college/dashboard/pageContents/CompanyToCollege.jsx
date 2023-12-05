@@ -6,4 +6,4 @@ const CompanyToCollege = () => {
   )
 }
 
-export default CompanyToCollege
+export default CompanyToCollege 

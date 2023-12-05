@@ -1,8 +1,8 @@
 const express = require('express')
 const router =  express.Router()
-const {handleStudentSignUP , handleStudentSignIN, handleStudentSignOUT, handleUploadResume, handleStudentProfileUpdate , handleGetUserData, handleUploadProfilePicture} = require('../controllers/student');
+const {handleStudentSignUP , handleStudentSignIN, handleStudentSignOUT, handleUploadResume, handleStudentProfileUpdate , handleGetUserData, handleUploadProfilePicture, handleGetJobs} = require('../controllers/student');
 const { uploadPdf, uploadImg } = require('../middlewares/fileUploadMiddlware');
-const { isSignedIn} = require('../middlewares/auth.middleware')
+const { isSignedIn, handleResetPassword} = require('../middlewares/auth.middleware')
 router
 .post("/signup" , handleStudentSignUP)
 .post('/signin' , handleStudentSignIN)
@@ -11,4 +11,6 @@ router
 .get('/getUserData' , isSignedIn("student") , handleGetUserData)
 .post('/uploadResume' ,isSignedIn("student") ,  uploadPdf.single("resume") , handleUploadResume)
 .post('/uploadProfilePicture' , isSignedIn("student") ,  uploadImg.single("profilePicture") , handleUploadProfilePicture)
+.put('/resetPassword' , isSignedIn('student') , handleResetPassword("student") )
+.get('/getJobs' , isSignedIn('student') , handleGetJobs )
 module.exports = router; 

@@ -10,6 +10,7 @@ export const getLoginStatus = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get(BACKEND_URL);
+      // console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(error);

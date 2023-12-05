@@ -113,6 +113,7 @@ function StudentDashboard() {
                 active
               />
               <SidebarItem icon={<MdAutoGraph />} text="Projects" active />
+              <SidebarItem icon={<MdAutoGraph />} text="Job Vacancies" active />
               <SidebarItem icon={<FaRegClock />} text="Interview" active />
               <SidebarItem icon={<FaRegClock />} text="Application Status" active />
               <SidebarItem icon={<FaRegClock />} text="Reset Password" active />

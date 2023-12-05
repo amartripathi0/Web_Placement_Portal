@@ -55,7 +55,7 @@ const AcademicDetail = () => {
       setValue("yearOfPassing", student?.educationalDetails.yearOfPassing);
     }
   }, [student]);
-  // console.log(student);
+  console.log(student);
   return (
     <div
       className={`h-full bg-purple-100  flex justify-center items-center ${

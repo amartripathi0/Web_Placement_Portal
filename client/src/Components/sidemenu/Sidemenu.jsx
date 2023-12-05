@@ -12,7 +12,7 @@ const Sidemenu = ({ children , emailID , firstName , lastName, profileImgLink , 
     <aside className={`h-full fixed top-0 left-0 bg-red-400 ${expanded ? "w-[15%]" : "w-20 gap-10"} `}>
       <nav className="h-full flex flex-col bg-white border-r shadow-sm">
         <div className="p-4 pb-2 flex justify-between items-center">
-        <NavLink to="/dasboard">
+        <NavLink to="/dashboard">
           <div   className={`overflow-hidden transition-all  rounded-md ${
               expanded ? "w-20 h-20" : "w-0 h-20 opacity-0"
             }`}>

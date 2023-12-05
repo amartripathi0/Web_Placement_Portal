@@ -27,7 +27,7 @@ const StudentDashboardHeader = () => {
   }
 
   const [showNotification , setShowNotification] = useState(false)
-  console.log(showNotification);
+  // console.log(showNotification);
   return (
     <div className={`h-20 justify-between  border-slate-400 border-b-2 
     flex items-center px-10 z-40 bg-slate-50 ${isLoading && " opacity-50 "}`} >

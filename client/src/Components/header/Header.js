@@ -1,11 +1,11 @@
 import React from 'react'
-import { img } from "../Constants"
-import { Link ,NavLink} from 'react-router-dom';
+import { constants } from '../Constants';
+import { NavLink} from 'react-router-dom';
 function Header() {
     return (
         <>
             <div className='flex justify-between  items-center h-20 pl-14 pr-14 bg-slate-600  ' >
-                <img src={img} alt="logo" className='h-14 rounded-md ' />
+                <img src={constants.logo} alt="logo" className='h-14 rounded-md ' />
                 <div className='ml-36 flex gap-4 text-xl text-white font-semibold'>
                     <NavLink to="/" className={({isActive}) => isActive ? "text-decoration-line: underline text-pink-500" : "" } >
                         <div className='pl-4 pr-4 hover:text-cyan-500 '>Home</div>

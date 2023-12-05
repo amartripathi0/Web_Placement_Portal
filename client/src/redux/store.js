@@ -5,6 +5,7 @@ import studentUtilReducer from './features/student/utilsServices/utilSlice'
 import collegeAuthReducer from './features/college/auth/authSlice'
 import collegeStaffUtilReducer from './features/college/utilServices/collegeUtilSlice'
 import companyAuthReducer from './features/company/auth/authSlice'
+import companyUtilReducer from './features/company/utilService/companyUtilSlice'
 
 export const store = configureStore({
     reducer : {
@@ -16,6 +17,7 @@ export const store = configureStore({
         collegeStaffAuth : collegeAuthReducer,
         collegeStaffUtil : collegeStaffUtilReducer,
 
-        companyStaffAuth  : companyAuthReducer ,
+        companyAuth  : companyAuthReducer ,
+        companyUtil : companyUtilReducer
     }
 })

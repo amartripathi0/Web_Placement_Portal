@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import {nanoid} from 'nanoid'
-import {NavLink} from 'react-router-dom'
+import {NavLink } from 'react-router-dom'
 import{
   RESET_GLOBAL,
   SET_GLOBAL,
@@ -33,6 +33,7 @@ const Project = () => {
       formState: { errors },
     } = form;
 
+    
 
   function handleUploadProjectDetails(data) {
     const projectData = { typ: "projects", value: data };

@@ -144,6 +144,11 @@ function SignUpStudent() {
                    value: true,
                    message:"Please enter your Password."
                  },
+                 minLength : {
+                  value : 6 , 
+                  message : "Please enter a strong password of length more than 5."
+                  
+              },
                   // validate : {
                   //   // passwrd : v => 
                   // }
@@ -162,6 +167,12 @@ function SignUpStudent() {
                    value: true,
                    message:"Please enter your Confirm Password."
                  },
+  
+                 minLength : {
+                  value : 6 , 
+                  message : "Please enter a strong password of length more than 5."
+                  
+              },
                  validate : {
                   same: v => v  ===  getValues().password || "Password and Confirm Password don't match!"
                  }

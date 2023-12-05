@@ -50,7 +50,7 @@ const handleStudentSignUP = asyncHandler(async (req, res , next) => {
       throw new Error("Internal Server Error")
   }
   else {
-    let hashedPass = await bcrypt.hash(password, 10);
+    const hashedPass = await bcrypt.hash(password, 10);
     // const updatedStudent = { ...data , personalDetail : { password : hashedPass , ...personalDetail} }
     const pass = hashedPass;
 
@@ -148,7 +148,6 @@ const handleStudentSignIN = asyncHandler(async (req, res) => {
   }
 } catch (error) {
   console.log(error);
-    res.status(500)
     throw new Error("Internal Server Error")
 }
 });
@@ -227,9 +226,9 @@ const handleStudentProfileUpdate = asyncHandler(async (req, res) => {
 });
 
 
-const handleGetUserData = asyncHandler(async (req, res) => {
+const handleGetUserData = asyncHandler(async (req, res ) => {
   try{
-    // console.log(req.user);
+    console.log("student" , req.user);
     if(req.user){
         res.status(200).json({message: req.user})
     }
@@ -239,7 +238,7 @@ const handleGetUserData = asyncHandler(async (req, res) => {
     }
   } catch (error) {
     throw new Error("Internal Server Error")
-  }
+  } 
 
 });
  
@@ -324,6 +323,24 @@ const handleUploadProfilePicture = asyncHandler(async (req, res) => {
 }
 });
 
+const handleGetJobs = asyncHandler(async (req, res) => {
+    try {
+      const companies = await Company.find()
+      const  allCompniesJobs= [] ;
+
+      companies.map( eachCompany => {
+        allCompniesJobs.push({company : eachCompany.company , jobs : eachCompany.jobs})
+      })
+      if(companies){
+        res.status(200).json({message : allCompniesJobs})
+      }
+
+    } catch (error) {
+      
+    }
+});
+
+
 module.exports = {
   handleStudentSignUP,
   handleStudentSignIN,
@@ -331,5 +348,6 @@ module.exports = {
   handleStudentProfileUpdate,
   handleGetUserData,
   handleUploadResume,
-  handleUploadProfilePicture
+  handleUploadProfilePicture,
+  handleGetJobs
 };
