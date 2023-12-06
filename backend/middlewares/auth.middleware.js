@@ -105,7 +105,7 @@ const handleResetPassword = (userType) =>  asyncHandler(async (req, res ,next) =
       user.personalDetail.password
     );  
 
-    if(isValdid){
+    if(isValdid){ 
         const hashedPass = await bcrypt.hash(newPassword , 10)
         const updatedUser = await Student.updateOne({_id : user._id } , { $set : {"personalDetail" : {...user.personalDetail , password : hashedPass }}} )
 

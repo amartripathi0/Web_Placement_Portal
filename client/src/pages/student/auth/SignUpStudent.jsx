@@ -53,19 +53,22 @@ function SignUpStudent() {
 
       <div className="bg-slate-100  w-[80%] h-[80%] rounded-lg shadow-slate-300 shadow-md flex flex-col gap-10 justify-center items-center"
 >
-          <div className="flex flex-col px-14 py-5 bg-white rounded-md shadow-grey-300 shadow-md text-4xl font-medium">
+          <div className="flex flex-col px-14 py-5 bg-white rounded-md shadow-grey-300 shadow-md text-2xl font-medium">
 
             Student SignUp Form
           </div>
+
         <form action="" onSubmit={handleSubmit(formSubmit)} noValidate
-        className="flex flex-col p-10 py-20 gap-14 bg-white rounded-md w-1/2 shadow-grey-300 shadow-md">
-        <div className='flex item-center  justify-around px-10  gap-3 flex-wrap'>
+        className="flex flex-col items-center p-10 py-20 gap-14 bg-white rounded-md w-2/3 h-[80%]  shadow-grey-300 shadow-md">
+
+        <div className='flex item-center  justify-around px-10 bg-red-100 w-[90%]  gap-3 flex-wrap'>
 
             <InputField 
              placeholder='Enter your first name'
              label="First Name"
              labelName = ""
-            
+              xtraStyle={"w-1/2 h-28"}
+              inputFieldStyle={"w-full h-2/5 "}
              validationObj={{
               ...register('firstName', {
                 required: {

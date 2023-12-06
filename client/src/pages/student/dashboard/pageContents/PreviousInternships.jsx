@@ -56,7 +56,7 @@ const PreviousInternships = () => {
   }, [updateProfileDetail, isSuccess , dispatch]);
   return (
     <div
-      className={` bg-purple-100 p-10 px-40 flex flex-col gap-7 justify-center items-center ${
+      className={` min-h-screen bg-purple-100 p-10 px-40 flex flex-col gap-7 justify-center items-center ${
         (isLoading || studentUtil.isLoading) && "  blur-sm bg-gray-400"
       }`}
     >

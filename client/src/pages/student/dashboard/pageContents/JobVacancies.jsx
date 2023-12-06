@@ -25,44 +25,52 @@ const JobVacancies = () => {
 
   return (
 
-    <div className=" bg-purple-100 flex flex-col gap-10 p-20">
+    <div className="h-screen bg-purple-100 flex flex-col  items-center gap-10 pt-20 ">
       
      {
         message &&
         message.map(eachJobObj => (
-        <div className="bg-slate-100 w-[90%] ">
+        <div className="bg-slate-100 w-[90%] p-10 gap-5 flex flex-col  rounded-xl hover:bg-slate-200  transition-all">
         
         
-        <h1>Company Name : <span>{eachJobObj.company}</span></h1>
+        <div className="flex justify-between items-center px-2">
 
-        <div className="bg-white flex flex-col gap-10">
+        <div >
+
+        <h1 className=" bg-white p-3 rounded-md  text-2xl">Company Name : <span className="font-bold">{eachJobObj.company}</span></h1>
+        </div>
+        
+        <button className=' w-40 text-lg font-semibold text-white bg-cyan-500 hover:bg-cyan-600 p-3 pl-6 pr-6 rounded-lg flex items-center justify-center'>Apply</button>
+        </div>
+
+        <div className="bg-white flex flex-col justify-around gap-8 rounded-lg p-10">
           {
             eachJobObj.jobs.map( eachJob => (
 
 
-              <div className="flex items-center justify-between w-full border-2 border-solid-1">
+              <div className="flex items-center justify-between w-full border-2 bg-blue-50 border-purple-600 rounded-lg p-5 transition-all hover:bg-blue-100 hover:shadow-purple-300 shadow-sm">
 
-              <div className="flex gap-3 w-1/3 items-center ">
+              <div className="flex gap-3  items-center   w-1/5">
                <h1 className="text-2xl ">Job Role:  </h1>
-               <span className=" font-bold text-2xl ">{eachJob.role}</span>
+               <span className=" font-semibold text-2xl ">{eachJob.role}</span>
                </div>
  
-               <div className="flex gap-3 w-1/3 items-center ">
+               <div className="flex gap-3  items-center  w-1/5">
                <h1 className="text-2xl ">Start Date:  </h1>
-               <span className=" font-bold text-2xl ">{eachJob.startDate.split('T')[0]}</span>
+               <span className=" font-semibold text-2xl ">{eachJob.startDate.split('T')[0]}</span>
                </div>
  
-               <div className="flex gap-3 w-1/3 items-center ">
+               <div className="flex gap-3  items-center  w-1/5">
                <h1 className="text-2xl ">End Date:  </h1>
-               <span className=" font-bold text-2xl ">{eachJob.applicationDeadline.split('T')[0]}</span>
+               <span className=" font-semibold text-2xl ">{eachJob.applicationDeadline.split('T')[0]}</span>
                </div>
  
-               <div className="flex gap-3 w-1/3 justify-end items-center">
+               <div className="flex  gap-3  items-center w-1/5 ">
                <h1 className="text-2xl"> Qualifications:</h1>
                <div>
                  {
                      eachJob.qualifications.map(qual => (
-                       <span className="font-medium text-xl"> {qual}</span>
+                       <span className="font-semibold text-xl"> {qual}</span>
  
                      ))
                  }

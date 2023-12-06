@@ -1,16 +1,16 @@
 import React from 'react'
 
 const InputField = ({
-  type , placeholder , xtraStyle , labelName , label , validationObj , error , name , onChange
+  type , placeholder , xtraStyle , labelName , label , validationObj , inputFieldStyle , error , name , onChange
 }) => {
   return (
-    <div className={`${xtraStyle} flex flex-col gap-1`}>
+    <div className={`${xtraStyle} flex flex-col gap-1 bg-blue-100 `}>
     <label htmlFor= {labelName} className='text-md font-medium ml-2'>{label}</label>
       <input type={type} 
       placeholder={placeholder}
       name = {name}
       onChange={onChange}
-      className={`${xtraStyle} border-black border-2 h-12  font-semibold rounded-md pl-3 w-96`}
+      className={`${inputFieldStyle ? inputFieldStyle:  "h-12 w-96"} border-black border-2 font-semibold rounded-md pl-3 `}
       {...validationObj}
      
       />

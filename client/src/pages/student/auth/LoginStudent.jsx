@@ -25,7 +25,8 @@ const LoginStudent = () => {
   const { isLoading, isLoggedIn, isError, isSuccess, message, statusCode } =
     useSelector((state) => state.studentAuth);
 
-  const loginStudent = async (data, event) => {
+  const loginStudent = (data, event) => {
+    console.log(data);
      dispatch(signin(data));
   };
   useEffect(() => {

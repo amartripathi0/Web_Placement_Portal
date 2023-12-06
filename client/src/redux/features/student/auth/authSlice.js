@@ -132,8 +132,8 @@ const authSlice = createSlice({
       state.isError =true;
       state.student = null;
       // console.log("rejected" , action);
-      state.message = action.payload.response.data.message;
-      state.statusCode = action.payload.response.status
+      state.message = action.payload.response?.data.message;
+      state.statusCode = action.payload.response?.status
     })
 
     // signout
@@ -199,7 +199,7 @@ const authSlice = createSlice({
       state.isError =true;
       state.student = null;
       // console.log("rejected" , action);
-      state.message = action.payload.response.data.message;
+      state.message = action.payload.response?.data.message;
       state.statusCode = action.payload.response.status
     })
   }
