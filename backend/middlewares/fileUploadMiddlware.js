@@ -7,7 +7,7 @@ const pdfConfig = multer.diskStorage({
     filename:(req,file,callback)=>{
         callback(null,`${Date.now()}_${file.originalname}`)
     }
-})
+}) 
 
 
 const isPdf =  (req , file , cb) => {

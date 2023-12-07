@@ -4,7 +4,7 @@ const InputField = ({
   type , placeholder , xtraStyle , labelName , label , validationObj , inputFieldStyle , error , name , onChange
 }) => {
   return (
-    <div className={`${xtraStyle} flex flex-col gap-1 bg-blue-100 `}>
+    <div className={`${xtraStyle} flex flex-col gap-1 `}>
     <label htmlFor= {labelName} className='text-md font-medium ml-2'>{label}</label>
       <input type={type} 
       placeholder={placeholder}

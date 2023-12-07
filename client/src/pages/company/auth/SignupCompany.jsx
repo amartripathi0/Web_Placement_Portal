@@ -8,6 +8,7 @@ import LoadingPage from '../../LoadingPage'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { RESET, companyStaffSignUp } from '../../../redux/features/company/auth/authSlice';
+import { IoMdArrowBack } from "react-icons/io";
 
 const SignupCompany = () => {
   const form = useForm();
@@ -60,10 +61,14 @@ const SignupCompany = () => {
     >
       {isLoading && <LoadingPage height="screen" width="screen" />}
 
-      <div className="bg-slate-100  w-[80%] h-[80%] rounded-lg shadow-slate-300 shadow-md flex flex-col gap-10 justify-center items-center">
-        <div className="flex flex-col px-14 py-5 bg-white rounded-md shadow-grey-300 shadow-md text-4xl font-medium">
+      <div className="bg-slate-100  w-[80%] h-[80%] relative rounded-lg shadow-slate-300 shadow-md flex flex-col gap-10 justify-center items-center">
+        <div className="flex flex-col  px-14 py-5 bg-white rounded-md shadow-grey-300 shadow-md text-4xl font-medium">
           Company SignUp Form
         </div>
+
+        <div onClick={() => navigate('/signup')}  className=" absolute top-20 left-20 bg-white p-3 border-2 border-purple-400 rounded-full hover:shadow-md ">
+      <IoMdArrowBack size={20}/>
+      </div>
 
         <form
           action=""

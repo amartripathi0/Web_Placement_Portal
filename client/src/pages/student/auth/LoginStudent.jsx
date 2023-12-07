@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import InputField from "../../../Components/inputField/InputField";
 import { useForm } from "react-hook-form";
 import PasswordInput from "../../../Components/inputField/PasswordInput";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signin, RESET } from "../../../redux/features/student/auth/authSlice";
 import LoadingPage from "../../LoadingPage";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SET_GLOBAL } from "../../../redux/features/common/globalSlice";
+import { IoMdArrowBack } from "react-icons/io";
 
 const LoginStudent = () => {
   const form = useForm();
@@ -57,7 +58,12 @@ const LoginStudent = () => {
         <LoadingPage height="screen" width="screen" />
       )}
 
-      <div className="bg-slate-100  w-[80%] h-[80%] rounded-lg shadow-slate-300 shadow-md flex flex-col gap-10 justify-center items-center">
+      <div className="bg-slate-100  w-[80%] h-[80%] rounded-lg shadow-slate-300 shadow-md relative flex flex-col gap-10 justify-center items-center">
+      
+      <div onClick={() => navigate('/signin')}  className=" absolute top-20 left-20 bg-white p-3 border-2 border-purple-400 rounded-full hover:shadow-md ">
+      <IoMdArrowBack size={20}/>
+      </div>
+      
         <form
           action=""
           onSubmit={handleSubmit(loginStudent)}

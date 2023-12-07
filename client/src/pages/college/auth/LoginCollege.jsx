@@ -9,6 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SET_GLOBAL } from "../../../redux/features/common/globalSlice";
 import { collegeStaffSignIn , RESET } from "../../../redux/features/college/auth/authSlice";
+import { IoMdArrowBack } from "react-icons/io";
 
 const LoginCollege = () => {
   const form = useForm();
@@ -53,7 +54,11 @@ const LoginCollege = () => {
       }`}
     >
       {isLoading && <LoadingPage height="screen" width="screen" />}
-      <div className="bg-slate-100  w-[80%] h-[80%] rounded-lg shadow-slate-300 shadow-md flex flex-col gap-10 justify-center items-center">
+      <div className="bg-slate-100  w-[80%] h-[80%] relative rounded-lg shadow-slate-300 shadow-md flex flex-col gap-10 justify-center items-center">
+     
+      <div onClick={() => navigate('/signin')} className=" absolute top-20 left-20 bg-white p-3 border-2 border-purple-400 rounded-full hover:shadow-md ">
+      <IoMdArrowBack size={20}/>
+      </div >
         <form
           action=""
           onSubmit={handleSubmit(handleCollegeStaffSignin)}
