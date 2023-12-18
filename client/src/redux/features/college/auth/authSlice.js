@@ -19,7 +19,14 @@ async(userData , thunkAPI) => {
                 // console.log(res);
                 return res
     } catch (error) {
-        return thunkAPI.rejectWithValue(error?.response?.data.message)
+        const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+          // console.log("message" , message);
+      return thunkAPI.rejectWithValue(message);
     }
 }
 )
@@ -33,7 +40,14 @@ export const collegeStaffSignIn = createAsyncThunk(
             return response
         }
         catch(error){
-            return thunkAPI.rejectWithValue(error?.response?.data.message)
+            const message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+              // console.log("message" , message);
+          return thunkAPI.rejectWithValue(message);
         }
     }
 )
@@ -43,11 +57,18 @@ export const collegeStaffSignOut = createAsyncThunk(
     async(_ , thunkAPI) => {
         try{
             const response = await collegeAuthService.signout()
-             console.log(response);
+            //  console.log(response);
             return response
         }
         catch(error){
-            return thunkAPI.rejectWithValue(error?.response?.data.message)
+            const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+          // console.log("message" , message);
+      return thunkAPI.rejectWithValue(message);
         }
     }
 )
@@ -116,9 +137,9 @@ const authSlice = createSlice({
             state.isSuccess = true;
             console.log(action.payload);
             state.message = action.payload.message
-            // toast.success(action.payload.message , {
-            //     position : toast.POSITION.TOP_RIGHT
-            // })
+            toast.success(action.payload.message , {
+                position : toast.POSITION.TOP_RIGHT
+            })
         })
         .addCase(collegeStaffSignOut.rejected , (state , action) => {
             state.isLoggedIn = false;

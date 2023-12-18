@@ -9,10 +9,9 @@ const Company = require("../models/Company");
 
 const handleCollegeSignUP = asyncHandler(async (req, res , next ) => {
   try {
-    //get credential from body
-    // First Name , Last Name , Email , phnono password confirm pass
-    const { emailID, firstName, lastName, phone, password, cpass, staffID } =
-      req.body;
+    //get credentials from body
+    // First Name , Last Name , Email , phone password confirm pass
+    const { emailID, firstName, lastName, phone, password, cpass, staffID } =req.body;
       // console.log(req.body); 
 
     if (!emailID || !password || !firstName || !lastName || !phone || !cpass || !staffID) {
@@ -32,7 +31,12 @@ const handleCollegeSignUP = asyncHandler(async (req, res , next ) => {
         "Password and confirmation password do not match. Please ensure both passwords are the same."
       );
     }
+    if (phone.length !== 10) {
+      res.status(401);
+      throw new Error("Please enter a valid phone number..");
+    }
 
+    // check for existing college staff
     const existingCollegeStaff = await CollegeStaff.findOne({
       $or: [
         { "personalDetail.emailID": emailID },
@@ -47,33 +51,30 @@ const handleCollegeSignUP = asyncHandler(async (req, res , next ) => {
     } else {
       let hashedPass = await bcrypt.hash(password, 10);
       // const updatedCollege = { ...data , personalDetail : { password : hashedPass , ...personalDetail} }
-      const pass = hashedPass;
 
+      // storing all docuuments of students and companies
       const students = await Student.find();
-      const company = await Company.find();
+      const companies = await Company.find();
       // console.log(students);
-      let College;
-      if (students || company) {
-        // console.log(students);
-        College = await CollegeStaff.create({
+    
+      const collegeStaffAccount = await CollegeStaff.create({
           personalDetail: {
             emailID,
             firstName,
             lastName,
             phone,
-            password: pass,
+            password: hashedPass,
             staffID,
           },
           studentDetails: students,
-          companyDetails: company
+          companyDetails: companies
         });
-      }
+      
 
-        // console.log(College);
-      if (College) {
-        // console.log(College);
+        // console.log(collegeStaffAccount);
+      if (collegeStaffAccount) {
         const usrTyp = "college-staff";
-        const token = generateToken(College._id.toString(), usrTyp);
+        const token = generateToken(collegeStaffAccount._id.toString(), usrTyp);
 
         res.cookie("token", token, {
           path: "/",
@@ -95,6 +96,7 @@ const handleCollegeSignUP = asyncHandler(async (req, res , next ) => {
         throw new Error("Invalid user data");
       }
     }
+    
   } catch (error) {
     // console.log("error" , error);
     next(error)
@@ -169,7 +171,7 @@ const handleCollegeSignOUT = asyncHandler(async (req, res) => {
       sameSite: "none",
       secure: true,
     });
-    res.status(201).json({ message: "signout successfull" });
+    res.status(201).json({ message: "Signed out successfully" });
   } catch (error) {
     res.status(500)
     throw new Error("Internal Server Error")
@@ -264,13 +266,24 @@ const handleUploadProfilePicture = asyncHandler(async (req, res) => {
         const user =  await CollegeStaff.findById(req.user.id)
         const updated = await CollegeStaff.updateOne({_id : req.user.id} , {$set : {"personalDetail" : {...personalDetail , password : user.personalDetail.password , profilePicture : upload.secure_url}}})
         
-        if(updated.modifiedCount === 1){
-            res.status(201).json({message : "Profile picture updated successfully"})
+        if (updated.modifiedCount === 1) {
+          fs.unlink(req.file.path, (err) => {
+            if (err) {
+              console.log(err);
+            }
+            // else{
+            //   console.log("File deleted successfully");
+            // }
+          });
+
+          res
+            .status(201)
+            .json({ message: "Profile picture updated successfully" });
+        } else {
+          res.status(500);
+          throw new Error("Internal Server Error");
         }
-        else{
-          res.status(500)
-        throw new Error("Internal Server Error") 
-        }
+
   }
       else{
         res.status(500)

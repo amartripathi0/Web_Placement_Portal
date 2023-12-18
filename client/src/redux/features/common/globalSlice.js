@@ -13,11 +13,14 @@ export const getLoginStatus = createAsyncThunk(
       // console.log(response.data);
       return response.data;
     } catch (error) {
-      console.log(error);
-      toast.error(error?.response?.data.message, {
-        position : toast.POSITION.TOP_CENTER
-      })
-      return thunkAPI.rejectWithValue(error.message)
+      const message =
+      (error.response &&
+        error.response.data &&
+        error.response.data.message) ||
+      error.message ||
+      error.toString();
+        // console.log("message" , message);
+    return thunkAPI.rejectWithValue(message);
     }
   }
 );
@@ -41,7 +44,8 @@ export const globalSlice = createSlice({
       state.isSuccess = false;
     },
     SET_GLOBAL(state , action) {
-      state.userType = action.payload;
+      console.log("set" , action);
+      state.userType = action.payload?.message;
       state.isLoading = false;
       state.isLoggedin = true;
     }
@@ -52,23 +56,21 @@ export const globalSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getLoginStatus.fulfilled, (state, action) => {
-        state.isLoggedin = action.payload?.value;
+        state.isLoggedin = true;
         state.isLoading = false;
-        state.userType = action.payload?.message;
         state.isSuccess = true;
-        state.message = action.payload?.message;
+        state.userType = action.payload?.message;
+        
         // console.log(action.payload);
-
-
       })
       .addCase(getLoginStatus.rejected, (state, action) => {
         state.isLoggedin = false;
         state.isLoading = false;
         state.isSuccess = true;
-        // console.log("globalAuthReject" , action);
-        // toast.error(`${action.payload}, Check your connection `, {
-        //   position : toast.POSITION.TOP_CENTER
-        // })
+        // console.log("globalAuthReject" , action.payload);
+        toast.error(`${action.payload}`, {
+          position : toast.POSITION.TOP_CENTER
+        })
       });
   },
 });

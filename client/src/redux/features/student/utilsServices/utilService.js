@@ -23,13 +23,17 @@ const getJobs = async() =>  {
 return response.data
 }
 
-
+const jobApplyByStudent = async(jobID) =>  {
+  const response = await axios.post(API_URL + "jobApplyByStudent" , {jobID})
+return response.data
+}
 
 
 const utilService = {
     uploadProfilePicture,
     uploadResume,
-    getJobs
+    getJobs,
+    jobApplyByStudent
 } 
 
 export default utilService

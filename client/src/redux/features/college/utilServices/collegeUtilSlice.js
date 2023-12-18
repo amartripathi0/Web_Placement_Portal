@@ -12,7 +12,14 @@ export const getCollegeStaffData = createAsyncThunk(
             // console.log(response);
             return response
         } catch (error) {
-            console.log(error);
+            const message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+              // console.log("message" , message);
+          return thunkAPI.rejectWithValue(message);
         }
     }
 )
@@ -114,10 +121,13 @@ const collegeUtilSlice = createSlice({
             state.isLoading = false 
             state.isSuccess =  true
             state.isLoggedIn = false
-
+        
+             toast.error(`${action.payload}, in fetching data.`, {
+                position : toast.POSITION.TOP_RIGHT
+            })
             // console.log("getCollegeStaffData rejected " , action.payload);
 
-            state.collegeStaff = action.payload
+
         })
 
         
@@ -128,7 +138,9 @@ const collegeUtilSlice = createSlice({
             state.isLoading = false
             state.isSuccess= true
             state.message= action.payload.message
-
+            // toast.success(`${action.payload.message}`, {
+            //     position : toast.POSITION.TOP_RIGHT
+            // })
         })
         builder.addCase(collegeStaffProfileUpdate.rejected , (state,action) => {
 
@@ -145,7 +157,7 @@ const collegeUtilSlice = createSlice({
             state.isSuccess= true
             state.message= action.payload.message
             state.isProfilePhotoUploaded = true
-
+          
         })
         builder.addCase(uploadProfilePicture.rejected , (state,action) => {
 

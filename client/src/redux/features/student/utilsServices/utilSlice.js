@@ -7,6 +7,7 @@ const initialState = {
     isError: false,
     isSuccess: false,
     isLoading: false,
+    data : "",
     message: "",
   };
 
@@ -17,7 +18,14 @@ export const uploadProfilePicture = createAsyncThunk(
             const response = await utilService.uploadProfilePicture(data)
             return response;
         } catch (error) {
-            console.log(error);
+            const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+          // console.log("message" , message);
+      return thunkAPI.rejectWithValue(message);
         }
     }
 )
@@ -44,6 +52,17 @@ export const getJobs = createAsyncThunk(
         }
     }
 )
+export const jobApplyByStudent = createAsyncThunk(
+    "util/jobApplyByStudent" , 
+    async( data , thunkAPI) => {
+        try {
+            const response = await utilService.jobApplyByStudent(data)
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+)
 
 const utilSlice = createSlice({
     name : "studentUtil",
@@ -53,6 +72,7 @@ const utilSlice = createSlice({
         state.isError= false
         state.isSuccess= false
         state.isLoading= false
+        state.data= ""
         state.message= ""
    },
 },
@@ -95,7 +115,7 @@ const utilSlice = createSlice({
         builder.addCase(getJobs.fulfilled , (state,action) => {
             state.isLoading = false
             state.isSuccess= true
-            state.message= action.payload.message
+            state.data= action.payload.message
         })
         builder.addCase(getJobs.rejected , (state,action) => {
 
@@ -103,6 +123,20 @@ const utilSlice = createSlice({
             state.isLoading = false
             state.isSuccess= false
             state.message= action.payload.message
+        })
+        builder.addCase(jobApplyByStudent.pending , (state,action) => {
+            state.isLoading = true
+        })
+        builder.addCase(jobApplyByStudent.fulfilled , (state,action) => {
+            state.isLoading = false
+            state.isSuccess= true
+            state.message= action.payload?.message
+        })
+        builder.addCase(jobApplyByStudent.rejected , (state,action) => {
+            state.isLoading = false
+            state.isSuccess= false
+            console.log( action.payload.response.data.message);
+            state.message= action.payload.response.data.message
         })
    }
 

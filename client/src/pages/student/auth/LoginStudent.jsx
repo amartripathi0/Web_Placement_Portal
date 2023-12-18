@@ -23,16 +23,17 @@ const LoginStudent = () => {
   const dispatch = useDispatch();
   const studentUtil = useSelector((state) => state.studentUtils);
 
-  const { isLoading, isLoggedIn, isError, isSuccess, message, statusCode } =
+  const { isLoading, isLoggedIn, isError, isSuccess, message } =
     useSelector((state) => state.studentAuth);
 
   const loginStudent = (data, event) => {
-    console.log(data);
+    // console.log(data);
      dispatch(signin(data));
   };
+  // console.log(message);
   useEffect(() => {
     if (isLoggedIn && isSuccess) {
-      toast.success("Signed In successfully!", {
+      toast.success(message, {
         position: toast.POSITION.TOP_RIGHT,
       });
       dispatch(SET_GLOBAL("student"));

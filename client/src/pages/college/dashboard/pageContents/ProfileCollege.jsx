@@ -33,10 +33,12 @@ const ProfileCollege = () => {
         position: toast.POSITION.TOP_CENTER,
       });
     }
+    
+    else if (globalAuth.isLoggedin && isProfilePhotoUploaded) {
+      console.log(isProfilePhotoUploaded);
 
-    if (globalAuth.isLoggedin) {
-      dispatch(getCollegeStaffData());
-      // console.log("data fetched");
+      dispatch(RESET_COLLEGE_UTIL())
+ 
       toast.success("Data Fetched Succesfully",{
         position : toast.POSITION.TOP_CENTER
       })
@@ -44,7 +46,7 @@ const ProfileCollege = () => {
 
      
     // dispatch(RESET())
-  }, [message ,collegeStaffProfileUpdate]);
+  }, [message ,collegeStaffProfileUpdate ,isProfilePhotoUploaded]);
 
   useEffect(() => {
     if (isLoggedIn && isSuccess) {
@@ -56,15 +58,15 @@ const ProfileCollege = () => {
     }
   }, [collegeStaff]);
 
-  useEffect(() => {
-    if (isProfilePhotoUploaded && isSuccess) {
-      toast.success(message, {
-        position: toast.POSITION.TOP_CENTER,
-      });
+  // useEffect(() => {
+  //   if (isProfilePhotoUploaded && isSuccess) {
+  //     toast.success(message, {
+  //       position: toast.POSITION.TOP_CENTER,
+  //     });
 
-    }
-    dispatch(RESET_COLLEGE_UTIL());
-  }, [isProfilePhotoUploaded]);
+  //   }
+  //   dispatch(RESET_COLLEGE_UTIL());
+  // }, [isProfilePhotoUploaded]);
 
   const [profilePicture, setProfilePicture] = useState("");
   function handleImgageChange(e) {
@@ -85,6 +87,7 @@ const ProfileCollege = () => {
       const formdata = new FormData();
       formdata.append("profilePicture", profilePicture);
       dispatch(uploadProfilePicture(formdata));
+     
     }
   }
 
@@ -256,4 +259,4 @@ const ProfileCollege = () => {
   )
 }
 
-export default ProfileCollege
+export default React.memo(ProfileCollege)

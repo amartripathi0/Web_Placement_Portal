@@ -45,7 +45,7 @@ app.get('/' , asyncHandler( async = ( req , res , next ) => {
                 const isVerified = jwt.verify(token, process.env.JWT_SECRET_KEY_STUDENT);
                 
                 if (isVerified) {
-                    res.status(200).json({value : true , message :userType})
+                    res.status(200).json({message :userType})
                   } 
               
             }
@@ -54,25 +54,23 @@ app.get('/' , asyncHandler( async = ( req , res , next ) => {
                 const isVerified = jwt.verify(token, process.env.JWT_SECRET_KEY_COLLEGE);
                 // console.log(isVerified);
                 if (isVerified) {
-                    res.status(200).json({value : true , message :userType})
+                    res.status(200).json({message :userType})
                   } 
               
             }
              else if (userType === "company") {
                 const isVerified = jwt.verify(token, process.env.JWT_SECRET_KEY_COMPANY);
                 if (isVerified) {
-                    res.status(200).json({value : true , message :userType})
+                    res.status(200).json({message :userType})
                   }  
             }
             else{
-                res.status(401).json({value : false , message : "Session Expired, Please signin again."})
+                res.status(401)
+                throw new Error("Session Expired, Please signin again.")
 
             }
         }
-        else{
-            res.status(401).json({value : false , message :"Session Expired, Please signin again."})
-
-        }
+        
 }
     catch(error){
         if(error.message === "invalid token"){

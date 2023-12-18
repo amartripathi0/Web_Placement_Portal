@@ -63,7 +63,7 @@ const isSignedIn = (userType) =>
             res.status(400);
             throw new Error("User suspended!! ");
           }
-          
+           
           // console.log(user);
           req.user = user;
           next();
@@ -87,7 +87,7 @@ const handleResetPassword = (userType) =>  asyncHandler(async (req, res ,next) =
     throw new Error("Invalid Credentials")
   }
   else if(newPassword.length < 6 || confirmNewPassword.length < 6 ){
-    console.log();
+    // console.log();
     res.status(404)
     throw new Error("Please enter a strong password of length greater than or equal to 6")
   }

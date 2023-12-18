@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createContext } from 'react';
 
 import {
+  RESET_GLOBAL,
   SET_GLOBAL,
   getLoginStatus,
 } from "../../../redux/features/common/globalSlice";
@@ -66,8 +67,9 @@ const CollegeDashboard = () => {
     }
     else{
       dispatch(getLoginStatus());
+      
     }
-  }, [getLoginStatus.isLoggedin, globalAuth.isSuccess , globalAuth.userType ,collegeStaff]);
+  }, [getLoginStatus.isLoggedin, globalAuth.isSuccess , globalAuth.userType ]);
 
 
 
@@ -100,7 +102,7 @@ const CollegeDashboard = () => {
   }
 
   const [apiURL , setAPIURL] = useState('')
-
+  // console.log("render");
   return (
     <div>
       {collegeStaff?.role && collegeStaff.role === "Suspended" ? (

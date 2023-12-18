@@ -288,13 +288,24 @@ const handleUploadProfilePicture = asyncHandler(async (req, res) => {
         const user =  await Company.findById(req.user.id)
         const updated = await Company.updateOne({_id : req.user.id} , {$set : {"personalDetail" : {...personalDetail , password : user.personalDetail.password , profilePicture : upload.secure_url}}})
         
-        if(updated.modifiedCount === 1){
-            res.status(201).json({message : "Profile picture updated successfully"})
+        if (updated.modifiedCount === 1) {
+          fs.unlink(req.file.path, (err) => {
+            if (err) {
+              console.log(err);
+            }
+            // else{
+            //   console.log("File deleted successfully");
+            // }
+          });
+
+          res
+            .status(201)
+            .json({ message: "Profile picture updated successfully" });
+        } else {
+          res.status(500);
+          throw new Error("Internal Server Error");
         }
-        else{
-          res.status(500)
-        throw new Error("Internal Server Error") 
-        }
+
   }
       else{
         res.status(500)

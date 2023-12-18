@@ -5,26 +5,39 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 import { NavLink } from "react-router-dom";
-import { getJobs } from "../../../../redux/features/student/utilsServices/utilSlice";
+import { getJobs, jobApplyByStudent } from "../../../../redux/features/student/utilsServices/utilSlice";
 
 const JobVacancies = () => {
-  const { isLoggedIn, isError, isSuccess, isLoading, message } = useSelector(
+  const { isLoggedIn, isError, isSuccess, isLoading, data , message } = useSelector(
     (state) => state.studentUtils
   );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isSuccess && message) {
-      console.log(message);
-    } else {
+    if (isSuccess && data) {
+      console.log(data);
+    } 
+     
+    else  {
       dispatch(getJobs());
     }
-  }, [isSuccess, message]);
+  }, [isSuccess, data ,dispatch, message]);
+
+  console.log(message);
+  // if(message) {
+  //   toast.success(message , {
+  //     position : toast.POSITION.TOP_RIGHT
+  //   })
+  // }
+  function handleJobApply(jobID){
+    // console.log(jobID);
+    dispatch(jobApplyByStudent(jobID))
+  }
 
   return (
     <div className="h-screen bg-purple-100 flex flex-col  items-center gap-10 pt-20 ">
-      {message &&
-        message.map((eachJobObj) => (
+      {data &&
+        data.map((eachJobObj) => (
           <div className="bg-slate-100 w-[90%] p-10 gap-5 flex flex-col  rounded-xl hover:bg-slate-200  transition-all">
             <div className="flex justify-between items-center px-2">
               <div>
@@ -79,7 +92,7 @@ const JobVacancies = () => {
                       </div>
                   </div>
 
-                  <button className=" w-40 text-lg font-semibold text-white bg-cyan-500 hover:bg-cyan-600 p-3 pl-6 pr-6 rounded-lg flex items-center justify-center">
+                  <button onClick={() =>handleJobApply(eachJob._id)} className=" w-40 text-lg font-semibold text-white bg-cyan-500 hover:bg-cyan-600 p-3 pl-6 pr-6 rounded-lg flex items-center justify-center">
                     Apply
                   </button>
                 </div>

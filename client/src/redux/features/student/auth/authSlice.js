@@ -5,20 +5,17 @@ const initialState = {
   isLoggedIn: false,
   student: null,
   students: [],
-  isError: false,
   isSuccess: false,
   isLoading: false,
   message: "",
-  statusCode : "",
+  isError : ""
 };
 
 export const signup = createAsyncThunk(
   "auth/signup",
   async (userData, thunkAPI) => {
     try {
-      return  await authService.signup(userData);
-
-     
+      return  await authService.signup(userData);   
     } catch (error) {
       const message =
         (error.response &&
@@ -26,7 +23,8 @@ export const signup = createAsyncThunk(
           error.response.data.message) ||
         error.message ||
         error.toString();
-      return thunkAPI.rejectWithValue(error);
+          // console.log("message" , message);
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
@@ -37,7 +35,14 @@ export const signin = createAsyncThunk(
     try {
       return await authService.signin(userData)
     } catch (error) {
-      return thunkAPI.rejectWithValue(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+          // console.log("message" , message);
+      return thunkAPI.rejectWithValue(message);
     }
   }
 )
@@ -50,7 +55,14 @@ export const signout = createAsyncThunk(
     try {
       return await authService.signout()
     } catch (error) {
-      return thunkAPI.rejectWithValue(error)
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+          // console.log("message" , message);
+      return thunkAPI.rejectWithValue(message);
     }
   }
 )
@@ -81,13 +93,12 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     RESET(state) {
-      state.isError = false;
       state.isSuccess = false;
       state.isLoading = false;
       state.message = "";
-      state.statusCode = ""
       state.students = []
       state.student = null
+      state.isError = "" 
     },
     // SET()
   },
@@ -100,19 +111,19 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.isLoggedIn = true ; 
-        state.student = action.payload
-        state.students.push(action.payload)
-        state.message = action.payload;
-        state.statusCode = "200"
+        // state.student = action.payload
+        // state.students.push(action.payload)
+        state.message = action.payload.message;
+        // console.log("signup fullfilled student" , action.payload);
+
         
     })
     .addCase(signup.rejected , (state , action) => {
         state.isLoading = false;
         state.isError =true;
-        state.student = null;
+        // state.student = null;
         // console.log("rejected" , action);
-        state.message = action.payload.response.data.message;
-        state.statusCode = action.payload.response.status
+        state.message = action.payload;
     })
 
     // signin
@@ -125,15 +136,13 @@ const authSlice = createSlice({
       // state.students.push({...action.payload})
       state.isLoggedIn = true;
       state.isSuccess = true
-      // state.message = action.payload;
+      state.message = action.payload.message;
     })
     .addCase(signin.rejected , (state , action) => {
       state.isLoading = false;
       state.isError =true;
-      state.student = null;
-      // console.log("rejected" , action);
-      state.message = action.payload.response?.data.message;
-      state.statusCode = action.payload.response?.status
+      state.message = action.payload
+      // console.log("rejected" , action.payload);
     })
 
     // signout
@@ -153,9 +162,9 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.isError =true;
       state.student = null;
-      // console.log("rejected" , action);
+      // console.log("rejected" , action); 
       state.message = action.payload.response.data.message;
-      state.statusCode = action.payload.response.status
+      
     })
     
     // updateProfileDetail

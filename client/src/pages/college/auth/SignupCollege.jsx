@@ -34,19 +34,21 @@ const SignupCollege = () => {
 
   useEffect(() => {
     if(isLoggedIn && isSuccess){
-      navigate('/college-staff')
+      // navigate('/college-staff')
     }
     
     if(isSuccess && !isLoggedIn &&  message === "College Staff Already Exists!"){
-      navigate('/signin/college-staff')
-      toast.info("Please,Sigin", {
+      toast.info("Please,SignIn ", {
         position : toast.POSITION.TOP_RIGHT
     })
+      navigate('/signin/college-staff')
     }
 
     dispatch(RESET())
 
   }, [isSuccess , isLoggedIn]);
+
+
   return (
     <div
       className={`h-screen w-screen bg-pink-200  flex justify-center items-center ${
@@ -81,10 +83,10 @@ const SignupCollege = () => {
               labelName=""
               validationObj={{
                 ...register("firstName", {
-                  required: {
-                    value: true,
-                    message: "Please enter your first name.",
-                  },
+                  // required: {
+                  //   value: true,
+                  //   message: "Please enter your first name.",
+                  // },
                 }),
               }}
               error={errors.firstName?.message}
@@ -96,10 +98,10 @@ const SignupCollege = () => {
               labelName=""
               validationObj={{
                 ...register("lastName", {
-                  required: {
-                    value: true,
-                    message: "Please enter your last name.",
-                  },
+                  // required: {
+                  //   value: true,
+                  //   message: "Please enter your last name.",
+                  // },
                 }),
               }}
               error={errors.lastName?.message}
@@ -113,15 +115,15 @@ const SignupCollege = () => {
               xtraStyle= "w-full px-5"
               validationObj={{
                 ...register("emailID", {
-                  required: {
-                    value: true,
-                    message: "Please enter your email address.",
-                  },
-                  validate: {
-                    matchPattern: (v) =>
-                      /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-                      "Email address must be a valid address",
-                  },
+                  // required: {
+                  //   value: true,
+                  //   message: "Please enter your email address.",
+                  // },
+                  // validate: {
+                  //   matchPattern: (v) =>
+                  //     /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+                  //     "Email address must be a valid address",
+                  // },
                 }),
               }}
               error={errors.emailID?.message}
@@ -135,18 +137,18 @@ const SignupCollege = () => {
                 type="number"
                 validationObj={{
                   ...register("phone", {
-                    required: {
-                      value: true,
-                      message: "Please enter your Phone No.",
-                    },
-                    maxLength: {
-                      value: 10,
-                      message: "Please Enter Phone Number under 10 digits",
-                    },
-                    minLength: {
-                      value: 10,
-                      message: "Please Enter Phone Number under 10 digits",
-                    },
+                    // required: {
+                    //   value: true,
+                    //   message: "Please enter your Phone No.",
+                    // },
+                    // maxLength: {
+                    //   value: 10,
+                    //   message: "Please Enter Phone Number under 10 digits",
+                    // },
+                    // minLength: {
+                    //   value: 10,
+                    //   message: "Please Enter Phone Number under 10 digits",
+                    // },
                   }),
                 }}
                 error={errors.phone?.message}
@@ -178,10 +180,10 @@ const SignupCollege = () => {
                 labelName=""
                 validationObj={{
                   ...register("password", {
-                    required: {
-                      value: true,
-                      message: "Please enter your Password.",
-                    },
+                    // required: {
+                    //   value: true,
+                    //   message: "Please enter your Password.",
+                    // },
                     // validate : {
                     //   // passwrd : v =>
                     // }
@@ -196,15 +198,15 @@ const SignupCollege = () => {
               labelName=""
               validationObj={{
                 ...register("cpass", {
-                  required: {
-                    value: true,
-                    message: "Please enter your Confirm Password.",
-                  },
-                  validate: {
-                    same: (v) =>
-                      v === getValues().password ||
-                      "Password and Confirm Password don't match!",
-                  },
+                  // required: {
+                  //   value: true,
+                  //   message: "Please enter your Confirm Password.",
+                  // },
+                  // validate: {
+                  //   same: (v) =>
+                  //     v === getValues().password ||
+                  //     "Password and Confirm Password don't match!",
+                  // },
                 }),
               }}
               error={errors.cpass?.message}

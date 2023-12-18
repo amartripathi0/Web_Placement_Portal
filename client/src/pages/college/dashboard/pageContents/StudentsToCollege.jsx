@@ -70,7 +70,6 @@ const StudentsToCollege = () => {
         {
           collegeStaff?.studentDetails.map(eachStudent => (
 
-              
             <div key={eachStudent._id} className="flex  items-center p-10 gap-12  bg-slate-300 rounded-md w-full h-96 shadow-grey-700 shadow-md">
             <div className="bg-white flex flex-col  items-center gap-4 px-8 pt-7 pb-2 w-72">
               
@@ -158,7 +157,7 @@ const StudentsToCollege = () => {
                 <ul className="font-medium ml-7 list-disc flex-col flex-wrap">
                 {
                       eachStudent.pastInternshipsProjects.internships.map(intenship => (
-                        <li key={intenship.company}>{intenship.company}</li>
+                        <li key={intenship.company + Math.random()}>{intenship.company}</li>
                       ))
                 }
                 </ul>                 
@@ -170,7 +169,7 @@ const StudentsToCollege = () => {
                 <ul className="font-medium ml-7 list-disc">
               {
                       eachStudent.pastInternshipsProjects.projects.map(project => (
-                        <li key={project.title}>{project.title}</li>
+                        <li key={project.title + eachStudent._id}>{project.title}</li>
                       ))
                 }
                 </ul>

@@ -14,33 +14,31 @@ const HomePage = () => {
   const {isLoggedIn } = useSelector(state => state.studentAuth)
  
   useEffect(() => {
-    dispatch(getLoginStatus())
-    return (() => dispatch(RESET_GLOBAL()))
-  },[])
-
-  useEffect(() => {
-    if(isLoggedin && isSuccess){
-      if(userType === 'student'){
-        navigate(userType)
-      }
-      else if(userType === 'college-staff'){
-        navigate(userType)
-      }
-      else if(userType === 'company'){
-        navigate(userType)
-      }
-      dispatch(SET_GLOBAL())
-    }else if(message){
-      toast.error(message , {
-        position: toast.POSITION.TOP_RIGHT,
-      });
+    console.log("u" , userType);
+    if(isLoggedin && isSuccess && userType !== ''){
+      navigate(userType)
+      // if(userType === 'student'){
+      // }
+      // else if(userType === 'college-staff'){
+      //   // navigate(userType)
+      // }
+      // else if(userType === 'company'){
+      //   // navigate(userType)
+      // }
     }
-  },[isLoggedin, message])
+    else{
+      dispatch(getLoginStatus())
+
+      dispatch(RESET_GLOBAL())
+    }
+   
+  },[isLoggedin , userType])
+
 
   return (
     <div>
  {isLoading && <LoadingPage height = "screen" width= "screen"/>}
-    <div className={`${isLoading ? "bg-black opacity-20": ""}`}>
+    <div className={`${isLoading ? "bg-black opacity-0": ""}`}>
         <Header/>
         <Outlet/>
     </div>
