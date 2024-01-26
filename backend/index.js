@@ -84,7 +84,11 @@ app.get('/' , asyncHandler( async = ( req , res , next ) => {
 
     }
 }))
-  
+
+app.get('/test' , (req , res ) => {
+    res.send("Test route is working fine")
+})
+        
 app.use('/student' , studentRouter)
 app.use('/college-staff' , staffRouter )
 app.use('/company',companyRouter)
