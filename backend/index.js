@@ -18,8 +18,10 @@ app.use(cookieParser());
 
 app.use(cors({
     credentials : true,
-    origin : process.env.FRONTEND_URL
-    // origin : "http://localhost:3000"
+    origin : "https://impossible-plum-dibbler.cyclic.app"
+
+    // origin : process.env.FRONTEND_URL
+    origin : "http://localhost:3000"
 }))
 app.use(express.urlencoded({extended : false})); 
  
