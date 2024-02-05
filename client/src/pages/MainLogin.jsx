@@ -1,27 +1,24 @@
 import React from "react";
-import SignUpCard from "../components/SignUpCard";
+import CommonAuthCard from "../components/CommonAuthCard";
+import Navbar from "../../src/components/header/Navbar";
+import { authCardDetails } from "../constants";
 
 const MainLogin = () => {
   return (
-    <div className=" flex flex-col h-[92vh]   justify-center gap-16   w-screen bg-gradient-to-r from-red-400 via-gray-300 to-blue-500">
-      <h1 className="text-7xl text-center font-bold">LOGIN📝</h1>
+    <div className=" flex flex-col min-h-screen py-16  justify-center gap-16   w-screen bg-gradient-to-r from-red-200 to-stone-400">
+      <Navbar />
+      <h1 className="text-[3.5vw] max-sm:text-4xl max-sm:mt-10 text-center font-bold">LOGIN📝</h1>
 
-      <div className=" flex justify-evenly items-center ">
-        <SignUpCard
-          imgSrc="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/logo-design-template-35b0a3e2315d19a46c046165f315b000.jpg?ts=1592240511"
-          btnLabel="Student Login"
-          redirectRoute="student"
+      <div className="  flex justify-evenly items-center max-sm:flex-col max-sm:gap-[8vw] max-sm:w   min-sm:h-[24vw] ">
+      {authCardDetails.login.map( eachLoginDetail => (
+        <CommonAuthCard 
+        key={eachLoginDetail.btnLabel}
+        imgSrc={eachLoginDetail.imgSrc}
+        btnLabel={eachLoginDetail.btnLabel}
+        btnColour={eachLoginDetail.btnColour}
+        redirectRoute={eachLoginDetail.redirectRoute}
         />
-        <SignUpCard
-          imgSrc="https://media.istockphoto.com/id/876177980/vector/university-vector.jpg?s=612x612&w=0&k=20&c=FqW7PHJFlpzTfK3ax3zPhxgTCgCnVQaPnnmTRPmdjjc="
-          btnLabel="College Staff Login"
-          redirectRoute="college-staff"
-        />
-        <SignUpCard
-          imgSrc="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/American_Broadcasting_Company_Logo.svg/767px-American_Broadcasting_Company_Logo.svg.png"
-          btnLabel="Company Login"
-          redirectRoute="company"
-        />
+      ))}
       </div>
     </div>
   );
