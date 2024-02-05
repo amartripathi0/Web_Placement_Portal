@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import InputField from "../../../Components/inputField/InputField";
-import PasswordInput from "../../../Components/inputField/PasswordInput";
+import InputField from "../../../components/inputField/InputField";
+import PasswordInput from "../../../components/inputField/PasswordInput";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingPage from "../../LoadingPage";
@@ -21,7 +21,8 @@ function SignUpStudent() {
   );
 
   const {
-    register, getValues,
+    register,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = form;

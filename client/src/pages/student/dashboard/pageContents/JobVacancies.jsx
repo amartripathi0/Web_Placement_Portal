@@ -1,27 +1,27 @@
 import React, { useEffect } from "react";
-import InputWithEdit from "../../../../Components/inputField/InputWithEdit";
+import InputWithEdit from "../../../../components/inputField/InputWithEdit";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 import { NavLink } from "react-router-dom";
-import { getJobs, jobApplyByStudent } from "../../../../redux/features/student/utilsServices/utilSlice";
+import {
+  getJobs,
+  jobApplyByStudent,
+} from "../../../../redux/features/student/utilsServices/utilSlice";
 
 const JobVacancies = () => {
-  const { isLoggedIn, isError, isSuccess, isLoading, data , message } = useSelector(
-    (state) => state.studentUtils
-  );
+  const { isLoggedIn, isError, isSuccess, isLoading, data, message } =
+    useSelector((state) => state.studentUtils);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (isSuccess && data) {
       console.log(data);
-    } 
-     
-    else  {
+    } else {
       dispatch(getJobs());
     }
-  }, [isSuccess, data ,dispatch, message]);
+  }, [isSuccess, data, dispatch, message]);
 
   console.log(message);
   // if(message) {
@@ -29,9 +29,9 @@ const JobVacancies = () => {
   //     position : toast.POSITION.TOP_RIGHT
   //   })
   // }
-  function handleJobApply(jobID){
+  function handleJobApply(jobID) {
     // console.log(jobID);
-    dispatch(jobApplyByStudent(jobID))
+    dispatch(jobApplyByStudent(jobID));
   }
 
   return (
@@ -58,7 +58,7 @@ const JobVacancies = () => {
                         <span className=" font-semibold text-2xl ">
                           {eachJob.role}
                         </span>
-                      </div> 
+                      </div>
 
                       <div className="flex  gap-3  items-center ">
                         <h1 className="text-2xl"> Qualifications:</h1>
@@ -71,28 +71,29 @@ const JobVacancies = () => {
                           ))}
                         </div>
                       </div>
-
-                     
                     </div>
 
                     <div className="flex-col flex w-1/2 justify-between">
-                        <div className="flex gap-3  items-center  ">
-                          <h1 className="text-2xl ">End Date: </h1>
-                          <span className=" font-semibold text-2xl ">
-                            {eachJob.applicationDeadline.split("T")[0]}
-                          </span>
-                        </div>
-
-                        <div className="flex gap-3  items-center">
-                          <h1 className="text-2xl ">Start Date: </h1>
-                          <span className=" font-semibold text-2xl ">
-                            {eachJob.startDate.split("T")[0]}
-                          </span>
-                        </div>
+                      <div className="flex gap-3  items-center  ">
+                        <h1 className="text-2xl ">End Date: </h1>
+                        <span className=" font-semibold text-2xl ">
+                          {eachJob.applicationDeadline.split("T")[0]}
+                        </span>
                       </div>
+
+                      <div className="flex gap-3  items-center">
+                        <h1 className="text-2xl ">Start Date: </h1>
+                        <span className=" font-semibold text-2xl ">
+                          {eachJob.startDate.split("T")[0]}
+                        </span>
+                      </div>
+                    </div>
                   </div>
 
-                  <button onClick={() =>handleJobApply(eachJob._id)} className=" w-40 text-lg font-semibold text-white bg-cyan-500 hover:bg-cyan-600 p-3 pl-6 pr-6 rounded-lg flex items-center justify-center">
+                  <button
+                    onClick={() => handleJobApply(eachJob._id)}
+                    className=" w-40 text-lg font-semibold text-white bg-cyan-500 hover:bg-cyan-600 p-3 pl-6 pr-6 rounded-lg flex items-center justify-center"
+                  >
                     Apply
                   </button>
                 </div>

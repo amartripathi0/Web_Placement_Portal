@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import InputField from "../../../../Components/inputField/InputField";
+import InputField from "../../../../components/inputField/InputField";
 import axios from "axios";
 import { Worker } from "@react-pdf-viewer/core";
 import { Viewer } from "@react-pdf-viewer/core";
@@ -78,7 +78,9 @@ const Resume = () => {
 
   return (
     <div
-      className={`${student?.resume === "" && "min-h-full"} bg-purple-100 gap-10 py-10 flex flex-col justify-center items-center ${
+      className={`${
+        student?.resume === "" && "min-h-full"
+      } bg-purple-100 gap-10 py-10 flex flex-col justify-center items-center ${
         (isLoading || studentUtil.isLoading) && "  blur-sm bg-gray-400"
       }`}
     >
@@ -111,16 +113,16 @@ const Resume = () => {
       </div>
       <div className="bg-slate-100  w-[95%] h-full p-20 rounded-lg shadow-slate-300 shadow-md ">
         <div className="bg-white w-full p-10 rounded-md min-h-full flex justify-center items-center ">
-          {student?.resume === "" ? 
+          {student?.resume === "" ? (
             <h1 className="text-2xl font-medium text-center ">
               Please upload a valid resume in pdf format.
             </h1>
-           : 
+          ) : (
             <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
               {/* <Viewer fileUrl="https://res.cloudinary.com/dxh6v9voc/raw/upload/v1700587397/Placement_Web_Portal/student/resume/y2ex0cozxmawdaxnuryn.pdf" />; */}
               <Viewer fileUrl={`${student?.resume && student.resume} `} />;
             </Worker>
-          }
+          )}
         </div>
       </div>
       {/* <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">

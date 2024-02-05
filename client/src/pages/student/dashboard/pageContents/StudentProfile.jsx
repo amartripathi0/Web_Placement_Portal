@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import InputWithEdit from "../../../../Components/inputField/InputWithEdit";
+import InputWithEdit from "../../../../components/inputField/InputWithEdit";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingPage from "../../../LoadingPage";
@@ -39,12 +39,12 @@ const StudentProfile = () => {
     if (globalAuth.isLoggedin) {
       dispatch(getUserData());
       console.log("data fetched");
-      toast.success("Data Fetched Succesfully",{
-        position : toast.POSITION.TOP_CENTER
-      })
+      toast.success("Data Fetched Succesfully", {
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
 
-    if (studentUtil.isSuccess ) {
+    if (studentUtil.isSuccess) {
       toast.success("Profile picture updated.", {
         position: toast.POSITION.TOP_CENTER,
       });
@@ -106,36 +106,38 @@ const StudentProfile = () => {
         <div className="flex flex-col items-center pt-20 gap-10 bg-white rounded-md w-[30%] shadow-grey-300 shadow-md">
           <div className=" relative z-10  w-96 h-96 rounded-full flex items-center justify-center hover:bg-slate-100 hover:shadow-lg hover:shadow-purple-200">
             <img
-              src={student?.personalDetail.profilePicture ? student.personalDetail.profilePicture : "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="}
+              src={
+                student?.personalDetail.profilePicture
+                  ? student.personalDetail.profilePicture
+                  : "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+              }
               className="h-full w-full rounded-full object-cover hover:opacity-60"
               alt=""
             />
 
             {/* <p className="absolute left-1/5 opacity-0  z-50 transition-all  hover:opacity-100 text-lg  hover:bg-purple-200 hover:p-2  ">Click here to update</p> */}
-
           </div>
           <div className="flex flex-col gap-20 ">
-
             <div className="flex flex-col gap-4">
-            <label
-              class="block mb-2 text-xl font-medium text-gray-900 dark:text-white"
-              for="file_input"
-            >
-              Upload Photo
-            </label>
-            <input
-              className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-              aria-describedby="file_input_help"
-              id="file_input"
-              type="file"
-              onChange={handleImgageChange}
-            />
-            <p
-              class="mt-1 text-sm text-gray-500 dark:text-gray-300"
-              id="file_input_help"
-            >
-              JPEG, PNG, JPG (MAX. 1MB).
-            </p>
+              <label
+                class="block mb-2 text-xl font-medium text-gray-900 dark:text-white"
+                for="file_input"
+              >
+                Upload Photo
+              </label>
+              <input
+                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                aria-describedby="file_input_help"
+                id="file_input"
+                type="file"
+                onChange={handleImgageChange}
+              />
+              <p
+                class="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                id="file_input_help"
+              >
+                JPEG, PNG, JPG (MAX. 1MB).
+              </p>
             </div>
 
             <button
@@ -148,14 +150,19 @@ const StudentProfile = () => {
         </div>
 
         <div className="bg-white flex flex-col gap-5 p-16 px-24 w-1/2 rounded-md shadow-grey-300 shadow-md">
-      
-         <div 
-         className={`${student?.role  === "Allowed" ? " bg-green-500 shadow-green-300 shadow-md" : " bg-red-600 shadow-red-500 shadow-md"}
-        p-2 w-40 flex items-center justify-center rounded-md mb-3 ml-6`}>
-         <h1
-         className="text-white text-2xl font-semibold"
-         > {student?.role}</h1>
-         </div>
+          <div
+            className={`${
+              student?.role === "Allowed"
+                ? " bg-green-500 shadow-green-300 shadow-md"
+                : " bg-red-600 shadow-red-500 shadow-md"
+            }
+        p-2 w-40 flex items-center justify-center rounded-md mb-3 ml-6`}
+          >
+            <h1 className="text-white text-2xl font-semibold">
+              {" "}
+              {student?.role}
+            </h1>
+          </div>
           <div className="flex items-center  justify-between hover:bg-purple-100 rounded-md p-2 px-6 ">
             <h2 className="text-xl">First Name</h2>
             <InputWithEdit

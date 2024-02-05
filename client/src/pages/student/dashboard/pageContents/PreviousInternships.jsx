@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import InputWithEdit from "../../../../Components/inputField/InputWithEdit";
+import InputWithEdit from "../../../../components/inputField/InputWithEdit";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,7 +35,6 @@ const PreviousInternships = () => {
     dispatch(updateProfileDetail(internshipData));
 
     dispatch(RESET());
-
   }
   useEffect(() => {
     if (globalAuth.isLoggedIn) {
@@ -51,9 +50,9 @@ const PreviousInternships = () => {
         position: toast.POSITION.TOP_CENTER,
       });
 
-      dispatch(getUserData())
+      dispatch(getUserData());
     }
-  }, [updateProfileDetail, isSuccess , dispatch]);
+  }, [updateProfileDetail, isSuccess, dispatch]);
   return (
     <div
       className={` min-h-screen bg-purple-100 p-10 px-40 flex flex-col gap-7 justify-center items-center ${
@@ -147,27 +146,49 @@ const PreviousInternships = () => {
         </form>
       </div>
 
-      <div className={`flex flex-col gap-10 w-full bg-slate-100 full ${student?.pastInternshipsProjects.internships.length !== 0 && "py-20"} rounded-lg shadow-slate-300 shadow-md  justify-center items-center`}>
+      <div
+        className={`flex flex-col gap-10 w-full bg-slate-100 full ${
+          student?.pastInternshipsProjects.internships.length !== 0 && "py-20"
+        } rounded-lg shadow-slate-300 shadow-md  justify-center items-center`}
+      >
         {student?.pastInternshipsProjects.internships.map((eachInternship) => (
-          <div key={nanoid()} className="flex flex-col p-14 px-20 gap-6 bg-white rounded-md w-[85%] shadow-grey-300 shadow-md">
-            <div className="text-lg font-semibold">Internship No: {student.pastInternshipsProjects.internships.indexOf(eachInternship) + 1}</div>
-            <div className="flex items-center justify-between w-full ">
-                <div className="flex gap-10 w-1/3 items-center">
-                <h1 className="text-2xl ">Company Name:  </h1>
-                <span className=" font-medium text-2xl ">{eachInternship.company}</span>
-                </div>
-
-                <div className="flex gap-10 w-1/3 items-center justify-center">
-                <h1 className="text-2xl ">Role : </h1>
-                <span className="text-2xl font-medium">{eachInternship.role}</span>
-                </div>
-
-                <div className="flex gap-10 w-1/3  justify-end item-center">
-                <h1 className="text-2xl">Internship Duration:</h1>
-                <span className="font-medium text-2xl"> {eachInternship.duration}</span>
-                </div>
+          <div
+            key={nanoid()}
+            className="flex flex-col p-14 px-20 gap-6 bg-white rounded-md w-[85%] shadow-grey-300 shadow-md"
+          >
+            <div className="text-lg font-semibold">
+              Internship No:{" "}
+              {student.pastInternshipsProjects.internships.indexOf(
+                eachInternship
+              ) + 1}
             </div>
-            <p className="text-xl mt-5 ">Description: <span className="font-medium">{eachInternship.description}</span></p>
+            <div className="flex items-center justify-between w-full ">
+              <div className="flex gap-10 w-1/3 items-center">
+                <h1 className="text-2xl ">Company Name: </h1>
+                <span className=" font-medium text-2xl ">
+                  {eachInternship.company}
+                </span>
+              </div>
+
+              <div className="flex gap-10 w-1/3 items-center justify-center">
+                <h1 className="text-2xl ">Role : </h1>
+                <span className="text-2xl font-medium">
+                  {eachInternship.role}
+                </span>
+              </div>
+
+              <div className="flex gap-10 w-1/3  justify-end item-center">
+                <h1 className="text-2xl">Internship Duration:</h1>
+                <span className="font-medium text-2xl">
+                  {" "}
+                  {eachInternship.duration}
+                </span>
+              </div>
+            </div>
+            <p className="text-xl mt-5 ">
+              Description:{" "}
+              <span className="font-medium">{eachInternship.description}</span>
+            </p>
           </div>
         ))}
       </div>

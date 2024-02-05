@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import InputField from "../../../Components/inputField/InputField";
-import PasswordInput from "../../../Components/inputField/PasswordInput";
+import InputField from "../../../components/inputField/InputField";
+import PasswordInput from "../../../components/inputField/PasswordInput";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingPage from "../../LoadingPage";
@@ -24,30 +24,34 @@ const SignupCollege = () => {
     handleSubmit,
     formState: { errors },
   } = form;
-  const { isLoading, isLoggedIn, isError, isSuccess, message } = useSelector((state) => state.collegeStaffAuth);
+  const { isLoading, isLoggedIn, isError, isSuccess, message } = useSelector(
+    (state) => state.collegeStaffAuth
+  );
   function handleCollegeStaffSignUp(data) {
     // console.log(data);
     dispatch(collegeStaffSignUp(data));
 
-    dispatch(RESET())
+    dispatch(RESET());
   }
 
   useEffect(() => {
-    if(isLoggedIn && isSuccess){
+    if (isLoggedIn && isSuccess) {
       // navigate('/college-staff')
     }
-    
-    if(isSuccess && !isLoggedIn &&  message === "College Staff Already Exists!"){
+
+    if (
+      isSuccess &&
+      !isLoggedIn &&
+      message === "College Staff Already Exists!"
+    ) {
       toast.info("Please,SignIn ", {
-        position : toast.POSITION.TOP_RIGHT
-    })
-      navigate('/signin/college-staff')
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      navigate("/signin/college-staff");
     }
 
-    dispatch(RESET())
-
-  }, [isSuccess , isLoggedIn]);
-
+    dispatch(RESET());
+  }, [isSuccess, isLoggedIn]);
 
   return (
     <div
@@ -62,10 +66,12 @@ const SignupCollege = () => {
           College-Staff SignUp Form
         </div>
 
-
-        <div onClick={() => navigate('/signup')}  className=" absolute top-20 left-20 bg-white p-3 border-2 border-purple-400 rounded-full hover:shadow-md ">
-      <IoMdArrowBack size={20}/>
-      </div>
+        <div
+          onClick={() => navigate("/signup")}
+          className=" absolute top-20 left-20 bg-white p-3 border-2 border-purple-400 rounded-full hover:shadow-md "
+        >
+          <IoMdArrowBack size={20} />
+        </div>
 
         <form
           action=""
@@ -75,44 +81,42 @@ const SignupCollege = () => {
         >
           <div className="flex item-center  justify-around px-10  gap-3 flex-wrap">
             <div className="flex gap-14 w-full justify-between px-5">
+              <InputField
+                placeholder="Enter your first name"
+                label="First Name"
+                labelName=""
+                validationObj={{
+                  ...register("firstName", {
+                    // required: {
+                    //   value: true,
+                    //   message: "Please enter your first name.",
+                    // },
+                  }),
+                }}
+                error={errors.firstName?.message}
+              />
 
-            
-            <InputField
-              placeholder="Enter your first name"
-              label="First Name"
-              labelName=""
-              validationObj={{
-                ...register("firstName", {
-                  // required: {
-                  //   value: true,
-                  //   message: "Please enter your first name.",
-                  // },
-                }),
-              }}
-              error={errors.firstName?.message}
-            />
-
-            <InputField
-              placeholder="Enter your last name"
-              label="Last Name"
-              labelName=""
-              validationObj={{
-                ...register("lastName", {
-                  // required: {
-                  //   value: true,
-                  //   message: "Please enter your last name.",
-                  // },
-                }),
-              }}
-              error={errors.lastName?.message}
-            />
-</div>
+              <InputField
+                placeholder="Enter your last name"
+                label="Last Name"
+                labelName=""
+                validationObj={{
+                  ...register("lastName", {
+                    // required: {
+                    //   value: true,
+                    //   message: "Please enter your last name.",
+                    // },
+                  }),
+                }}
+                error={errors.lastName?.message}
+              />
+            </div>
 
             <InputField
               placeholder="Enter your Email Address"
               label="E-Mail"
               labelName=""
-              xtraStyle= "w-full px-5"
+              xtraStyle="w-full px-5"
               validationObj={{
                 ...register("emailID", {
                   // required: {
@@ -191,27 +195,27 @@ const SignupCollege = () => {
                 }}
                 error={errors.password?.message}
               />
-          
-            <PasswordInput
-              placeholder="Enter your Confirm Password"
-              label="Confirm Password"
-              labelName=""
-              validationObj={{
-                ...register("cpass", {
-                  // required: {
-                  //   value: true,
-                  //   message: "Please enter your Confirm Password.",
-                  // },
-                  // validate: {
-                  //   same: (v) =>
-                  //     v === getValues().password ||
-                  //     "Password and Confirm Password don't match!",
-                  // },
-                }),
-              }}
-              error={errors.cpass?.message}
-            />
-          </div>
+
+              <PasswordInput
+                placeholder="Enter your Confirm Password"
+                label="Confirm Password"
+                labelName=""
+                validationObj={{
+                  ...register("cpass", {
+                    // required: {
+                    //   value: true,
+                    //   message: "Please enter your Confirm Password.",
+                    // },
+                    // validate: {
+                    //   same: (v) =>
+                    //     v === getValues().password ||
+                    //     "Password and Confirm Password don't match!",
+                    // },
+                  }),
+                }}
+                error={errors.cpass?.message}
+              />
+            </div>
           </div>
 
           <div className="flex flex-col items-center gap-1">

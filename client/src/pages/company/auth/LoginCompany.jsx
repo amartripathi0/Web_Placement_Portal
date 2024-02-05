@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import InputField from "../../../Components/inputField/InputField";
+import InputField from "../../../components/inputField/InputField";
 import { useForm } from "react-hook-form";
-import PasswordInput from "../../../Components/inputField/PasswordInput";
+import PasswordInput from "../../../components/inputField/PasswordInput";
 import { useNavigate } from "react-router-dom";
-import {useDispatch , useSelector} from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import LoadingPage from "../../LoadingPage";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import {SET_GLOBAL} from '../../../redux/features/common/globalSlice'
-import { RESET, companyStaffSignIn } from "../../../redux/features/company/auth/authSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { SET_GLOBAL } from "../../../redux/features/common/globalSlice";
+import {
+  RESET,
+  companyStaffSignIn,
+} from "../../../redux/features/company/auth/authSlice";
 import { IoMdArrowBack } from "react-icons/io";
 
 const LoginCompany = () => {
@@ -17,120 +20,122 @@ const LoginCompany = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = form; 
+  } = form;
 
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { isLoading, isLoggedIn, isError, isSuccess, message } = useSelector(
     (state) => state.companyAuth
   );
 
-  function handleCompanyStaffSignin(data){
-    dispatch(companyStaffSignIn(data))
+  function handleCompanyStaffSignin(data) {
+    dispatch(companyStaffSignIn(data));
     // dispatch(RESET())
-}
-useEffect(() => {
-  if(isLoggedIn && isSuccess){
-     toast.success(message , {
-            position : toast.POSITION.TOP_RIGHT
-        })
-        dispatch(SET_GLOBAL("company"));
-
-        navigate('/company')
   }
-  if (isError) {
-    // console.log(message);
-    toast.error(message, {
-      position: toast.POSITION.TOP_RIGHT,
-    });
-  }
-  dispatch(RESET())
+  useEffect(() => {
+    if (isLoggedIn && isSuccess) {
+      toast.success(message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      dispatch(SET_GLOBAL("company"));
 
-}, [isLoggedIn, isSuccess, isError, navigate]);
+      navigate("/company");
+    }
+    if (isError) {
+      // console.log(message);
+      toast.error(message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+    dispatch(RESET());
+  }, [isLoggedIn, isSuccess, isError, navigate]);
 
   return (
     <div
-    className={`h-screen w-screen bg-pink-200  flex justify-center items-center ${
-      isLoading && " opacity-70 bg-gray-400"
-    }`}
-  >
-    {isLoading && <LoadingPage height="screen" width="screen" />}
-    <div className="bg-slate-100 relative w-[80%] h-[80%] rounded-lg shadow-slate-300 shadow-md flex flex-col gap-10 justify-center items-center">
-    <div onClick={() => navigate('/signin')}  className=" absolute top-20 left-20 bg-white p-3 border-2 border-purple-400 rounded-full hover:shadow-md ">
-      <IoMdArrowBack size={20}/>
-      </div>
-     
-      <form
-        action=""
-        onSubmit={handleSubmit(handleCompanyStaffSignin)}
-        noValidate
-        className="flex flex-col px-14 py-20 gap-5 bg-white rounded-md shadow-grey-300 shadow-md"
-      >
-        <h1 className="text-3xl text-center font-medium mb-10">
-          Company Login
-        </h1>  
-        <div>
-          <div className="flex flex-col gap-8">
-            <InputField
-              placeholder="Enter your Email Address"
-              label="E-Mail"
-              labelName="emailID"
-              validationObj={{
-                ...register("emailID", {
-                  required: {
-                    value: true,
-                    message: "Please enter your email address.",
-                  },
-                  pattern: {
-                    value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                    message: "Please enter a valid Email address",
-                  },
-                }),
-              }}
-              error={errors.emailID?.message}
-            />
-            <div>
-              <PasswordInput
-                placeholder="Enter your Password"
-                label="Password"
-                labelName="password"
+      className={`h-screen w-screen bg-pink-200  flex justify-center items-center ${
+        isLoading && " opacity-70 bg-gray-400"
+      }`}
+    >
+      {isLoading && <LoadingPage height="screen" width="screen" />}
+      <div className="bg-slate-100 relative w-[80%] h-[80%] rounded-lg shadow-slate-300 shadow-md flex flex-col gap-10 justify-center items-center">
+        <div
+          onClick={() => navigate("/signin")}
+          className=" absolute top-20 left-20 bg-white p-3 border-2 border-purple-400 rounded-full hover:shadow-md "
+        >
+          <IoMdArrowBack size={20} />
+        </div>
+
+        <form
+          action=""
+          onSubmit={handleSubmit(handleCompanyStaffSignin)}
+          noValidate
+          className="flex flex-col px-14 py-20 gap-5 bg-white rounded-md shadow-grey-300 shadow-md"
+        >
+          <h1 className="text-3xl text-center font-medium mb-10">
+            Company Login
+          </h1>
+          <div>
+            <div className="flex flex-col gap-8">
+              <InputField
+                placeholder="Enter your Email Address"
+                label="E-Mail"
+                labelName="emailID"
                 validationObj={{
-                  ...register("password", {
+                  ...register("emailID", {
                     required: {
                       value: true,
-                      message: "Please enter your Password.",
+                      message: "Please enter your email address.",
+                    },
+                    pattern: {
+                      value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+                      message: "Please enter a valid Email address",
                     },
                   }),
                 }}
-                error={errors.password?.message}
+                error={errors.emailID?.message}
               />
+              <div>
+                <PasswordInput
+                  placeholder="Enter your Password"
+                  label="Password"
+                  labelName="password"
+                  validationObj={{
+                    ...register("password", {
+                      required: {
+                        value: true,
+                        message: "Please enter your Password.",
+                      },
+                    }),
+                  }}
+                  error={errors.password?.message}
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="flex flex-col gap-2">
-          <p className="text-blue-800 font-semibold">Forgot Password </p>
+          <div className="flex flex-col gap-2">
+            <p className="text-blue-800 font-semibold">Forgot Password </p>
 
-          <button
-            type="submit"
-            className="border-2 bg-blue-400 border-black w-full text-xl p-3 pt-1 pb-1 mt-1 rounded-lg"
-          >
-            Submit
-          </button>
-          <p className=" font-semibold">
-            Don't have an account?
-            <span
-              onClick={() => navigate("/signup/company")}
-              className="text-blue-800 underline ml-2 cursor-pointer	 "
+            <button
+              type="submit"
+              className="border-2 bg-blue-400 border-black w-full text-xl p-3 pt-1 pb-1 mt-1 rounded-lg"
             >
-              Signup
-            </span>
-          </p>
-        </div>
-      </form>
+              Submit
+            </button>
+            <p className=" font-semibold">
+              Don't have an account?
+              <span
+                onClick={() => navigate("/signup/company")}
+                className="text-blue-800 underline ml-2 cursor-pointer	 "
+              >
+                Signup
+              </span>
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
-  )
-}
+  );
+};
 
-export default LoginCompany
+export default LoginCompany;

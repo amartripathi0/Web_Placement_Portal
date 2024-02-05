@@ -1,22 +1,27 @@
-import React, { useEffect } from 'react'
-import Header from '../../Components/header/Header'
-import { Outlet, useNavigate } from 'react-router-dom'
-import { RESET_GLOBAL , SET_GLOBAL, getLoginStatus } from '../../redux/features/common/globalSlice'
-import {useSelector , useDispatch} from 'react-redux'
-import LoadingPage from '../LoadingPage'
-import { toast } from 'react-toastify'
+import React, { useEffect } from "react";
+import Header from "../../components/header/Navbar";
+import { Outlet, useNavigate } from "react-router-dom";
+import {
+  RESET_GLOBAL,
+  SET_GLOBAL,
+  getLoginStatus,
+} from "../../redux/features/common/globalSlice";
+import { useSelector, useDispatch } from "react-redux";
+import LoadingPage from "../LoadingPage";
+import { toast } from "react-toastify";
 
 const HomePage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoggedin, isSuccess, isLoading, userType, message } = useSelector(
+    (state) => state.globalAuth
+  );
+  const { isLoggedIn } = useSelector((state) => state.studentAuth);
 
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const {isLoggedin ,isSuccess, isLoading, userType , message} = useSelector(state => state.globalAuth)
-  const {isLoggedIn } = useSelector(state => state.studentAuth)
- 
   useEffect(() => {
-    console.log("u" , userType);
-    if(isLoggedin && isSuccess && userType !== ''){
-      navigate(userType)
+    console.log("u", userType);
+    if (isLoggedin && isSuccess && userType !== "") {
+      navigate(userType);
       // if(userType === 'student'){
       // }
       // else if(userType === 'college-staff'){
@@ -25,26 +30,24 @@ const HomePage = () => {
       // else if(userType === 'company'){
       //   // navigate(userType)
       // }
-    }
-    else{
-      dispatch(getLoginStatus())
+    } else {
+      dispatch(getLoginStatus());
 
-      dispatch(RESET_GLOBAL())
+      dispatch(RESET_GLOBAL());
     }
-   
-  },[isLoggedin , userType])
-
+  }, [isLoggedin, userType]);
 
   return (
     <div>
- {isLoading && <LoadingPage height = "screen" width= "screen"/>}
-    <div className={`${isLoading ? "bg-black opacity-0": ""}`}>
-        <Header/>
-        <Outlet/>
-    </div>
-    </div>
+      {isLoading && <LoadingPage height="screen" width="screen" />}
+      <div className={`relative ${isLoading ? "bg-black opacity-0" : ""}`}>
+        <Header />
+        <Outlet />
 
-  )
-}
+       
+      </div>
+    </div>
+  );
+};
 
-export default HomePage
+export default HomePage;

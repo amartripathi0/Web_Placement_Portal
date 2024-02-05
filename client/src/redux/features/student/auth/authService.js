@@ -5,6 +5,7 @@ const API_URL = `${BACKEND_URL}/student/`
 
 const signup =async (userData) => {
     const response  = await axios.post(API_URL + "signup" ,  userData)
+    console.log(response);
     return response.data
 } 
 

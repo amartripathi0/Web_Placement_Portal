@@ -84,7 +84,8 @@ app.get('/' , asyncHandler( async = ( req , res , next ) => {
 
     }
 }))
-  
+
+
 app.use('/student' , studentRouter)
 app.use('/college-staff' , staffRouter )
 app.use('/company',companyRouter)

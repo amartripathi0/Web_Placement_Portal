@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import {useForm} from 'react-hook-form'
-import InputField from '../../../Components/inputField/InputField'
-import PasswordInput from '../../../Components/inputField/PasswordInput'
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import InputField from "../../../components/inputField/InputField";
+import PasswordInput from "../../../components/inputField/PasswordInput";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import LoadingPage from '../../LoadingPage'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { RESET, companyStaffSignUp } from '../../../redux/features/company/auth/authSlice';
+import LoadingPage from "../../LoadingPage";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  RESET,
+  companyStaffSignUp,
+} from "../../../redux/features/company/auth/authSlice";
 import { IoMdArrowBack } from "react-icons/io";
 
 const SignupCompany = () => {
@@ -21,40 +24,48 @@ const SignupCompany = () => {
     handleSubmit,
     formState: { errors },
   } = form;
-  const { isLoading, isLoggedIn, isError, isSuccess, message } = useSelector((state) => state.companyAuth);
+  const { isLoading, isLoggedIn, isError, isSuccess, message } = useSelector(
+    (state) => state.companyAuth
+  );
   function handleCompanyStaffSignUp(data) {
-    const {cpass , emailID,firstName,lastName,password,phone ,staffID} = data
-      // console.log(data);
-    dispatch(companyStaffSignUp({
-      personalDetail : {
-        cpass , emailID,firstName,lastName,password,phone ,staffID
-      },
-      company : data.company
-    }));
+    const { cpass, emailID, firstName, lastName, password, phone, staffID } =
+      data;
+    // console.log(data);
+    dispatch(
+      companyStaffSignUp({
+        personalDetail: {
+          cpass,
+          emailID,
+          firstName,
+          lastName,
+          password,
+          phone,
+          staffID,
+        },
+        company: data.company,
+      })
+    );
 
-    dispatch(RESET())
+    dispatch(RESET());
   }
 
   useEffect(() => {
-    if(isLoggedIn && isSuccess){
-      navigate('/company')
+    if (isLoggedIn && isSuccess) {
+      navigate("/company");
     }
-    
-    if(isSuccess && !isLoggedIn &&  message === "Company Already Exists!"){
-      navigate('/signin/company')
+
+    if (isSuccess && !isLoggedIn && message === "Company Already Exists!") {
+      navigate("/signin/company");
       toast.info("Please,Sigin", {
-        position : toast.POSITION.TOP_RIGHT
-    })
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
 
-    dispatch(RESET())
-
-  }, [isSuccess , isLoggedIn]);
-
-    
+    dispatch(RESET());
+  }, [isSuccess, isLoggedIn]);
 
   return (
-<div
+    <div
       className={`h-screen w-screen bg-pink-200  flex justify-center items-center ${
         isLoading && " opacity-70 bg-gray-400"
       }`}
@@ -66,9 +77,12 @@ const SignupCompany = () => {
           Company SignUp Form
         </div>
 
-        <div onClick={() => navigate('/signup')}  className=" absolute top-20 left-20 bg-white p-3 border-2 border-purple-400 rounded-full hover:shadow-md ">
-      <IoMdArrowBack size={20}/>
-      </div>
+        <div
+          onClick={() => navigate("/signup")}
+          className=" absolute top-20 left-20 bg-white p-3 border-2 border-purple-400 rounded-full hover:shadow-md "
+        >
+          <IoMdArrowBack size={20} />
+        </div>
 
         <form
           action=""
@@ -78,77 +92,73 @@ const SignupCompany = () => {
         >
           <div className="flex item-center  justify-around px-10  gap-3 flex-wrap">
             <div className="flex gap-14 w-full justify-between px-5">
+              <InputField
+                placeholder="Enter your first name"
+                label="First Name"
+                labelName=""
+                validationObj={{
+                  ...register("firstName", {
+                    required: {
+                      value: true,
+                      message: "Please enter your first name.",
+                    },
+                  }),
+                }}
+                error={errors.firstName?.message}
+              />
 
-            
-            <InputField
-              placeholder="Enter your first name"
-              label="First Name"
-              labelName=""
-              validationObj={{
-                ...register("firstName", {
-                  required: {
-                    value: true,
-                    message: "Please enter your first name.",
-                  },
-                }),
-              }}
-              error={errors.firstName?.message}
-            />
+              <InputField
+                placeholder="Enter your last name"
+                label="Last Name"
+                labelName=""
+                validationObj={{
+                  ...register("lastName", {
+                    required: {
+                      value: true,
+                      message: "Please enter your last name.",
+                    },
+                  }),
+                }}
+                error={errors.lastName?.message}
+              />
+            </div>
 
-            <InputField
-              placeholder="Enter your last name"
-              label="Last Name"
-              labelName=""
-              validationObj={{
-                ...register("lastName", {
-                  required: {
-                    value: true,
-                    message: "Please enter your last name.",
-                  },
-                }),
-              }}
-              error={errors.lastName?.message}
-            />
-</div>
+            <div className="flex gap-14 w-full justify-between px-5">
+              <InputField
+                placeholder="Enter your Email Address"
+                label="E-Mail"
+                labelName=""
+                validationObj={{
+                  ...register("emailID", {
+                    required: {
+                      value: true,
+                      message: "Please enter your email address.",
+                    },
+                    validate: {
+                      matchPattern: (v) =>
+                        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
+                        "Email address must be a valid address",
+                    },
+                  }),
+                }}
+                error={errors.emailID?.message}
+              />
 
-<div className="flex gap-14 w-full justify-between px-5">
-
-            <InputField
-              placeholder="Enter your Email Address"
-              label="E-Mail"
-              labelName=""
-              validationObj={{
-                ...register("emailID", {
-                  required: {
-                    value: true,
-                    message: "Please enter your email address.",
-                  },
-                  validate: {
-                    matchPattern: (v) =>
-                      /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-                      "Email address must be a valid address",
-                  },
-                }),
-              }}
-              error={errors.emailID?.message}
-            />
-
-<InputField
-              placeholder="Enter your company name"
-              label="Company Name"
-              labelName=""
-              validationObj={{
-                ...register("company", {
-                  required: {
-                    value: true,
-                    message: "Please enter your company name.",
-                  },
-                }),
-              }}
-              error={errors.company?.message}
-            />
-       
-</div>       
+              <InputField
+                placeholder="Enter your company name"
+                label="Company Name"
+                labelName=""
+                validationObj={{
+                  ...register("company", {
+                    required: {
+                      value: true,
+                      message: "Please enter your company name.",
+                    },
+                  }),
+                }}
+                error={errors.company?.message}
+              />
+            </div>
             <div className="flex  justify-between w-full px-5">
               <InputField
                 placeholder="Enter your Phone Number"
@@ -211,27 +221,27 @@ const SignupCompany = () => {
                 }}
                 error={errors.password?.message}
               />
-          
-            <PasswordInput
-              placeholder="Enter your Confirm Password"
-              label="Confirm Password"
-              labelName=""
-              validationObj={{
-                ...register("cpass", {
-                  required: {
-                    value: true,
-                    message: "Please enter your Confirm Password.",
-                  },
-                  validate: {
-                    same: (v) =>
-                      v === getValues().password ||
-                      "Password and Confirm Password don't match!",
-                  },
-                }),
-              }}
-              error={errors.cpass?.message}
-            />
-          </div>
+
+              <PasswordInput
+                placeholder="Enter your Confirm Password"
+                label="Confirm Password"
+                labelName=""
+                validationObj={{
+                  ...register("cpass", {
+                    required: {
+                      value: true,
+                      message: "Please enter your Confirm Password.",
+                    },
+                    validate: {
+                      same: (v) =>
+                        v === getValues().password ||
+                        "Password and Confirm Password don't match!",
+                    },
+                  }),
+                }}
+                error={errors.cpass?.message}
+              />
+            </div>
           </div>
 
           <div className="flex flex-col items-center gap-1">
@@ -255,7 +265,7 @@ const SignupCompany = () => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SignupCompany
+export default SignupCompany;

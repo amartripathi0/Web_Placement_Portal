@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import InputWithEdit from "../../../../Components/inputField/InputWithEdit";
+import InputWithEdit from "../../../../components/inputField/InputWithEdit";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import {nanoid} from 'nanoid'
-import {NavLink } from 'react-router-dom'
-import{
+import { nanoid } from "nanoid";
+import { NavLink } from "react-router-dom";
+import {
   RESET_GLOBAL,
   SET_GLOBAL,
   getLoginStatus,
@@ -16,24 +16,20 @@ import {
   updateProfileDetail,
 } from "../../../../redux/features/student/auth/authSlice";
 
-
 const Project = () => {
+  const dispatch = useDispatch();
+  const { isLoading, isError, isSuccess, isLoggedIn, message, student } =
+    useSelector((state) => state.studentAuth);
+  const globalAuth = useSelector((state) => state.globalAuth);
+  const studentUtil = useSelector((state) => state.studentUtils);
 
-    const dispatch = useDispatch();
-    const { isLoading, isError, isSuccess, isLoggedIn, message, student } =
-      useSelector((state) => state.studentAuth);
-    const globalAuth = useSelector((state) => state.globalAuth);
-    const studentUtil = useSelector((state) => state.studentUtils);
-  
-    const form = useForm();
-    const {
-      handleSubmit,
-      register,
-      setValue,
-      formState: { errors },
-    } = form;
-
-    
+  const form = useForm();
+  const {
+    handleSubmit,
+    register,
+    setValue,
+    formState: { errors },
+  } = form;
 
   function handleUploadProjectDetails(data) {
     const projectData = { typ: "projects", value: data };
@@ -41,29 +37,28 @@ const Project = () => {
     dispatch(updateProfileDetail(projectData));
 
     dispatch(RESET());
-
   }
 
-    useEffect(() => {
-      if (globalAuth.isLoggedIn) {
-        dispatch(getUserData());
-  
-        dispatch(RESET());
-      }
-    }, [globalAuth.isLoggedIn]);
-  
-    useEffect(() => {
-      if (isSuccess) {
-        toast.success(message, {
-          position: toast.POSITION.TOP_CENTER,
-        });
-  
-        dispatch(getUserData())
-      }
-    }, [updateProfileDetail, isSuccess , dispatch]);
+  useEffect(() => {
+    if (globalAuth.isLoggedIn) {
+      dispatch(getUserData());
+
+      dispatch(RESET());
+    }
+  }, [globalAuth.isLoggedIn]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success(message, {
+        position: toast.POSITION.TOP_CENTER,
+      });
+
+      dispatch(getUserData());
+    }
+  }, [updateProfileDetail, isSuccess, dispatch]);
 
   return (
-     <div
+    <div
       className={` bg-purple-100 p-10 px-40 flex flex-col gap-7 justify-center items-center ${
         (isLoading || studentUtil.isLoading) && "  blur-sm bg-gray-400"
       }`}
@@ -155,32 +150,57 @@ const Project = () => {
         </form>
       </div>
 
-      <div className={`flex flex-col gap-10 w-full bg-slate-100 full ${student?.pastInternshipsProjects.projects.length !== 0 && "py-20"} rounded-lg shadow-slate-300 shadow-md  justify-center items-center`}>
+      <div
+        className={`flex flex-col gap-10 w-full bg-slate-100 full ${
+          student?.pastInternshipsProjects.projects.length !== 0 && "py-20"
+        } rounded-lg shadow-slate-300 shadow-md  justify-center items-center`}
+      >
         {student?.pastInternshipsProjects.projects.map((eachProject) => (
-          <div key={nanoid()} className="flex flex-col p-14 px-20 gap-6 bg-white rounded-md w-[85%] shadow-grey-300 shadow-md">
-            <div className="text-lg font-semibold">Project No: {student.pastInternshipsProjects.projects.indexOf(eachProject) + 1}</div>
-            <div className="flex items-center justify-between w-full ">
-                <div className="flex gap-3 w-1/3 items-center ">
-                <h1 className="text-2xl ">Project Title:  </h1>
-                <span className=" font-medium text-2xl ">{eachProject.title}</span>
-                </div>
-
-                <div className="flex gap-3 w-1/3 items-center justify-center">
-                <h1 className="text-2xl ">Link: </h1>
-                <NavLink to = {eachProject.link} target="_blank" className="text-2xl  text-blue-700 underline font-medium">{eachProject.link}</NavLink>
-                </div>
-
-                <div className="flex gap-3 w-1/3 justify-end items-center">
-                <h1 className="text-2xl"> Duration:</h1>
-                <span className="font-medium text-2xl"> {eachProject.duration}</span>
-                </div>
+          <div
+            key={nanoid()}
+            className="flex flex-col p-14 px-20 gap-6 bg-white rounded-md w-[85%] shadow-grey-300 shadow-md"
+          >
+            <div className="text-lg font-semibold">
+              Project No:{" "}
+              {student.pastInternshipsProjects.projects.indexOf(eachProject) +
+                1}
             </div>
-            <p className="text-xl mt-5 ">Description: <span className="font-medium">{eachProject.description}</span></p>
+            <div className="flex items-center justify-between w-full ">
+              <div className="flex gap-3 w-1/3 items-center ">
+                <h1 className="text-2xl ">Project Title: </h1>
+                <span className=" font-medium text-2xl ">
+                  {eachProject.title}
+                </span>
+              </div>
+
+              <div className="flex gap-3 w-1/3 items-center justify-center">
+                <h1 className="text-2xl ">Link: </h1>
+                <NavLink
+                  to={eachProject.link}
+                  target="_blank"
+                  className="text-2xl  text-blue-700 underline font-medium"
+                >
+                  {eachProject.link}
+                </NavLink>
+              </div>
+
+              <div className="flex gap-3 w-1/3 justify-end items-center">
+                <h1 className="text-2xl"> Duration:</h1>
+                <span className="font-medium text-2xl">
+                  {" "}
+                  {eachProject.duration}
+                </span>
+              </div>
+            </div>
+            <p className="text-xl mt-5 ">
+              Description:{" "}
+              <span className="font-medium">{eachProject.description}</span>
+            </p>
           </div>
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Project
+export default Project;

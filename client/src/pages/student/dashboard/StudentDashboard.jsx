@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import StudentDashboardHeader from "./StudentDashboardHeader";
 import { Outlet, useNavigate } from "react-router-dom";
-import Sidemenu, { SidebarItem } from "../../../Components/sidemenu/Sidemenu";
+import Sidemenu, { SidebarItem } from "../../../components/sidemenu/Sidemenu";
 import { FaRegUser } from "react-icons/fa";
 import { LuGraduationCap } from "react-icons/lu";
 import { IoNewspaperOutline } from "react-icons/io5";
@@ -81,16 +81,16 @@ function StudentDashboard() {
   return (
     <div>
       {student?.role && student.role === "Suspended" ? (
-        <div className="h-screen w-screen  text-6xl flex justify-center items-center bg-slate-100 absolute z-50 top-0 left-0">You are Suspended, Contact Admin </div>
-      ) : 
+        <div className="h-screen w-screen  text-6xl flex justify-center items-center bg-slate-100 absolute z-50 top-0 left-0">
+          You are Suspended, Contact Admin{" "}
+        </div>
+      ) : (
         <div
           className={`relative flex w-screen h-screen z-10 ${
-            (isLoading ) && " blur-sm -z-10 "
+            isLoading && " blur-sm -z-10 "
           }`}
         >
-          {(isLoading) && (
-            <LoadingPage height="screen" width="screen" />
-          )}
+          {isLoading && <LoadingPage height="screen" width="screen" />}
 
           <div>
             <Sidemenu
@@ -100,7 +100,7 @@ function StudentDashboard() {
               lastName={student?.personalDetail.lastName}
               profileImgLink={student?.personalDetail.profilePicture}
             >
-              <SidebarItem icon={<FaRegUser />} text="Profile" active  />
+              <SidebarItem icon={<FaRegUser />} text="Profile" active />
               <SidebarItem
                 icon={<LuGraduationCap size={16} />}
                 text="Academic Details"
@@ -115,7 +115,11 @@ function StudentDashboard() {
               <SidebarItem icon={<MdAutoGraph />} text="Projects" active />
               <SidebarItem icon={<MdAutoGraph />} text="Job Vacancies" active />
               <SidebarItem icon={<FaRegClock />} text="Interview" active />
-              <SidebarItem icon={<FaRegClock />} text="Application Status" active />
+              <SidebarItem
+                icon={<FaRegClock />}
+                text="Application Status"
+                active
+              />
               <SidebarItem icon={<FaRegClock />} text="Reset Password" active />
             </Sidemenu>
           </div>
@@ -130,7 +134,7 @@ function StudentDashboard() {
             <Outlet />
           </div>
         </div>
-      }
+      )}
     </div>
   );
 }

@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import InputField from "../../../Components/inputField/InputField";
+import InputField from "../../../components/inputField/InputField";
 import { useForm } from "react-hook-form";
-import PasswordInput from "../../../Components/inputField/PasswordInput";
+import PasswordInput from "../../../components/inputField/PasswordInput";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingPage from "../../LoadingPage";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SET_GLOBAL } from "../../../redux/features/common/globalSlice";
-import { collegeStaffSignIn , RESET } from "../../../redux/features/college/auth/authSlice";
+import {
+  collegeStaffSignIn,
+  RESET,
+} from "../../../redux/features/college/auth/authSlice";
 import { IoMdArrowBack } from "react-icons/io";
 
 const LoginCollege = () => {
@@ -25,28 +28,27 @@ const LoginCollege = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-    function handleCollegeStaffSignin(data){
-        dispatch(collegeStaffSignIn(data))
-        // dispatch(RESET())
+  function handleCollegeStaffSignin(data) {
+    dispatch(collegeStaffSignIn(data));
+    // dispatch(RESET())
+  }
+  useEffect(() => {
+    if (isLoggedIn && isSuccess) {
+      toast.success(message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      dispatch(SET_GLOBAL("college-staff"));
+
+      navigate("/college-staff");
     }
-    useEffect(() => {
-      if(isLoggedIn && isSuccess){
-         toast.success(message , {
-                position : toast.POSITION.TOP_RIGHT
-            })
-            dispatch(SET_GLOBAL("college-staff"));
-
-            navigate('/college-staff')
-      }
-      if (isError) {
-        // console.log(message);
-        toast.error(message, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      }
-      dispatch(RESET())
-
-    }, [isLoggedIn, isSuccess, isError, navigate]);
+    if (isError) {
+      // console.log(message);
+      toast.error(message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+    dispatch(RESET());
+  }, [isLoggedIn, isSuccess, isError, navigate]);
   return (
     <div
       className={`h-screen w-screen bg-pink-200  flex justify-center items-center ${
@@ -55,10 +57,12 @@ const LoginCollege = () => {
     >
       {isLoading && <LoadingPage height="screen" width="screen" />}
       <div className="bg-slate-100  w-[80%] h-[80%] relative rounded-lg shadow-slate-300 shadow-md flex flex-col gap-10 justify-center items-center">
-     
-      <div onClick={() => navigate('/signin')} className=" absolute top-20 left-20 bg-white p-3 border-2 border-purple-400 rounded-full hover:shadow-md ">
-      <IoMdArrowBack size={20}/>
-      </div >
+        <div
+          onClick={() => navigate("/signin")}
+          className=" absolute top-20 left-20 bg-white p-3 border-2 border-purple-400 rounded-full hover:shadow-md "
+        >
+          <IoMdArrowBack size={20} />
+        </div>
         <form
           action=""
           onSubmit={handleSubmit(handleCollegeStaffSignin)}
@@ -67,7 +71,7 @@ const LoginCollege = () => {
         >
           <h1 className="text-3xl text-center font-medium mb-10">
             College-Staff Login
-          </h1>  
+          </h1>
           <div>
             <div className="flex flex-col gap-8">
               <InputField

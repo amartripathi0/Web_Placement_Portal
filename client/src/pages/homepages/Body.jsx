@@ -1,26 +1,41 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 const Body = () => {
     return (       
-        <div className='flex justify-around items-center  bg-gradient-to-r from-cyan-200  to-pink-300 h-screen'>
-            <div className='w-[40%] flex flex-col gap-10  mt-[-80px] justify-around'>
-                <h1 className='text-[4.5rem]  leading-[70px] font-bold pl-10'>YOUR GATEWAY TO SUCCESS🔥 </h1>
+        <div className='flex-center max-sm:flex-col max-sm:justify-between  py-20 gap-[10vw]  max-sm:pb-36 bg-gradient-to-r from-cyan-200  to-pink-300 h-screen'>
+          
+          {/* left side */}
+            <div className='w-[40%] flex flex-col  gap-[3vw] max-sm:w-4/5 justify-around p-6  '>
 
-                <p className='text-md text-justify text-black  font-medium bg-pink-200 ml-10 mr-10 p-5 rounded-md '>
+                {/* Placement Nexus heading */}
+                <div className='font-extrabold text-[6vw] max-sm:text-[11vw]' >
 
-                    Welcome to the Placement Portal. Discover limitless opportunities, connect with top employers, and accelerate your career journey. Get ready to step into a world of possibilities.
+                <h1 className='opacity-95'
+                >PLACEMENT</h1>
+                <h1
+                className=' leading-3 opacity-90'
+                >NEXUS</h1>
+                </div>
 
+                <p className='text-[2vw] font-semibold text-slate-700 ml-2 max-sm:text-[4vw]'>your gateway to success🔥 </p>
+
+                <p className='text-[1vw] text-justify font-medium bg-pink-200  p-5 max-sm:p-2 max-sm:text-[2vw] rounded-md  max-sm:w-10/12 '>
+
+                    Welcome to the Placement Nexus. Discover limitless opportunities, connect with top employers, and accelerate your career journey. Get ready to step into a world of possibilities.
+                    <br />  
                     Explore job openings, build your resume, and network with professionals. For employers, find exceptional talent to drive your organization forward.
 
                     Unlock your potential with Placement Portal!</p>
                 
-                <button className='  w-72 ml-10 h-12 text-white bg-cyan-500 hover:bg-cyan-600 hover:text-pink-300 pr-9  rounded-xl text-2xl font-semibold'>MORE DETAILS . . . .</button>
+                <Link to={'/about'} className='  text-white bg-cyan-500 hover:bg-cyan-600 hover:text-pink-300   rounded-xl text-[1vw] max-sm:text-[2vw] flex- w-2/5 p-2 px-5 font-semibold'>MORE DETAILS . .</Link>
 
              
             </div>
 
-            <div className='w-[35%] bg-purple-400  mt-[-80px] '>
-                <img  alt="no" src="https://kiit.ac.in/wp-content/uploads/2023/02/Placement-2023.jpg" className='h-[100%]   opacity-80  rounded-lg ' />
+            {/* right image */}
+            <div className='w-[35%] max-sm:w-8/12 bg-purple-400 rounded-xl '>
+                <img  alt="placement" src="https://kiit.ac.in/wp-content/uploads/2023/02/Placement-2023.jpg" className='h-[100%]   opacity-80  rounded-xl ' />
 
             </div>
        

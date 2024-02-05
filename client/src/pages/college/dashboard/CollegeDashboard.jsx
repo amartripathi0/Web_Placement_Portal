@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import Sidemenu, { SidebarItem } from "../../../Components/sidemenu/Sidemenu";
+import Sidemenu, { SidebarItem } from "../../../components/sidemenu/Sidemenu";
 import { FaRegUser } from "react-icons/fa";
 import { LuGraduationCap } from "react-icons/lu";
 import { IoNewspaperOutline } from "react-icons/io5";
@@ -10,7 +10,7 @@ import LoadingPage from "../../LoadingPage";
 import { MdAutoGraph } from "react-icons/md";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import { createContext } from 'react';
+import { createContext } from "react";
 
 import {
   RESET_GLOBAL,
@@ -31,7 +31,6 @@ const CollegeDashboard = () => {
   const { isLoggedIn, isLoading, isSuccess, collegeStaff, message } =
     useSelector((state) => state.collegeStaffUtil);
   useEffect(() => {
-    
     if (
       isLoggedIn &&
       isSuccess &&
@@ -49,29 +48,22 @@ const CollegeDashboard = () => {
           position: toast.POSITION.TOP_RIGHT,
         }
       );
-    }
-
-    else if (globalAuth.isLoggedin && globalAuth.isSuccess) {
-
+    } else if (globalAuth.isLoggedin && globalAuth.isSuccess) {
       dispatch(getCollegeStaffData());
-
-    } 
-
-    else if ( !globalAuth.isLoggedin && globalAuth.isSuccess && globalAuth.userType !== "college-staff"
+    } else if (
+      !globalAuth.isLoggedin &&
+      globalAuth.isSuccess &&
+      globalAuth.userType !== "college-staff"
     ) {
       toast.info("Signed Out successfully", {
         position: toast.POSITION.TOP_RIGHT,
       });
       // dispatch(SET_GLOBAL("college-staff"));
       navigate("/signin");
-    }
-    else{
+    } else {
       dispatch(getLoginStatus());
-      
     }
-  }, [getLoginStatus.isLoggedin, globalAuth.isSuccess , globalAuth.userType ]);
-
-
+  }, [getLoginStatus.isLoggedin, globalAuth.isSuccess, globalAuth.userType]);
 
   // useEffect(() => {
   //   if (
@@ -101,7 +93,7 @@ const CollegeDashboard = () => {
     // console.log(sidemenuExpanded);
   }
 
-  const [apiURL , setAPIURL] = useState('')
+  const [apiURL, setAPIURL] = useState("");
   // console.log("render");
   return (
     <div>
@@ -131,7 +123,7 @@ const CollegeDashboard = () => {
                 text="Students"
                 active
               />
-             
+
               <SidebarItem icon={<FaRegUser />} text="Companies" active />
               <SidebarItem
                 icon={<MdAutoGraph />}
@@ -149,11 +141,10 @@ const CollegeDashboard = () => {
             } absolute right-0 top-0 h-screen`}
           >
             {/* <StudentSidemenu/> */}
-            <apiContext.Provider value= { {apiURL,setAPIURL}} >
-            <CollegeDashHeader />
-            <Outlet />
+            <apiContext.Provider value={{ apiURL, setAPIURL }}>
+              <CollegeDashHeader />
+              <Outlet />
             </apiContext.Provider>
-              
           </div>
         </div>
       )}
