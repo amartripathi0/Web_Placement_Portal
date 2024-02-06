@@ -146,7 +146,7 @@ const CommonSignupForm = ({isLoading , onSignupFormSubmitHandler , signupHeading
                     validationObj={{
                         ...register("company", companyNameValidation),
                     }}
-                    error={errors.companyNameValidation?.message}
+                    error={errors.company?.message}
             />
             }
               
