@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Header from "../../components/header/Navbar";
+import Navbar from "../../components/header/Navbar";
 import { Outlet, useNavigate } from "react-router-dom";
 import {
   RESET_GLOBAL,
@@ -41,7 +41,7 @@ const HomePage = () => {
     <div>
       {isLoading && <LoadingPage height="screen" width="screen" />}
       <div className={`relative ${isLoading ? "bg-black opacity-0" : ""}`}>
-        <Header />
+        <Navbar />
         <Outlet />
 
        

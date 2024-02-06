@@ -5,7 +5,7 @@ import Button from "../buttons/Button";
 import { LuMenu } from "react-icons/lu";
 import { IoMdClose } from "react-icons/io";
 
-function Header() {
+function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const location = useLocation();
   const { pathname } = location;
@@ -133,4 +133,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Navbar;

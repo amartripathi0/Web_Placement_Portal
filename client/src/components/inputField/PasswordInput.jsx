@@ -1,23 +1,24 @@
 import React, { useState } from 'react'
 import {AiFillEyeInvisible , AiFillEye} from 'react-icons/ai'
 
-const PasswordInput = ({ type , placeholder , xtraStyle , handlePassChange,labelName , label ,ref, validationObj , error}) => {
+const PasswordInput = ({ type , placeholder ,inputFieldStyle,errorMessageStyle ,labelClass, xtraStyle , handlePassChange,labelName , label ,ref, validationObj , error}) => {
 
     const [showPass , setShowPass] = useState(false)
     function togglePassHide(){
             setShowPass(prev => !prev)
     }
   return (
-    <div className='flex flex-col gap-1  '>
-    <label htmlFor= {labelName} className='text-md font-medium  ml-2'>{label}</label>
-    <div className= "border-black border-2 h-12 text-md rounded-md w-96 flex justify-between items-center">
+    <div className={`${xtraStyle} flex flex-col gap-1 `}>
+    <label htmlFor= {labelName} className={`${labelClass} text-md font-medium ml-2`}>{label}</label>
+  
+    <div className= {` ${inputFieldStyle ? inputFieldStyle:  "h-12 w-full"} border-black border-2  text-md rounded-md  flex justify-between items-center`}>
       <input
       type= {showPass ? "text": "password"}
       placeholder={placeholder}
     
       onChange={handlePassChange}
       {...validationObj}
-      className='w-96 h-full !outline-none pl-3  font-semibold '
+      className='w-11/12 h-full !outline-none pl-3  font-semibold '
 
       />
 
@@ -32,7 +33,7 @@ const PasswordInput = ({ type , placeholder , xtraStyle , handlePassChange,label
 
     </div>
       
-    <p className='text-red-500 h-5 font-medium  text-base ml-2'> {error}</p>
+    <p className={` ${errorMessageStyle ? errorMessageStyle : "h-5 font-medium text-base"} text-red-500  ml-2`}> {error}</p>
     </div>
 
   )

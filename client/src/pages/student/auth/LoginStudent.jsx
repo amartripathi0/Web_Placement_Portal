@@ -12,6 +12,8 @@ import { SET_GLOBAL } from "../../../redux/features/common/globalSlice";
 import { IoMdArrowBack } from "react-icons/io";
 import PurpleBackground from "../../../components/containers/PurpleBackground";
 import SlateBackground from "../../../components/containers/SlateBackground";
+import WhiteBackground from "../../../components/containers/WhiteBackground";
+import Navbar from "../../../components/header/Navbar";
 
 const LoginStudent = () => {
   const form = useForm();
@@ -53,37 +55,49 @@ const LoginStudent = () => {
   }, [isLoggedIn, isSuccess, isError, navigate]);
 
   return (
+    <>
+    <Navbar />
     <PurpleBackground
+    additionalStyles={"pt-20 max-sm:py-5  "}
     isLoading={isLoading}
     >
       {isLoading && <LoadingPage height="screen" width="screen" />}
 
       <SlateBackground 
-      additionalStyles={"w-4/5 h-4/5 relative flex-col-center gap-10  rounded-lg"}
+      additionalStyles={"w-4/5  max-sm:w-10/12 max-sm-h:3/4  h-4/5 relative flex-col-center  rounded-lg  " }
       >
         {/* back arrow */}
         <div
           onClick={() => navigate("/signin")}
-          className=" absolute top-20 left-20 bg-white p-3 border-2 border-purple-400 rounded-full hover:shadow-md "
+          className=" absolute top-20 left-20 bg-white p-3 border-2 border-purple-400 rounded-full hover:shadow-md max-sm:top-7 max-sm:left-7 max-sm:p-1"
         >
           <IoMdArrowBack size={20} />
         </div>
 
         <form
-          action=""
           onSubmit={handleSubmit(loginStudent)}
           noValidate
-          className="flex flex-col px-14 py-5 gap-5 w-2/5 h-11/12 "
+          className="h-full w-full flex-center"
         >
-          <h1 className="text-3xl text-center font-medium mb-10">
+        <WhiteBackground 
+        additionalStyles={"flex flex-col   gap-5 w-1/3 max-tablet:w-1/2   max-sm:w-10/12 max-sm:px-4 max-sm:py-8 max-sm:h-10/12 px-10 py-10"}
+        >
+
+
+          {/* heading */}
+          <h1 className="text-[1.8vw] text-center font-medium mb-[1vw] max-sm:text-[5vw]">
             Student Login Form
           </h1>
-          <div>
-            <div className="flex flex-col gap-8">
+
+          {/* Input fields */}
+          <div className="flex flex-col gap-[1vw]  ">
               <InputField
                 placeholder="Enter your Email Address"
                 label="E-Mail"
+                labelClass={"text-[1vw]  max-tablet:text-[1.5vw] max-sm:text-[3.6vw]"}
                 labelName="emailID"
+                inputFieldStyle={"w-full h-12 max-sm:h-10 max-sm:text-xs"}
+                errorMessageStyle={"max-sm:text-xs h-6 text-[1vw]"}
                 validationObj={{
                   ...register("emailID", {
                     required: {
@@ -103,6 +117,10 @@ const LoginStudent = () => {
                   placeholder="Enter your Password"
                   label="Password"
                   labelName="password"
+                  labelClass={"text-[1vw] max-tablet:text-[1.5vw] max-sm:text-[3.6vw]"}
+                  errorMessageStyle={"max-sm:text-xs h-6 text-[1vw]"}
+                  inputFieldStyle={"w-full h-12 max-sm:h-10 max-sm:text-xs"}
+
                   validationObj={{
                     ...register("password", {
                       required: {
@@ -114,19 +132,20 @@ const LoginStudent = () => {
                   error={errors.password?.message}
                 />
               </div>
-            </div>
+        
+
           </div>
 
           <div className="flex flex-col gap-2">
-            <p className="text-blue-800 font-semibold">Forgot Password </p>
+            <p className="text-blue-800 font-semibold text-[1vw] max-tablet:text-[1.5vw] max-sm:text-[3.6vw]">Forgot Password </p>
 
             <button
               type="submit"
-              className="border-2 bg-blue-400 border-black w-full text-xl p-3 pt-1 pb-1 mt-1 rounded-lg"
+              className="border-1 font-medium bg-blue-500 text-white border-black w-full text-xl text-[1.5vw] max-sm:text-[3.6vw] flex-center py-1 mt-1 rounded-lg"
             >
               Submit
             </button>
-            <p className=" font-semibold">
+            <p className=" font-semibold text-[1vw] max-tablet:text-[1.5vw] max-sm:text-[3.6vw]">
               Don't have an account?
               <span
                 onClick={() => navigate("/signup/student")}
@@ -136,9 +155,12 @@ const LoginStudent = () => {
               </span>
             </p>
           </div>
+        </WhiteBackground>
         </form>
+
       </SlateBackground>
     </PurpleBackground>
+    </>
   );
 };
 

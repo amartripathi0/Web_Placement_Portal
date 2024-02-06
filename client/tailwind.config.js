@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens : {
+        tablet : "768px"
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
