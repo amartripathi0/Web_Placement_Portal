@@ -17,6 +17,9 @@ html , body{
     .flex-center {
         @apply flex justify-center items-center
     }
+    .flex-col-center {
+        @apply flex flex-col justify-center items-center
+    }
 
     .flex-btwn-center{
         @apply flex justify-between items-center

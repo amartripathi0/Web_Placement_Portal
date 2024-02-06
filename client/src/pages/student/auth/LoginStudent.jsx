@@ -10,6 +10,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SET_GLOBAL } from "../../../redux/features/common/globalSlice";
 import { IoMdArrowBack } from "react-icons/io";
+import PurpleBackground from "../../../components/containers/PurpleBackground";
+import SlateBackground from "../../../components/containers/SlateBackground";
 
 const LoginStudent = () => {
   const form = useForm();
@@ -51,14 +53,15 @@ const LoginStudent = () => {
   }, [isLoggedIn, isSuccess, isError, navigate]);
 
   return (
-    <div
-      className={`h-screen w-screen bg-purple-100  flex justify-center items-center ${
-        isLoading && " opacity-70 bg-gray-400"
-      }`}
+    <PurpleBackground
+    isLoading={isLoading}
     >
       {isLoading && <LoadingPage height="screen" width="screen" />}
 
-      <div className="bg-slate-100  w-[80%] h-[80%] rounded-lg shadow-slate-300 shadow-md relative flex flex-col gap-10 justify-center items-center">
+      <SlateBackground 
+      additionalStyles={"w-4/5 h-4/5 relative flex-col-center gap-10  rounded-lg"}
+      >
+        {/* back arrow */}
         <div
           onClick={() => navigate("/signin")}
           className=" absolute top-20 left-20 bg-white p-3 border-2 border-purple-400 rounded-full hover:shadow-md "
@@ -70,7 +73,7 @@ const LoginStudent = () => {
           action=""
           onSubmit={handleSubmit(loginStudent)}
           noValidate
-          className="flex flex-col px-14 py-20 gap-5 bg-white rounded-md shadow-grey-300 shadow-md"
+          className="flex flex-col px-14 py-5 gap-5 w-2/5 h-11/12 "
         >
           <h1 className="text-3xl text-center font-medium mb-10">
             Student Login Form
@@ -134,8 +137,8 @@ const LoginStudent = () => {
             </p>
           </div>
         </form>
-      </div>
-    </div>
+      </SlateBackground>
+    </PurpleBackground>
   );
 };
 

@@ -10,7 +10,7 @@ const InputField = ({
       placeholder={placeholder}
       name = {name}
       onChange={onChange}
-      className={`${inputFieldStyle ? inputFieldStyle:  "h-12 w-96"} border-black border-2 font-semibold rounded-md pl-3 `}
+      className={`${inputFieldStyle ? inputFieldStyle:  "h-12 w-11/12"} border-black border-2 font-semibold rounded-md pl-3 `}
       {...validationObj}
      
       />

@@ -12,7 +12,14 @@ function App() {
   return (
     <div className=' h-screen w-screen '>
       <ToastContainer
-      style={{top:"5%"}}
+      bodyClassName={'text-[1vw] max-sm:text-sm'}     
+      autoClose = {5000}
+      style={{top:"9%" , 
+     
+      
+      }
+      
+    }
       />
       <Provider store={store}>
 
