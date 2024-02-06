@@ -73,7 +73,7 @@ function Navbar() {
                 </NavLink>)
               :
                
-                pathname === '/' &&
+              ! ( pathname.startsWith('/signin') ||  pathname.startsWith('/signin')  ) && 
                 <div className="flex-center gap-3">
                   <NavLink to="/signin">
                     <Button

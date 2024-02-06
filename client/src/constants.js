@@ -58,3 +58,11 @@ export const authCardDetails = {
     },
   ],
 };
+
+export const signupFormComponents = {
+  firstName : {
+    placeholder : "Enter your first name" ,
+    label : "First Name"
+    
+  }
+}

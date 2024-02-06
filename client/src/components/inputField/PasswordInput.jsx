@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import {AiFillEyeInvisible , AiFillEye} from 'react-icons/ai'
 
-const PasswordInput = ({ type , placeholder ,inputFieldStyle,errorMessageStyle ,labelClass, xtraStyle , handlePassChange,labelName , label ,ref, validationObj , error}) => {
+const PasswordInput = ({ type , placeholder ,inputFieldStyle,errorMessageStyle ,labelClass, inputFieldContainerStyles , handlePassChange,labelName , label ,ref, validationObj , error}) => {
 
     const [showPass , setShowPass] = useState(false)
     function togglePassHide(){
             setShowPass(prev => !prev)
     }
   return (
-    <div className={`${xtraStyle} flex flex-col gap-1 `}>
+    <div className={`${inputFieldContainerStyles} flex flex-col gap-1 `}>
     <label htmlFor= {labelName} className={`${labelClass} text-md font-medium ml-2`}>{label}</label>
   
     <div className= {` ${inputFieldStyle ? inputFieldStyle:  "h-12 w-full"} border-black border-2  text-md rounded-md  flex justify-between items-center`}>

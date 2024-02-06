@@ -8,7 +8,6 @@ import WhiteBackground from './containers/WhiteBackground'
 import InputField from './inputField/InputField'
 import PasswordInput from './inputField/PasswordInput'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 
 const CommonLoginForm = ({onLoginFormSubmitHandler , isLoading , userType , loginFormHeading} ) => {
@@ -31,7 +30,7 @@ const CommonLoginForm = ({onLoginFormSubmitHandler , isLoading , userType , logi
       {isLoading && <LoadingPage height="screen" width="screen" />}
 
       <SlateBackground
-      additionalStyles={"w-4/5  max-sm:w-10/12 max-sm-h:3/4  h-4/5 relative flex-col-center  rounded-lg  " }
+      additionalStyles={"w-4/5  max-sm:w-10/12 max-sm-h:3/4  h-10/12 relative flex-col-center  rounded-lg py-20  " }
       >
         {/* back arrow */}
         <div
@@ -61,7 +60,7 @@ const CommonLoginForm = ({onLoginFormSubmitHandler , isLoading , userType , logi
               <InputField
                 placeholder="Enter your Email Address"
                 label="E-Mail"
-                labelClass={"text-[1vw]  max-tablet:text-[1.5vw] max-sm:text-[3.6vw]"}
+                labelClass={"text-[1vw]  max-tablet:text-[1.5vw] max-sm:text-[3.6vw] "}
                 labelName="emailID"
                 inputFieldStyle={"w-full h-12 max-sm:h-10 max-sm:text-xs"}
                 errorMessageStyle={"max-sm:text-xs h-6 text-[1vw]"}
