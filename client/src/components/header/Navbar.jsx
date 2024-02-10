@@ -49,7 +49,7 @@ function Navbar() {
         <div className="flex gap-3 font-semibold  relative ">
           {!mobileMenuOpen && (
             <div className="flex-center ">
-                {/* if pathname i signin show signup button */}
+                {/* if pathname is signin show signup button */}
               {pathname === "/signin"
                ? 
                 <NavLink to="/signup">
@@ -73,7 +73,7 @@ function Navbar() {
                 </NavLink>)
               :
                
-              ! ( pathname.startsWith('/signin') ||  pathname.startsWith('/signin')  ) && 
+               ( pathname.startsWith('/signin') ||  pathname.startsWith('/signup') || pathname.startsWith('/')  ) && 
                 <div className="flex-center gap-3">
                   <NavLink to="/signin">
                     <Button

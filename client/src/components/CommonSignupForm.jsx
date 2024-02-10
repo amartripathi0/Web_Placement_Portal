@@ -21,8 +21,7 @@ const CommonSignupForm = ({isLoading , onSignupFormSubmitHandler , signupHeading
       formState: { errors },
     } = form;
 
-    const navigate = useNavigate();
-
+    const navigate = useNavigate()
   return (
     <>
     <Navbar/>
@@ -38,6 +37,7 @@ const CommonSignupForm = ({isLoading , onSignupFormSubmitHandler , signupHeading
           {signupHeading}
         </WhiteBackground>
 
+      {/*Back Arrow  */}
         <div
           onClick={() => navigate("/signup")}
           className=" absolute top-[3.5vw] left-[6vw] max-tablet:p-2 max-sm:p-1 max-sm:top-12 max-sm:left-2 max-tablet:top-12 max-tablet:left-16 bg-white p-3 border-2 border-purple-400 rounded-full hover:shadow-md "

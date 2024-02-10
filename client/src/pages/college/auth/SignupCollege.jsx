@@ -42,7 +42,7 @@ const SignupCollege = () => {
     dispatch(RESET());
   }, [isSuccess, isLoggedIn]);
 
-  return (
+return (
     <CommonSignupForm 
     isLoading={isLoading}
     signupHeading={"College Signup"}
