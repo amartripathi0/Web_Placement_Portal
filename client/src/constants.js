@@ -83,5 +83,11 @@ export const studentSidebarItems = [
   {label : "Application Status" , icon : <GiProgression  className="h-5 w-5 max-tablet:w-8 max-tablet:h-8  max-sm:h-6 max-sm:w-6 " />},
   {label : "Reset Password" , icon : <MdLockReset  className="h-6 w-6 -ml-1 max-tablet:w-8 max-tablet:h-8  max-sm:h-6 max-sm:w-6 " />},
 ]
+export const collegeStaffSidebarItems = [
+  {label : "Profile" , icon : <FaRegUser className="h-5 w-5 max-tablet:w-8 max-tablet:h-8  max-sm:h-6 max-sm:w-6  " />},
+  {label : "Students" , icon : <LuGraduationCap  className="h-6 w-6 -ml-1 max-tablet:w-8 max-tablet:h-8  max-sm:h-6 max-sm:w-6  "  />},
+  {label : "Companies" , icon : <IoNewspaperOutline  className="h-5 w-5 max-tablet:w-8 max-tablet:h-8  max-sm:h-6 max-sm:w-6 " />},
+  {label : "Reset Password" , icon : <MdLockReset  className="h-6 w-6 -ml-1 max-tablet:w-8 max-tablet:h-8  max-sm:h-6 max-sm:w-6 " />},
+]
 
 export const userPlaceholderImage = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI='

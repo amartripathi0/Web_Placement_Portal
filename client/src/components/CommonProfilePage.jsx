@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PurpleBackground from "./containers/PurpleBackground";
 import LoadingPage from "../pages/LoadingPage";
 import SlateBackground from "./containers/SlateBackground";
@@ -13,6 +13,7 @@ import {
   lastNameValidation,
   mothersNameValidation,
   phoneValidation,
+  staffIdValidation,
 } from "../utils/formValidation";
 import Button from "./buttons/Button";
 import { useForm } from "react-hook-form";
@@ -22,9 +23,9 @@ import { useDispatch } from "react-redux";
 
 const CommonProfilePage = ({
   isLoading,
-  handleProfileUpdateForm,
   userAccountStatus,
   userProfilePicture,
+  updateProfileDetail,
   firstName,
   lastName,
   fathersName,
@@ -34,6 +35,8 @@ const CommonProfilePage = ({
   isLoggedIn,
   isSuccess,
   uploadProfilePicture,
+  userType,
+  staffID
 }) => {
   const form = useForm();
   const {
@@ -44,14 +47,20 @@ const CommonProfilePage = ({
   } = form;
   const dispatch = useDispatch();
 
-  if (isLoggedIn && isSuccess) {
-    setValue("firstName", firstName);
-    setValue("lastName", lastName);
-    setValue("fathersName", fathersName);
-    setValue("mothersName", mothersName);
-    setValue("emailID", emailID);
-    setValue("phone", phone);
-  }
+  
+
+  useEffect(() => {
+    if (isLoggedIn && isSuccess) {
+        setValue("firstName", firstName);
+        setValue("lastName", lastName);
+        setValue("fathersName", fathersName);
+        setValue("mothersName", mothersName);
+        setValue("emailID", emailID);
+        setValue("phone", phone);
+        setValue("staffID", staffID);
+    
+      }
+  }, [isSuccess]);
 
   const [profilePicture, setProfilePicture] = useState("");
   function handleImageChange(e) {
@@ -77,6 +86,13 @@ const CommonProfilePage = ({
     }
   }
 
+  function handleProfileUpdateForm(data) {
+    const obj = { typ: "personalDetail", value: data };
+    dispatch(updateProfileDetail(obj));
+    toast.success("Details Updated Succesfully", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  }
   return (
     <PurpleBackground
       additionalStyles={`h-full w-full  px-[2vw]  pt-20 max-tablet:p-[3vw] max-tablet:mt-16 max-sm:mt-16
@@ -106,12 +122,12 @@ const CommonProfilePage = ({
               <AccountStatus role={userAccountStatus} />
             </div>
 
-            <div className=" relative z-10   aspect-square w-5/6 rounded-full flex items-center justify-center hover:bg-slate-100 hover:shadow-lg hover:shadow-purple-200">
+            <div className=" relative z-10  p-2 aspect-square w-5/6 rounded-full flex items-center justify-center hover:bg-slate-100 hover:shadow-lg hover:shadow-purple-200">
               <img
                 src={
                   userProfilePicture ? userProfilePicture : userPlaceholderImage
                 }
-                className="h-full w-full rounded-full object-cover hover:opacity-60"
+                className="h-full w-full rounded-full  object-center hover:opacity-60"
                 alt=""
               />
 
@@ -155,7 +171,7 @@ const CommonProfilePage = ({
             </div>
           </WhiteBackground>
 
-                {/* Right side : User profile details */}
+          {/* Right side : User profile details */}
           <WhiteBackground additionalStyles=" flex flex-col justify-between items-center gap-2  max-sm:gap-8 h-full p-[2vw] py-8  w-1/2   max-tablet:w-11/12">
             <FormField>
               <h2 className="text-[1vw] max-tablet:text-base max-sm:text-sm mt-[0.3vw]">
@@ -191,39 +207,43 @@ const CommonProfilePage = ({
               />
             </FormField>
 
-            <FormField>
-              <h2 className="text-[1vw] max-tablet:text-base max-sm:text-sm mt-[0.3vw]">
-                Father's Name
-              </h2>
-              <InputWithEdit
-                type="text"
-                placeholder="Father's Name"
-                inputFieldContainerStyles={"sm:w-3/5"}
-                inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-sm"}
-                errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
-                validationObj={{
-                  ...register("fathersName", fathersNameValidation),
-                }}
-                error={errors.fathersName?.message}
-              />
-            </FormField>
+            {userType === "student" && (
+              <>
+                <FormField>
+                  <h2 className="text-[1vw] max-tablet:text-base max-sm:text-sm mt-[0.3vw]">
+                    Father's Name
+                  </h2>
+                  <InputWithEdit
+                    type="text"
+                    placeholder="Father's Name"
+                    inputFieldContainerStyles={"sm:w-3/5"}
+                    inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-sm"}
+                    errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
+                    validationObj={{
+                      ...register("fathersName", fathersNameValidation),
+                    }}
+                    error={errors.fathersName?.message}
+                  />
+                </FormField>
 
-            <FormField>
-              <h2 className="text-[1vw] max-tablet:text-base max-sm:text-sm mt-[0.3vw]">
-                Mother's Name
-              </h2>
-              <InputWithEdit
-                type="text"
-                inputFieldContainerStyles={"sm:w-3/5"}
-                inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-sm"}
-                errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
-                placeholder="Mother's Name"
-                validationObj={{
-                  ...register("mothersName", mothersNameValidation),
-                }}
-                error={errors.mothersName?.message}
-              />
-            </FormField>
+                <FormField>
+                  <h2 className="text-[1vw] max-tablet:text-base max-sm:text-sm mt-[0.3vw]">
+                    Mother's Name
+                  </h2>
+                  <InputWithEdit
+                    type="text"
+                    inputFieldContainerStyles={"sm:w-3/5"}
+                    inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-sm"}
+                    errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
+                    placeholder="Mother's Name"
+                    validationObj={{
+                      ...register("mothersName", mothersNameValidation),
+                    }}
+                    error={errors.mothersName?.message}
+                  />
+                </FormField>
+              </>
+            )}
 
             <FormField>
               <h2 className="text-[1vw] max-tablet:text-base max-sm:text-sm  mt-[0.3vw]">
@@ -241,6 +261,26 @@ const CommonProfilePage = ({
                 error={errors.emailID?.message}
               />
             </FormField>
+
+            {(userType === "college-staff" || userType === "company") && (
+              <FormField>
+                <h2 className="text-[1vw] max-tablet:text-base max-sm:text-sm  mt-[0.3vw]">
+                  Staff-ID
+                </h2>
+
+                <InputWithEdit
+                  type="number"
+                  placeholder="Staff-ID"
+                  inputFieldContainerStyles={"sm:w-3/5  "}
+                  inputFieldStyle={" h-1/2 max-sm:text-sm"}
+                  errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
+                  validationObj={{
+                    ...register("staffID", staffIdValidation),
+                  }}
+                  error={errors.staffID?.message}
+                />
+              </FormField>
+            )}
 
             <FormField>
               <h2 className="text-[1vw] max-tablet:text-base max-sm:text-sm mt-[0.3vw]">

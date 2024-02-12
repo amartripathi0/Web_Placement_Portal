@@ -36,8 +36,8 @@ import Project from "./pages/student/dashboard/pageContents/Project";
 import ApplicationStatus from "./pages/student/dashboard/pageContents/ApplicationStatus";
 import ResetPassword from "./pages/student/dashboard/pageContents/ResetPassword";
 import CollegeDashboard from "./pages/college/dashboard/CollegeDashboard";
-import ProfileCollege from "./pages/college/dashboard/pageContents/ProfileCollege";
-import StudentDetailToClg from "./pages/college/dashboard/pageContents/StudentDetailToClg";
+import CollegeStaffProfile from "./pages/college/dashboard/pageContents/CollegeStaffProfile";
+ import StudentDetailToClg from "./pages/college/dashboard/pageContents/StudentDetailToClg";
 import StudentsToCollege from "./pages/college/dashboard/pageContents/StudentsToCollege";
 import CompaniesToCollege from "./pages/college/dashboard/pageContents/CompaniesToCollege";
 import CompanyToCollege from "./pages/college/dashboard/pageContents/CompanyToCollege";
@@ -90,7 +90,7 @@ const router = createBrowserRouter(
       </Route>
 
       <Route path="/college-staff" element={<CollegeDashboard />}>
-        <Route path="/college-staff/profile" element={<ProfileCollege />} />
+        <Route path="/college-staff/profile" element={<CollegeStaffProfile />} />
         <Route path="/college-staff/students" element={<StudentsToCollege />} />
         <Route path="/college-staff/studentDetails/:id" element={<StudentDetailToClg />}/>
         <Route path="/college-staff/companies" element={<CompaniesToCollege />}/>

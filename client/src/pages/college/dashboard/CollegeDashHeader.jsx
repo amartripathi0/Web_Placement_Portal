@@ -7,7 +7,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { RESET_GLOBAL } from '../../../redux/features/common/globalSlice';
 import { RESET, collegeStaffSignOut } from '../../../redux/features/college/auth/authSlice';
-export const CollegeDashHeader = () => {
+import NavbarDashboard from '../../../components/header/NavbarDashboard';
+export const CollegeDashHeader = ({sidemenuExpanded}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     
@@ -26,20 +27,16 @@ export const CollegeDashHeader = () => {
     }
 
   return (
-     <div className={`h-20 justify-between  border-slate-800 border-b-2 
-    flex items-center px-10 z-40 bg-slate-50 ${isLoading && " opacity-50 "}`} >
-
-      <div className='h-full  flex items-center gap-4'>
-        <h1 className='text-2xl font-medium hover:underline hover:font-semibold'>{collegeStaff?.personalDetail?.firstName + " "+  collegeStaff?.personalDetail?.lastName }</h1>
-      </div>
-
-      <h1 className='text-3xl font-medium'>College Staff Dashboard</h1>
-
-      <div className='flex items-center gap-5 h-full '>
-      <FaBell size={20}/>
-      
-      <button onClick={handleCollegeStaffSignout} className='w-30 font-semibold text-white bg-pink-500 hover:bg-pink-600 p-3 pl-6 pr-6 rounded-lg flex items-center justify-center'>Sign Out</button>
-      </div>
-    </div>
+    <NavbarDashboard
+    isLoading={isLoading}
+    userName={collegeStaff?.personalDetail?.firstName + " "+  collegeStaff?.personalDetail?.lastName}
+    heading={"College Staff Dashboard"}
+    navbarButtonHandler={handleCollegeStaffSignout}
+    notficationCount={collegeStaff?.notifications.length}
+    notficationFrom={collegeStaff?.notifications.from}
+    notficationTitle={collegeStaff?.notifications.title}
+    notificationBody={collegeStaff?.notifications.body}
+    sidemenuExpanded = {sidemenuExpanded}
+    />
   )
 }

@@ -22,6 +22,7 @@ import {
   RESET_COLLEGE_UTIL,
   getCollegeStaffData,
 } from "../../../redux/features/college/utilServices/collegeUtilSlice";
+import { collegeStaffSidebarItems } from "../../../constants";
 
 const CollegeDashboard = () => {
   const dispatch = useDispatch();
@@ -109,40 +110,26 @@ const CollegeDashboard = () => {
         >
           {isLoading && <LoadingPage height="screen" width="screen" />}
 
-          <div>
-            <Sidemenu
+          <Sidemenu
               sidemenuState={sidemenuState}
               emailID={collegeStaff?.personalDetail.emailID}
               firstName={collegeStaff?.personalDetail.firstName}
               lastName={collegeStaff?.personalDetail.lastName}
               profileImgLink={collegeStaff?.personalDetail.profilePicture}
             >
-              <SidebarItem icon={<FaRegUser />} text="Profile" active />
-              <SidebarItem
-                icon={<LuGraduationCap size={16} />}
-                text="Students"
-                active
-              />
-
-              <SidebarItem icon={<FaRegUser />} text="Companies" active />
-              <SidebarItem
-                icon={<MdAutoGraph />}
-                text="Company Details"
-                active
-              />
-
-              <SidebarItem icon={<FaRegClock />} text="Reset Password" active />
+              {collegeStaffSidebarItems.map(item => 
+                 (
+                  <SidebarItem key={item.label} text={item.label} icon={item.icon} active  />
+                ))}
             </Sidemenu>
-          </div>
 
           <div
-            className={`flex flex-col  ${
-              sidemenuExpanded ? "w-[85%]" : "w-[97%]"
-            } absolute right-0 top-0 h-screen`}
+             className={`flex flex-col  absolute  overflow-x-hidden right-0 top-0 min-h-screen 
+             max-tablet:w-[92%] max-sm:w-[84%] 
+            ${sidemenuExpanded ? "w-[85%]" : "w-[95%] "} `}
           >
-            {/* <StudentSidemenu/> */}
             <apiContext.Provider value={{ apiURL, setAPIURL }}>
-              <CollegeDashHeader />
+              <CollegeDashHeader  sidemenuExpanded = {sidemenuExpanded}/>
               <Outlet />
             </apiContext.Provider>
           </div>

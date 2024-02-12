@@ -18,13 +18,7 @@ const StudentProfile = () => {
   const dispatch = useDispatch();
   const studentUtil = useSelector((state) => state.studentUtils);
 
-  function handleProfileUpdateForm(data) {
-    const obj = { typ: "personalDetail", value: data };
-    dispatch(updateProfileDetail(obj));
-    toast.success("Details Updated Succesfully", {
-      position: toast.POSITION.TOP_RIGHT,
-    });
-  }
+
   useEffect(() => {
     if (globalAuth.isLoggedin) {
       dispatch(getUserData());
@@ -44,16 +38,17 @@ const StudentProfile = () => {
       isLoading={isLoading}
       isLoggedIn={isLoggedIn}
       isSuccess={isSuccess}
-      handleProfileUpdateForm={handleProfileUpdateForm}
       userAccountStatus={student?.role}
       userProfilePicture={student?.personalDetail.profilePicture}
       uploadProfilePicture={uploadProfilePicture}
+      updateProfileDetail = {updateProfileDetail}
       firstName={student?.personalDetail.firstName}
       lastName={student?.personalDetail.lastName}
       fathersName={student?.personalDetail.fathersName}
       mothersName={student?.personalDetail.mothersName}
       emailID={student?.personalDetail.emailID}
       phone={student?.personalDetail.phone}
+      userType={"student"}
     />
   );
 };
