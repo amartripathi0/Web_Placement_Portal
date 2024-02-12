@@ -44,7 +44,7 @@ import CompanyToCollege from "./pages/college/dashboard/pageContents/CompanyToCo
 import ResetPasswordClg from "./pages/college/dashboard/pageContents/ResetPasswordClg";
 
 import CompanyDashboard from './pages/company/dashboard/CompanyDashboard'
-import ProfileCompany from './pages/company/dashboard/pageContents/ProfileCompany'
+import CompanyProfile from "./pages/company/dashboard/pageContents/Company.Profile";
 import  PostJobs from './pages/company/dashboard/pageContents/JobPosts'
 import ApplicantsDetails from './pages/company/dashboard/pageContents/ApplicantsDetails'
 import JobApplicants from './pages/company/dashboard/pageContents/JobApplicants'
@@ -99,7 +99,7 @@ const router = createBrowserRouter(
       </Route>
 
        <Route path="/company" element={<CompanyDashboard />}>
-        <Route path="/company/profile" element={<ProfileCompany/>} />
+        <Route path="/company/profile" element={<CompanyProfile/>} />
         <Route path="/company/students" element={<StudentsToCompamy />} />
         <Route path="/company/studentDetails/:id" element={<StudentDetailToCompany/>}/>
        <Route path="/company/jobposts" element={<JobPosts/>}/>

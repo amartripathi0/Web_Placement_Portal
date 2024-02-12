@@ -1,13 +1,7 @@
 import { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Sidemenu, { SidebarItem } from "../../../components/sidemenu/Sidemenu";
-import { FaRegUser } from "react-icons/fa";
-import { LuGraduationCap } from "react-icons/lu";
-import { IoNewspaperOutline } from "react-icons/io5";
-import { FaRegClock } from "react-icons/fa";
-import { GiDirectorChair } from "react-icons/gi";
 import LoadingPage from "../../LoadingPage";
-import { MdAutoGraph } from "react-icons/md";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { createContext } from "react";
@@ -91,11 +85,9 @@ const CollegeDashboard = () => {
 
   function sidemenuState(val) {
     setSidemenuExpanded(!val);
-    // console.log(sidemenuExpanded);
   }
 
   const [apiURL, setAPIURL] = useState("");
-  // console.log("render");
   return (
     <div>
       {collegeStaff?.role && collegeStaff.role === "Suspended" ? (
