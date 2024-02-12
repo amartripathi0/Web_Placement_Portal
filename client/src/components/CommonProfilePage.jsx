@@ -163,7 +163,7 @@ const CommonProfilePage = ({
               </h2>
               <InputWithEdit
                 inputFieldContainerStyles={"sm:w-3/5  "}
-                inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-xs"}
+                inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-sm"}
                 errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
                 type="text"
                 placeholder="firstName"
@@ -180,7 +180,7 @@ const CommonProfilePage = ({
               </h2>
               <InputWithEdit
                 inputFieldContainerStyles={"sm:w-3/5 "}
-                inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-xs"}
+                inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-sm"}
                 errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
                 type="text"
                 placeholder="Last Name"
@@ -199,7 +199,7 @@ const CommonProfilePage = ({
                 type="text"
                 placeholder="Father's Name"
                 inputFieldContainerStyles={"sm:w-3/5"}
-                inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-xs"}
+                inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-sm"}
                 errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
                 validationObj={{
                   ...register("fathersName", fathersNameValidation),
@@ -215,7 +215,7 @@ const CommonProfilePage = ({
               <InputWithEdit
                 type="text"
                 inputFieldContainerStyles={"sm:w-3/5"}
-                inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-xs"}
+                inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-sm"}
                 errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
                 placeholder="Mother's Name"
                 validationObj={{
@@ -232,7 +232,7 @@ const CommonProfilePage = ({
               <InputWithEdit
                 type="email"
                 inputFieldContainerStyles={"sm:w-3/5  "}
-                inputFieldStyle={" h-1/2 max-sm:text-xs"}
+                inputFieldStyle={" h-1/2 max-sm:text-sm"}
                 errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
                 placeholder="Email Address"
                 validationObj={{
@@ -250,7 +250,7 @@ const CommonProfilePage = ({
                 type="number"
                 placeholder="Phone Number"
                 inputFieldContainerStyles={"sm:w-3/5"}
-                inputFieldStyle={" h-1/2 max-sm:text-xs"}
+                inputFieldStyle={" h-1/2 max-sm:text-sm"}
                 errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
                 validationObj={{
                   ...register("phone", phoneValidation),
