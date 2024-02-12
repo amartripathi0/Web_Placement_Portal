@@ -2,14 +2,7 @@ import { useState, useEffect } from "react";
 import StudentDashboardHeader from "./StudentDashboardHeader";
 import { Outlet, useNavigate } from "react-router-dom";
 import Sidemenu, { SidebarItem } from "../../../components/sidemenu/Sidemenu";
-import { FaRegUser } from "react-icons/fa";
-import { LuGraduationCap } from "react-icons/lu";
-import { IoNewspaperOutline } from "react-icons/io5";
-import { FaRegClock } from "react-icons/fa";
-import { GiDirectorChair } from "react-icons/gi";
 import LoadingPage from "../../LoadingPage";
-import { MdAutoGraph } from "react-icons/md";
-
 import { useDispatch, useSelector } from "react-redux";
 import {
   RESET_GLOBAL,
@@ -22,6 +15,7 @@ import {
 } from "../../../redux/features/student/auth/authSlice";
 
 import { toast } from "react-toastify";
+import {  studentSidebarItems } from "../../../constants";
 
 function StudentDashboard() {
   const { isLoading, isError, isSuccess, isLoggedIn, message, student } =
@@ -40,21 +34,21 @@ function StudentDashboard() {
     // dispatch(RESET_GLOBAL())
   }, []);
 
-  useEffect(() => {
-    //  console.log("loggedin " , isLoggedin ,"load" , globalAuth.isLoading , "success" , globalAuth.isSuccess);
-    if (isLoggedin && globalAuth.isSuccess) {
-      dispatch(getUserData());
-    } else if (
-      !isLoggedIn &&
-      globalAuth.isSuccess &&
-      globalAuth.userType !== "student"
-    ) {
-      toast.info("Signed Out successfully", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      navigate("/signin");
-    }
-  }, [isLoggedin, globalAuth.isSuccess, globalAuth.userType]);
+  // useEffect(() => {
+  //   //  console.log("loggedin " , isLoggedin ,"load" , globalAuth.isLoading , "success" , globalAuth.isSuccess);
+  //   if (isLoggedin && globalAuth.isSuccess) {
+  //     dispatch(getUserData());
+  //   } else if (
+  //     !isLoggedIn &&
+  //     globalAuth.isSuccess &&
+  //     globalAuth.userType !== "student"
+  //   ) {
+  //     toast.info("Signed Out successfully", {
+  //       position: toast.POSITION.TOP_RIGHT,
+  //     });
+  //     navigate("/signin");
+  //   }
+  // }, [isLoggedin, globalAuth.isSuccess, globalAuth.userType]);
 
   useEffect(() => {
     if (isLoggedIn && isSuccess && isLoggedin && student.role !== "Suspended") {
@@ -72,11 +66,9 @@ function StudentDashboard() {
     }
   }, [isLoggedIn]);
 
-  const [sidemenuExpanded, setsDdemenuExpanded] = useState(true);
-
+  const [sidemenuExpanded, setSidemenuExpanded] = useState(true);
   function sidemenuState(val) {
-    setsDdemenuExpanded(!val);
-    // console.log(sidemenuExpanded);
+    setSidemenuExpanded(!val);
   }
   return (
     <div>
@@ -86,13 +78,12 @@ function StudentDashboard() {
         </div>
       ) : (
         <div
-          className={`relative flex w-screen h-screen z-10 ${
+          className={`relative flex w-screen h-screen  ${
             isLoading && " blur-sm -z-10 "
           }`}
         >
           {isLoading && <LoadingPage height="screen" width="screen" />}
 
-          <div>
             <Sidemenu
               sidemenuState={sidemenuState}
               emailID={student?.personalDetail.emailID}
@@ -100,37 +91,19 @@ function StudentDashboard() {
               lastName={student?.personalDetail.lastName}
               profileImgLink={student?.personalDetail.profilePicture}
             >
-              <SidebarItem icon={<FaRegUser />} text="Profile" active />
-              <SidebarItem
-                icon={<LuGraduationCap size={16} />}
-                text="Academic Details"
-                active
-              />
-              <SidebarItem icon={<IoNewspaperOutline />} text="Resume" active />
-              <SidebarItem
-                icon={<GiDirectorChair />}
-                text="Previous Internships"
-                active
-              />
-              <SidebarItem icon={<MdAutoGraph />} text="Projects" active />
-              <SidebarItem icon={<MdAutoGraph />} text="Job Vacancies" active />
-              <SidebarItem icon={<FaRegClock />} text="Interview" active />
-              <SidebarItem
-                icon={<FaRegClock />}
-                text="Application Status"
-                active
-              />
-              <SidebarItem icon={<FaRegClock />} text="Reset Password" active />
+              {studentSidebarItems.map(item => 
+                 (
+                  <SidebarItem key={item.label} text={item.label} icon={item.icon} active  />
+                ))}
             </Sidemenu>
-          </div>
 
+           {/* sidemenuExpanded ? "w-[85%]" : "w-[97%]" */}
           <div
-            className={`flex flex-col  ${
-              sidemenuExpanded ? "w-[85%]" : "w-[97%]"
-            } absolute right-0 top-0 h-screen`}
+            className={`flex flex-col  absolute  overflow-x-hidden right-0 top-0 min-h-screen 
+             max-tablet:w-[92%] max-sm:w-[84%] 
+            ${sidemenuExpanded ? "w-[85%]" : "w-[95%] "} `}
           >
-            {/* <StudentSidemenu/> */}
-            <StudentDashboardHeader />
+            <StudentDashboardHeader sidemenuExpanded={sidemenuExpanded}/>
             <Outlet />
           </div>
         </div>

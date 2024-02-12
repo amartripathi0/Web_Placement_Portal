@@ -12,6 +12,18 @@ export const firstNameValidation = {
       message: "Please enter your last name.",
     },
   };
+  export const fathersNameValidation = {
+    required: {
+      value: true,
+      message: "Please enter your father's name.",
+    },
+  };
+  export const mothersNameValidation = {
+    required: {
+      value: true,
+      message: "Please enter your mother's name.",
+    },
+  };
   
   export const emailValidation = {
     required: {

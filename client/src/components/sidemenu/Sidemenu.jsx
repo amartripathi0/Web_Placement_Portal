@@ -1,63 +1,66 @@
 import { useState, useContext,useEffect, createContext } from "react";
-import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
+import {  ChevronLast, ChevronFirst } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { userPlaceholderImage } from "../../constants";
 
 const SidebarContext = createContext();
-//coped web code
 const Sidemenu = ({ children , emailID , firstName , lastName, profileImgLink , sidemenuState}) => {
   // console.log(profileImgLink);
   const [expanded, setExpanded] = useState(true);
 
   return (
-    <aside className={`h-full fixed top-0 left-0 bg-red-400 ${expanded ? "w-[15%]" : "w-20 gap-10"} `}>
-      <nav className="h-full flex flex-col bg-white border-r shadow-sm">
-        <div className="p-4 pb-2 flex justify-between items-center">
-        <NavLink to="/dashboard">
-          <div   className={`overflow-hidden transition-all  rounded-md ${
-              expanded ? "w-20 h-20" : "w-0 h-20 opacity-0"
-            }`}>
+    <aside className={`h-full fixed top-0 left-0 z-40 max-tablet:w-[8%] max-sm:w-[16%] ${expanded ? "w-[15%]" : "w-[5%] gap-10"} `}>
+      <nav className="h-full flex flex-col max- bg-white border-r shadow-sm ">
+        <div className={` flex justify-between items-center   p-4 ${expanded ? "p-4" : "py-6 "}`}>
+        <NavLink to="/dashboard"
+        className={`overflow-hidden transition-all  rounded-md max-tablet:hidden ${
+          expanded ? "w-16 h-16" : " hidden "
+        }`}
+        >
           <img
-            src={profileImgLink ? profileImgLink : "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="}
+            src={profileImgLink ? profileImgLink : userPlaceholderImage}
             className={`overflow-hidden transition-ease  object-cover h-full w-full rounded-md ${
-              expanded ? "w-full" : "w-0  opacity-0"
+              expanded ? "w-full" : "w-0 hidden "
             }`}
        
             alt=""
           />
-          </div>
-          </NavLink>
+
+        </NavLink>
+
           <button
             onClick={() => {
               setExpanded((curr) => !curr)
               sidemenuState(expanded)
             }}
-            className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
+            className={` rounded-lg p-1.5 hover:bg-gray-100 ${expanded ?" " : ""  } max-tablet:hidden`}
           >
             {expanded ? <ChevronFirst /> : <ChevronLast />}
           </button>
+
         </div>
 
         <SidebarContext.Provider value={{ expanded }}>
-          <ul className="flex-1 px-3">{children}</ul>
+          <ul className="flex-1 px-3 max-tablet:mt-16 ">{children}</ul>
         </SidebarContext.Provider>
 
-        <div className="border-t flex p-3 ">
+        <div className="border-t flex p-3 max-sm:p-2 w-full ">
           <img
-            src={profileImgLink ? profileImgLink : "https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="}
+            src={profileImgLink ? profileImgLink : userPlaceholderImage}
             alt=""
-            className="w-12 h-12 rounded-md"
+            className="w-12 h-12 max-sm:full rounded-md"
           />
           <div
             className={`
-              flex justify-between items-center
+              flex-center
               overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}
           `}
           >
-            <div className="leading-4">
+            <div className="leading-4 max-tablet:hidden">
                 <h4 className="font-semibold">{`${firstName !== undefined ? firstName : "" } ${lastName !== undefined ? lastName : "" }`} </h4>
               <span className="text-xs text-gray-600">{emailID}</span>
             </div>
-            <MoreVertical size={20} />
+            {/* <MoreVertical size={20} /> */}
           </div>
         </div>
       </nav>
@@ -78,15 +81,20 @@ export function SidebarItem({ icon, text }) {
       to={link}
       className={({ isActive }) =>
         isActive
-          ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800 relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group "
-          : "hover:bg-indigo-50 text-gray-600  relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group"
+          ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800  relative flex items-center py-2 px-3 max-tablet:p-1  max-sm:my-1 max-sm:pl-1 max-sm:py-3  border-green-300 bprder my-1 font-medium rounded-md cursor-pointer transition-colors group "
+          : "hover:bg-indigo-50 text-gray-600  relative flex items-center py-2 px-3 max-tablet:p-1 max-sm:my-1 max-sm:pl-1 max-sm:py-3 my-1 font-medium rounded-md cursor-pointer transition-colors group"
       }
-     
     >
-
       {icon}
+
       <span
-        className={`overflow-hidden transition-all  ${
+        className={`overflow-hidden transition-all duration-100 max-tablet:h-6  
+
+        max-tablet:absolute max-tablet:left-full  max-tablet:rounded-md max-tablet:px-2 max-tablet:py-1 max-tablet:ml-6 
+            max-tablet:bg-indigo-200 max-tablet:text-indigo-800 max-tablet:text-sm
+            max-tablet:invisible max-tablet:opacity-20 max-tablet:-translate-x-3 max-tablet:transition-all
+            max-tablet:group-hover:visible max-tablet:group-hover:opacity-100 max-tablet:group-hover:translate-x-0
+            ${
           expanded ? "w-52 ml-3" : "w-0 h-6"
         }`}
       >
@@ -96,7 +104,9 @@ export function SidebarItem({ icon, text }) {
 
       {!expanded && (
         <div
-          className={`
+          className= 
+          
+          {`
             
             absolute left-full  rounded-md px-2 py-1 ml-6
             bg-indigo-200 text-indigo-800 text-sm

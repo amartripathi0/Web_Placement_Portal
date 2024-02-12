@@ -27,13 +27,13 @@ const CommonSignupForm = ({isLoading , onSignupFormSubmitHandler , signupHeading
     <Navbar/>
     <PurpleBackground
      isLoading={isLoading}
-     additionalStyles={"pt-20  max-sm:py-10 max-sm:pt-24 "}
+     additionalStyles={"pt-20 min-h-screen  max-sm:py-10 max-sm:pt-24 "}
     >
       {isLoading && <LoadingPage height="screen" width="screen" />}
 
       <SlateBackground additionalStyles=" relative w-4/5 flex-center   max-sm:w-11/12 flex-col gap-10 p-10 max-sm:py-10 max-sm:px-2">
       
-        <WhiteBackground additionalStyles="flex-center px-[2.5vw] py-[1.5vw]  text-[1.5vw] max-tablet:text-[2vw] max-sm:text-xl max-sm:p-4 font-medium">
+        <WhiteBackground additionalStyles="flex-center px-[2.5vw] py-[1.2vw]  text-[1.5vw] max-tablet:text-[2vw] max-sm:text-xl max-sm:p-4 font-medium">
           {signupHeading}
         </WhiteBackground>
 
