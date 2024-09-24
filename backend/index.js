@@ -85,7 +85,9 @@ app.get('/' , asyncHandler( async = ( req , res , next ) => {
     }
 }))
 
-
+app.get('/test', (req, res) => {
+    res.send('Test Route');
+});
 app.use('/student' , studentRouter)
 app.use('/college-staff' , staffRouter )
 app.use('/company',companyRouter)
