@@ -29,7 +29,7 @@ const dbURL=  `mongodb+srv://amartripathi:${DATABASE_PASS}@cluster0.2kwytrq.mong
 connectToMongoDB(dbURL)
 .then(() => {
     console.log("DB Connected") 
-    app.listen(PORT, ()=> console.log("server started at " , PORT))  
+    app.listen(PORT, ()=> console.log("server started at " , PORT || 4000))  
 })
 .catch(() => console.log("DB Connection Failed"))
 
