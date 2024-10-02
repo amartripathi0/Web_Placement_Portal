@@ -86,7 +86,7 @@ app.get('/' , asyncHandler( async = ( req , res , next ) => {
 }))
 
 app.get('/test', (req, res) => {
-    res.send('Healhy Server');
+    res.send('Healthy Server');
 });
 app.use('/student' , studentRouter)
 app.use('/college-staff' , staffRouter )
