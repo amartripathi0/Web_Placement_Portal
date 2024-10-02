@@ -1,7 +1,7 @@
 const express = require('express')
 require('dotenv').config()
 const connectToMongoDB = require('./connection')
-const PORT = process.env.SERVER_PORT
+const PORT = process.env.PORT
 const DATABASE_PASS = process.env.DATABASE_PASS
 const errorHandler  = require('./middlewares/errorHandlerMiddleware')
 const cors = require('cors')
@@ -29,7 +29,7 @@ const dbURL=  `mongodb+srv://amartripathi:${DATABASE_PASS}@cluster0.2kwytrq.mong
 connectToMongoDB(dbURL)
 .then(() => {
     console.log("DB Connected") 
-    app.listen(PORT, ()=> console.log("server started at " , PORT || 4000))  
+    app.listen(PORT, ()=> console.log("server started at " , PORT || 5000))  
 })
 .catch(() => console.log("DB Connection Failed"))
 
@@ -86,7 +86,7 @@ app.get('/' , asyncHandler( async = ( req , res , next ) => {
 }))
 
 app.get('/test', (req, res) => {
-    res.send('Test Route');
+    res.send('Healhy Server');
 });
 app.use('/student' , studentRouter)
 app.use('/college-staff' , staffRouter )
