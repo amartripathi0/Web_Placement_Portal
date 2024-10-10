@@ -1,4 +1,4 @@
-import { FaClockRotateLeft, FaFileSignature, FaRegClock, FaRegUser, FaUsers } from "react-icons/fa6";
+import { FaClockRotateLeft, FaFileSignature, FaGithub, FaGlobe, FaLinkedin, FaRegClock, FaRegUser, FaTwitter, FaUsers } from "react-icons/fa6";
 import logo from "../src/assets/logo.png";
 import { LuGraduationCap } from "react-icons/lu";
 import { IoNewspaperOutline } from "react-icons/io5";
@@ -98,3 +98,26 @@ export const companySidebarItems = [
 ]
 
 export const userPlaceholderImage = 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI='
+
+export const socialHandles= [
+  {
+    name: "My Portfolio",
+    icon: FaGlobe,
+    link: "https://amartripathi.vercel.app/",
+  },
+  {
+    name: "Github",
+    icon: FaGithub,
+    link: "https://github.com/amartripathi0",
+  },
+  {
+    name: "Twitter",
+    icon: FaTwitter,
+    link: "https://twitter.com/amartripathi_",
+  },
+  {
+    name: "Linkedin",
+    icon: FaLinkedin,
+    link: "https://github.com/amartripathi0",
+  },
+];

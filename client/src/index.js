@@ -11,7 +11,6 @@ import {
 
 // import Home from './pages/homepages/Home'
 import About from "./pages/homepages/About";
-import Page from "./pages/homepages/Page";
 import Contact from "./pages/homepages/Contact";
 import Support from "./pages/homepages/Support";
 
@@ -62,7 +61,6 @@ const router = createBrowserRouter(
       <Route path="/" element={<HomePage />}>
         <Route path="/" element={<Body />} />
         <Route path="/about" element={<About />} />
-        <Route path="/page" element={<Page />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/support" element={<Support />} />
       </Route>
