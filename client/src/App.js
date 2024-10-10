@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 axios.defaults.withCredentials = true;
 function App() {
   return (
-    <div className=" h-screen w-screen ">
+    <div className=" h-screen">
       <ToastContainer
         bodyClassName={"text-[0.8vw] max-sm:text-sm"}
         autoClose={5000}

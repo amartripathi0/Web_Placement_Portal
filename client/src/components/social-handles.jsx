@@ -3,7 +3,7 @@ import { socialHandles } from "../constants";
 
 export default function SocialHandles({ nameDisable }) {
   return (
-    <nav className="flex space-x-8">
+    <nav className="flex space-x-4">
       {socialHandles.map((socialHandle) => (
         <SocialHandle
           key={socialHandle.name}
