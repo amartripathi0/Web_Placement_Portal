@@ -9,10 +9,10 @@ export const getCompanyData = createAsyncThunk(
     async(_ , thunkAPI) => {
         try {
             const response = await companyService.getCompanyData()
-            console.log(response);
+            // console.log(response);
             return response
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 )
@@ -26,7 +26,7 @@ export const companyProfileUpdate = createAsyncThunk(
             // console.log(response);
             return response
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 )
@@ -38,7 +38,7 @@ export const uploadProfilePicture = createAsyncThunk(
             const response = await companyService.uploadProfilePicture(data)
             return response;
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 )
@@ -51,7 +51,7 @@ export const getStudentDetails = createAsyncThunk(
             // console.log(response);
             return response;
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 )
@@ -150,7 +150,7 @@ const companyUtilSlice = createSlice({
         builder.addCase(getStudentDetails.fulfilled , (state,action) => {
             state.isLoading = false
             state.isSuccess= true
-            console.log("getStudentDetails fullfilled" , action.payload);
+            // console.log("getStudentDetails fullfilled" , action.payload);
             state.student= action.payload.message
 
         })

@@ -44,7 +44,7 @@ const StudentsToCompany = () => {
   const { apiURL, setAPIURL } = useContext(apiContext);
 
   function handleApplicationStatusChange(e) {
-    console.log(e.target.value);
+    // console.log(e.target.value);
   }
   return (
     <div

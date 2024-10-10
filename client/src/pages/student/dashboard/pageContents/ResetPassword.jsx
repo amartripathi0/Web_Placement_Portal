@@ -29,7 +29,7 @@ const ResetPassword = () => {
   } = form;
 
   function handleResetData(data) {
-    console.log(data);
+    // console.log(data);
   }
   return (
     <div

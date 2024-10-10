@@ -40,7 +40,7 @@ const JobPosts = () => {
       typ: "jobs",
       value: { ...data, status: applicationStatus, qualifications },
     };
-    console.log(projectData);
+    // console.log(projectData);
     dispatch(companyProfileUpdate(projectData));
 
     dispatch(RESET());
@@ -56,7 +56,7 @@ const JobPosts = () => {
   }, [globalAuth.isLoggedIn]);
 
   useEffect(() => {
-    console.log(message);
+    // console.log(message);
     if (isSuccess) {
       toast.success(message, {
         position: toast.POSITION.TOP_CENTER,

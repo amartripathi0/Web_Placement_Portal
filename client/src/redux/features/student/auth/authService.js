@@ -5,7 +5,7 @@ const API_URL = `${BACKEND_URL}/student/`
 
 const signup =async (userData) => {
     const response  = await axios.post(API_URL + "signup" ,  userData)
-    console.log(response);
+    // console.log(response);
     return response.data
 } 
 
@@ -25,7 +25,7 @@ const updateProfileDetail = async(userData) => {
 
 const getUserData = async() => {
     const response = await axios.get(API_URL + "getUserData" )
-    console.log(response.data);
+    // console.log(response.data);
     return response.data
 }
 

@@ -36,7 +36,7 @@ export const uploadResume = createAsyncThunk(
             const response = await utilService.uploadResume(data)
             return response;
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 )
@@ -48,7 +48,7 @@ export const getJobs = createAsyncThunk(
             const response = await utilService.getJobs()
             return response;
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 )
@@ -59,7 +59,7 @@ export const jobApplyByStudent = createAsyncThunk(
             const response = await utilService.jobApplyByStudent(data)
             return response;
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 )
@@ -81,7 +81,7 @@ const utilSlice = createSlice({
             state.isLoading = true
         })
         builder.addCase(uploadProfilePicture.fulfilled , (state,action) => {
-            console.log(action);
+            // console.log(action);
             state.isLoading = false
             state.isSuccess= true
             state.message= action.payload
@@ -135,7 +135,7 @@ const utilSlice = createSlice({
         builder.addCase(jobApplyByStudent.rejected , (state,action) => {
             state.isLoading = false
             state.isSuccess= false
-            console.log( action.payload.response.data.message);
+            // console.log( action.payload.response.data.message);
             state.message= action.payload.response.data.message
         })
    }

@@ -27,7 +27,7 @@ export const companyStaffSignIn = createAsyncThunk(
     async(userData , thunkAPI) => {
         try{
             const response = await companyAuthService.signin(userData)
-             console.log(response);
+            //  console.log(response);
             return response
         }
         catch(error){
@@ -41,7 +41,7 @@ export const companyStaffSignOut = createAsyncThunk(
     async(_ , thunkAPI) => {
         try{
             const response = await companyAuthService.signout()
-             console.log(response);
+            //  console.log(response);
             return response
         }
         catch(error){
@@ -112,7 +112,7 @@ const authSlice = createSlice({
         .addCase(companyStaffSignOut.fulfilled , (state , action) => {
             state.isLoggedIn = false;
             state.isSuccess = true;
-            console.log(action.payload);
+            // console.log(action.payload);
             state.message = action.payload.message
             // toast.success(action.payload.message , {
             //     position : toast.POSITION.TOP_RIGHT

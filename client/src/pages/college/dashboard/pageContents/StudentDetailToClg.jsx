@@ -75,7 +75,7 @@ const StudentDetailToClg = () => {
 
       pastInternshipsProjects: student?.pastInternshipsProjects,
     };
-    console.log("sddddddddddd", studentData);
+    // console.log("sddddddddddd", studentData);
 
     dispatch(updateStudentDetails(studentData));
   }
@@ -118,7 +118,7 @@ const StudentDetailToClg = () => {
     }
   }, [student]);
 
-  console.log("student", student);
+  // console.log("student", student);
 
   return (
     <div

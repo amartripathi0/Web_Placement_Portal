@@ -135,7 +135,7 @@ const authSlice = createSlice({
         .addCase(collegeStaffSignOut.fulfilled , (state , action) => {
             state.isLoggedIn = false;
             state.isSuccess = true;
-            console.log(action.payload);
+            // console.log(action.payload);
             state.message = action.payload.message
             toast.success(action.payload.message , {
                 position : toast.POSITION.TOP_RIGHT

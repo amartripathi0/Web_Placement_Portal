@@ -19,7 +19,7 @@ const HomePage = () => {
   const { isLoggedIn } = useSelector((state) => state.studentAuth);
 
   useEffect(() => {
-    console.log("u", userType);
+    // console.log("u", userType);
     if (isLoggedin && isSuccess && userType !== "") {
       navigate(userType);
       // if(userType === 'student'){

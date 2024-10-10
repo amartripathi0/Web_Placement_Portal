@@ -17,7 +17,7 @@ const LoginStudent = () => {
 
   const handleStudentLoginSubmit = (data, event) => {
     
-    console.log(data);
+    // console.log(data);
     dispatch(signin(data));
   };
   // console.log(message);

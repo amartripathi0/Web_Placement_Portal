@@ -19,7 +19,7 @@ const SignupCompany = () => {
   function handleCompanyStaffSignUp(data) {
     const { cpass, emailID, firstName, lastName, password, phone, staffID } =
       data;
-    console.log(data);
+    // console.log(data);
     dispatch(
       companyStaffSignUp({
         personalDetail: {

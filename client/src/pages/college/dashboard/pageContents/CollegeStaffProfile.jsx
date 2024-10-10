@@ -26,7 +26,7 @@ const CollegeStaffProfile = () => {
         position: toast.POSITION.TOP_CENTER,
       });
     } else if (globalAuth.isLoggedin && isProfilePhotoUploaded) {
-      console.log(isProfilePhotoUploaded);
+      // console.log(isProfilePhotoUploaded);
 
       dispatch(RESET_COLLEGE_UTIL());
 

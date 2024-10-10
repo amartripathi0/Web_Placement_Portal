@@ -17,13 +17,13 @@ const JobVacancies = () => {
 
   useEffect(() => {
     if (isSuccess && data) {
-      console.log(data);
+      // console.log(data);
     } else {
       dispatch(getJobs());
     }
   }, [isSuccess, data, dispatch, message]);
 
-  console.log(message);
+  // console.log(message);
   // if(message) {
   //   toast.success(message , {
   //     position : toast.POSITION.TOP_RIGHT

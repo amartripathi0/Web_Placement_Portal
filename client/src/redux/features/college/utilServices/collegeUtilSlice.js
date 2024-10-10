@@ -33,7 +33,7 @@ export const collegeStaffProfileUpdate = createAsyncThunk(
             // console.log(response);
             return response
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 )
@@ -45,7 +45,7 @@ export const uploadProfilePicture = createAsyncThunk(
             const response = await collegeService.uploadProfilePicture(data)
             return response;
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 )
@@ -58,7 +58,7 @@ export const getStudentDetails = createAsyncThunk(
             // console.log(response);
             return response;
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 )
@@ -68,10 +68,10 @@ export const updateStudentDetails = createAsyncThunk(
     async( studentData , thunkAPI) => {
         try {
             const response = await collegeService.updateStudentDetails(studentData)
-            console.log(response);
+            // console.log(response);
             return response;
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     }
 )
@@ -173,7 +173,7 @@ const collegeUtilSlice = createSlice({
         builder.addCase(getStudentDetails.fulfilled , (state,action) => {
             state.isLoading = false
             state.isSuccess= true
-            console.log("getStudentDetails fullfilled" , action.payload);
+            // console.log("getStudentDetails fullfilled" , action.payload);
             state.student= action.payload.message
 
         })

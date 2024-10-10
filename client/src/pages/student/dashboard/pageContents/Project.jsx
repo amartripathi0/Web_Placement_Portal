@@ -33,7 +33,7 @@ const Project = () => {
 
   function handleUploadProjectDetails(data) {
     const projectData = { typ: "projects", value: data };
-    console.log(projectData);
+    // console.log(projectData);
     dispatch(updateProfileDetail(projectData));
 
     dispatch(RESET());
