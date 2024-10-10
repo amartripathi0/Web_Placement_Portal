@@ -1,7 +1,7 @@
 const express = require('express')
 require('dotenv').config()
 const connectToMongoDB = require('./connection')
-const PORT = process.env.PORT
+const SERVER_PORT = process.env.SERVER_PORT;
 const DATABASE_PASS = process.env.DATABASE_PASS
 const errorHandler  = require('./middlewares/errorHandlerMiddleware')
 const cors = require('cors')
@@ -19,17 +19,18 @@ app.use(cookieParser());
 app.use(cors({
     credentials : true,
     origin : process.env.FRONTEND_URL
-    // origin : "http://localhost:3000"
 }))
 app.use(express.urlencoded({extended : false})); 
- 
+
 
 // DataBase Connection 
 const dbURL=  `mongodb+srv://amartripathi:${DATABASE_PASS}@cluster0.2kwytrq.mongodb.net/database`
 connectToMongoDB(dbURL)
 .then(() => {
     console.log("DB Connected") 
-    app.listen(PORT, ()=> console.log("server started at " , PORT || 5000))  
+    app.listen(SERVER_PORT, () =>
+      console.log("server started at ", SERVER_PORT || 5000)
+    );  
 })
 .catch(() => console.log("DB Connection Failed"))
 
@@ -94,5 +95,4 @@ app.use('/company',companyRouter)
 
 //at the end
 app.use(errorHandler)
- 
- 
+
