@@ -14,7 +14,7 @@ export const navBarLink = [
   { label: "About", link: "/about" },
   // { label: "Page", link: "/page" },
   { label: "Contact", link: "/contact" },
-  { label: "Support", link: "/support" },
+  // { label: "Support", link: "/support" },
 ];
 
 export const authCardDetails = {

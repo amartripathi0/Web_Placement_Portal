@@ -12,7 +12,7 @@ import {
 // import Home from './pages/homepages/Home'
 import About from "./pages/homepages/About";
 import Contact from "./pages/homepages/Contact";
-import Support from "./pages/homepages/Support";
+// import Support from "./pages/homepages/Support";
 
 import StudentDashboard from "./pages/student/dashboard/StudentDashboard";
 import StudentProfile from "./pages/student/dashboard/pageContents/StudentProfile";
@@ -62,7 +62,7 @@ const router = createBrowserRouter(
         <Route path="/" element={<Body />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/support" element={<Support />} />
+        {/* <Route path="/support" element={<Support />} /> */}
       </Route>
 
       <Route path="/signin" element={<MainLogin />} />
