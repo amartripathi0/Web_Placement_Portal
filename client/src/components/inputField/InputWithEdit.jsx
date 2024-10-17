@@ -12,18 +12,19 @@ const InputWithEdit = ({
     setShowEdit(prev => !prev)
   }
   return (
-    <div className={`flex flex-col gap-1 ${inputFieldContainerStyles}`}>
+    <div className={`flex flex-col gap-1 w-3/5  ${inputFieldContainerStyles}`}>
       <div
-        className={` ${
-          showEdit && "border border-neutral-700"
-        } w-full h-full flex justify-between items-center`}
+        className={`${
+          showEdit &&
+          "border border-neutral-400 focus-within:border-neutral-900"
+        } w-full h-full flex justify-end items-center`}
       >
         <input
           type={type}
           readOnly={!showEdit ? true : false}
           placeholder={placeholder}
-          className={`h-full px-2 w-[90%] font-medium text-base text-right  ${
-            !showEdit && " outline-none"
+          className={`h-8 px-2 w-full font-medium text-base text-right outline-none ${
+            !showEdit && "outline-none"
           } ${inputFieldStyle} `}
           {...validationObj}
           onClick={() =>
