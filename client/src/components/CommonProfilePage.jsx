@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import { userPlaceholderImage } from "../constants";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import Label from "./label";
 
 const CommonProfilePage = ({
   isLoading,
@@ -105,7 +106,7 @@ const CommonProfilePage = ({
           action=""
           onSubmit={handleSubmit(handleProfileUpdateForm)}
           noValidate
-          className="w-full h-full p-[0.3vw]   flex justify-around items-center max-tablet:flex-col max-tablet:gap-10 max-tablet:p-[3vw] max-sm:py-4 max-sm"
+          className="w-full h-full p-[0.3vw] flex justify-around items-center max-tablet:flex-col max-tablet:gap-10 max-tablet:p-[3vw] max-sm:py-4 max-sm"
         >
           {/* left side-uploading profile picture */}
 
@@ -173,9 +174,6 @@ const CommonProfilePage = ({
             <FormField>
               <Label>First Name</Label>
               <InputWithEdit
-                inputFieldContainerStyles={"sm:w-3/5  "}
-                inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-sm"}
-                errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
                 type="text"
                 placeholder="firstName"
                 validationObj={{
@@ -188,9 +186,6 @@ const CommonProfilePage = ({
             <FormField>
               <Label>Last Name</Label>
               <InputWithEdit
-                inputFieldContainerStyles={"sm:w-3/5 "}
-                inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-sm"}
-                errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
                 type="text"
                 placeholder="Last Name"
                 validationObj={{
@@ -207,9 +202,6 @@ const CommonProfilePage = ({
                   <InputWithEdit
                     type="text"
                     placeholder="Father's Name"
-                    inputFieldContainerStyles={"sm:w-3/5"}
-                    inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-sm"}
-                    errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
                     validationObj={{
                       ...register("fathersName", fathersNameValidation),
                     }}
@@ -221,9 +213,6 @@ const CommonProfilePage = ({
                   <Label>Mother's Name</Label>
                   <InputWithEdit
                     type="text"
-                    inputFieldContainerStyles={"sm:w-3/5"}
-                    inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-sm"}
-                    errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
                     placeholder="Mother's Name"
                     validationObj={{
                       ...register("mothersName", mothersNameValidation),
@@ -239,9 +228,6 @@ const CommonProfilePage = ({
 
               <InputWithEdit
                 type="email"
-                inputFieldContainerStyles={"sm:w-3/5  "}
-                inputFieldStyle={" h-1/2 max-sm:text-sm"}
-                errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
                 placeholder="Email Address"
                 validationObj={{
                   ...register("emailID", emailValidation),
@@ -256,9 +242,6 @@ const CommonProfilePage = ({
                 <InputWithEdit
                   type="number"
                   placeholder="Staff-ID"
-                  inputFieldContainerStyles={"sm:w-3/5  "}
-                  inputFieldStyle={" h-1/2 max-sm:text-sm"}
-                  errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
                   validationObj={{
                     ...register("staffID", staffIdValidation),
                   }}
@@ -273,9 +256,6 @@ const CommonProfilePage = ({
               <InputWithEdit
                 type="number"
                 placeholder="Phone Number"
-                inputFieldContainerStyles={"sm:w-3/5"}
-                inputFieldStyle={" h-1/2 max-sm:text-sm"}
-                errorMessageStyle={"max-sm:text-xs max-tablet:text-base"}
                 validationObj={{
                   ...register("phone", phoneValidation),
                 }}
@@ -299,7 +279,3 @@ const CommonProfilePage = ({
 };
 
 export default CommonProfilePage;
-
-function Label({ children }) {
-  return <label className="tablet:text-sm text-sm mt-1">{children}</label>;
-}
