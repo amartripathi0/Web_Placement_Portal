@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
 const collegeStaffSchema = new mongoose.Schema(
   {
@@ -7,43 +7,44 @@ const collegeStaffSchema = new mongoose.Schema(
       lastName: { type: String, required: true },
       emailID: { type: String, required: true, unique: true },
       password: { type: String, required: true },
-      staffID: { type: Number, required: true, unique: true  },
+      staffID: { type: Number, required: true, unique: true },
       phone: { type: Number, required: true, unique: true },
-      profilePicture: {type : String, default : ""}
-
+      profilePicture: { type: String, default: '' }
     },
-    notifications : [{
-      title: String,
-      from : String,
-      body : String
-  }],
+    notifications: [
+      {
+        title: String,
+        from: String,
+        body: String
+      }
+    ],
     designation: {
       type: String,
-      enum: ["TPO Head", "Assitant Professor", "Placement Coordinator"],
+      enum: ['TPO Head', 'Assitant Professor', 'Placement Coordinator'],
       required: true,
-      default : "Placement Coordinator"
+      default: 'Placement Coordinator'
     },
     role: {
       type: String,
-      enum: ["Allowed" , "Suspended"],
-      default : "Allowed"
+      enum: ['Allowed', 'Suspended'],
+      default: 'Allowed'
     },
     studentDetails: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Student",
-      }, 
+        ref: 'Student'
+      }
     ],
     companyDetails: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Company",
-      },
-    ],
+        ref: 'Company'
+      }
+    ]
   },
   { timestamps: true }
-);
+)
 
-const CollegeStaff = mongoose.model("CollegeStaff", collegeStaffSchema);
+const CollegeStaff = mongoose.model('CollegeStaff', collegeStaffSchema)
 
-module.exports = CollegeStaff;
+module.exports = CollegeStaff

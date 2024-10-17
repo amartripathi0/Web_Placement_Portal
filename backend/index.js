@@ -1,98 +1,101 @@
 const express = require('express')
 require('dotenv').config()
 const connectToMongoDB = require('./connection')
-const SERVER_PORT = process.env.SERVER_PORT;
+const SERVER_PORT = process.env.SERVER_PORT
 const DATABASE_PASS = process.env.DATABASE_PASS
-const errorHandler  = require('./middlewares/errorHandlerMiddleware')
+const errorHandler = require('./middlewares/errorHandlerMiddleware')
 const cors = require('cors')
-const cookieParser = require("cookie-parser");
+const cookieParser = require('cookie-parser')
 const studentRouter = require('./routes/student')
-const staffRouter  = require('./routes/college_staff')
-const companyRouter  = require('./routes/company')
-const asyncHandler = require("express-async-handler"); 
-const jwt = require("jsonwebtoken");
+const staffRouter = require('./routes/college_staff')
+const companyRouter = require('./routes/company')
+const asyncHandler = require('express-async-handler')
+const jwt = require('jsonwebtoken')
 
 const app = express()
 app.use(express.json())
-app.use(cookieParser());
+app.use(cookieParser())
 
-app.use(cors({
-    credentials : true,
-    origin : process.env.FRONTEND_URL
-}))
-app.use(express.urlencoded({extended : false})); 
+app.use(
+  cors({
+    credentials: true,
+    origin: process.env.FRONTEND_URL
+  })
+)
+app.use(express.urlencoded({ extended: false }))
 
-
-// DataBase Connection 
-const dbURL=  `mongodb+srv://amartripathi:${DATABASE_PASS}@cluster0.2kwytrq.mongodb.net/database`
+// DataBase Connection
+const dbURL = `mongodb+srv://amartripathi:${DATABASE_PASS}@cluster0.2kwytrq.mongodb.net/database`
 connectToMongoDB(dbURL)
-.then(() => {
-    console.log("DB Connected") 
+  .then(() => {
+    console.log('DB Connected')
     app.listen(SERVER_PORT, () =>
-      console.log("server started at ", SERVER_PORT || 5000)
-    );  
-})
-.catch(() => console.log("DB Connection Failed"))
+      console.log('server started at ', SERVER_PORT || 5000)
+    )
+  })
+  .catch(() => console.log('DB Connection Failed'))
 
-// routes 
-app.get('/' , asyncHandler( async = ( req , res , next ) => {
-    try{
+// routes
+app.get(
+  '/',
+  asyncHandler(
+    (async = (req, res, next) => {
+      try {
         const token = req.cookies.token
         const userType = req.cookies.userType
-        
-        if(token && userType){
 
-            if (userType === "student") {
-                const isVerified = jwt.verify(token, process.env.JWT_SECRET_KEY_STUDENT);
-                
-                if (isVerified) {
-                    res.status(200).json({message :userType})
-                  } 
-              
-            }
-            else if(userType === "college-staff") {
-                // console.log(userType);
-                const isVerified = jwt.verify(token, process.env.JWT_SECRET_KEY_COLLEGE);
-                // console.log(isVerified);
-                if (isVerified) {
-                    res.status(200).json({message :userType})
-                  } 
-              
-            }
-             else if (userType === "company") {
-                const isVerified = jwt.verify(token, process.env.JWT_SECRET_KEY_COMPANY);
-                if (isVerified) {
-                    res.status(200).json({message :userType})
-                  }  
-            }
-            else{
-                res.status(401)
-                throw new Error("Session Expired, Please signin again.")
+        if (token && userType) {
+          if (userType === 'student') {
+            const isVerified = jwt.verify(
+              token,
+              process.env.JWT_SECRET_KEY_STUDENT
+            )
 
+            if (isVerified) {
+              res.status(200).json({ message: userType })
             }
-        }
-        
-}
-    catch(error){
-        if(error.message === "invalid token"){
+          } else if (userType === 'college-staff') {
+            // console.log(userType);
+            const isVerified = jwt.verify(
+              token,
+              process.env.JWT_SECRET_KEY_COLLEGE
+            )
+            // console.log(isVerified);
+            if (isVerified) {
+              res.status(200).json({ message: userType })
+            }
+          } else if (userType === 'company') {
+            const isVerified = jwt.verify(
+              token,
+              process.env.JWT_SECRET_KEY_COMPANY
+            )
+            if (isVerified) {
+              res.status(200).json({ message: userType })
+            }
+          } else {
             res.status(401)
-            throw new Error("Session Expired, Please signin again.")
+            throw new Error('Session Expired, Please signin again.')
+          }
         }
-        else{
-            console.log(error);
-               next(error)
+      } catch (error) {
+        if (error.message === 'invalid token') {
+          res.status(401)
+          throw new Error('Session Expired, Please signin again.')
+        } else {
+          console.log(error)
+          next(error)
         }
-
-    }
-}))
+      }
+    })
+  )
+)
 
 app.get('/test', (req, res) => {
-    res.send('Healthy Server');
-});
-app.use('/student' , studentRouter)
-app.use('/college-staff' , staffRouter )
-app.use('/company',companyRouter)
+  res.send('Healthy Server')
+})
+app.use('/student', studentRouter)
+app.use('/college-staff', staffRouter)
+app.use('/company', companyRouter)
 
 //at the end
 app.use(errorHandler)
-
