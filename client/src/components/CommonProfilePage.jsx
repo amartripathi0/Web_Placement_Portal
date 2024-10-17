@@ -36,7 +36,7 @@ const CommonProfilePage = ({
   isSuccess,
   uploadProfilePicture,
   userType,
-  staffID
+  staffID,
 }) => {
   const form = useForm();
   const {
@@ -47,19 +47,16 @@ const CommonProfilePage = ({
   } = form;
   const dispatch = useDispatch();
 
-  
-
   useEffect(() => {
     if (isLoggedIn && isSuccess) {
-        setValue("firstName", firstName);
-        setValue("lastName", lastName);
-        setValue("fathersName", fathersName);
-        setValue("mothersName", mothersName);
-        setValue("emailID", emailID);
-        setValue("phone", phone);
-        setValue("staffID", staffID);
-    
-      }
+      setValue("firstName", firstName);
+      setValue("lastName", lastName);
+      setValue("fathersName", fathersName);
+      setValue("mothersName", mothersName);
+      setValue("emailID", emailID);
+      setValue("phone", phone);
+      setValue("staffID", staffID);
+    }
   }, [isSuccess]);
 
   const [profilePicture, setProfilePicture] = useState("");
@@ -114,7 +111,7 @@ const CommonProfilePage = ({
 
           <WhiteBackground
             additionalStyles={
-              "flex flex-col items-center p-[3vw] gap-10 h-10/12  w-[30%] max-tablet:w-1/2 tablet:h-10/12  max-sm:w-11/12 max-sm:p-6"
+              "flex flex-col items-center p-10 gap-8  w-[30%] max-tablet:w-1/2 tablet:h-10/12  max-sm:w-11/12 max-sm:p-6"
             }
           >
             <div className="flex-center gap-4 w-full font-medium text-[1vw] max-tablet:text-base max-sm:text-medium">
@@ -131,20 +128,20 @@ const CommonProfilePage = ({
                 alt=""
               />
 
-              <p className="absolute left-1/5 opacity-0  z-50 transition-all  hover:opacity-100 text-[0.8vw] rounded-lg hover:bg-purple-200 hover:p-2 max-tablet:text-md   ">
+              <p className="absolute left-1/5 opacity-0  z-50 transition-all  hover:opacity-100 text-xs text-center rounded-lg hover:bg-purple-200 hover:p-2 max-tablet:text-md   ">
                 Click on upload to update profile picture.{" "}
               </p>
             </div>
-            <div className="flex flex-col gap-10 ">
-              <div className="flex flex-col gap-4 text-[0.8vw] max-tablet:text-base max-sm:text-xs">
+            <div className="flex flex-col gap-4 ">
+              <div className="flex flex-col gap-2 text-sm max-sm:text-xs">
                 <label
-                  className="block  text-center  font-medium text-gray-900 dark:text-white"
+                  className="block text-center  font-medium text-gray-900 dark:text-white"
                   for="file_input"
                 >
                   Click below to upload your picture
                 </label>
                 <input
-                  className="block w-full p-1 text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                  className="block w-full p-1 text-gray-900 border border-gray-300 rounded cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 text-xs py-2"
                   aria-describedby="file_input_help"
                   id="file_input"
                   type="file"
@@ -152,7 +149,7 @@ const CommonProfilePage = ({
                 />
 
                 <p
-                  className=" text-gray-500 dark:text-gray-300 text-left"
+                  className=" text-gray-500 text-xs dark:text-gray-300 text-left"
                   id="file_input_help"
                 >
                   JPEG, PNG, JPG (MAX. 1MB).
@@ -165,7 +162,7 @@ const CommonProfilePage = ({
                 label={"Update Profile Picture"}
                 type={"submit"}
                 additionalStyles={
-                  "font-semibold m-auto px-8 text-[1vw] max-tablet:text-base max-sm:text-xs max-sm:p-3   max-sm:w-full"
+                  "mx-auto px-8 tablet:text-sm mt-4 text-xs max-sm:p-3 max-sm:w-full"
                 }
               />
             </div>
@@ -174,9 +171,7 @@ const CommonProfilePage = ({
           {/* Right side : User profile details */}
           <WhiteBackground additionalStyles=" flex flex-col justify-between items-center gap-2  max-sm:gap-8 h-full p-[2vw] py-8  w-1/2   max-tablet:w-11/12">
             <FormField>
-              <h2 className="text-[1vw] max-tablet:text-base max-sm:text-sm mt-[0.3vw]">
-                First Name
-              </h2>
+              <Label>First Name</Label>
               <InputWithEdit
                 inputFieldContainerStyles={"sm:w-3/5  "}
                 inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-sm"}
@@ -191,9 +186,7 @@ const CommonProfilePage = ({
             </FormField>
 
             <FormField>
-              <h2 className="text-[1vw] max-tablet:text-base max-sm:text-sm mt-[0.3vw]">
-                Last Name
-              </h2>
+              <Label>Last Name</Label>
               <InputWithEdit
                 inputFieldContainerStyles={"sm:w-3/5 "}
                 inputFieldStyle={" h-1/2 max-sm:h-10 max-sm:text-sm"}
@@ -210,9 +203,7 @@ const CommonProfilePage = ({
             {userType === "student" && (
               <>
                 <FormField>
-                  <h2 className="text-[1vw] max-tablet:text-base max-sm:text-sm mt-[0.3vw]">
-                    Father's Name
-                  </h2>
+                  <Label>Father's Name</Label>
                   <InputWithEdit
                     type="text"
                     placeholder="Father's Name"
@@ -227,9 +218,7 @@ const CommonProfilePage = ({
                 </FormField>
 
                 <FormField>
-                  <h2 className="text-[1vw] max-tablet:text-base max-sm:text-sm mt-[0.3vw]">
-                    Mother's Name
-                  </h2>
+                  <Label>Mother's Name</Label>
                   <InputWithEdit
                     type="text"
                     inputFieldContainerStyles={"sm:w-3/5"}
@@ -246,9 +235,8 @@ const CommonProfilePage = ({
             )}
 
             <FormField>
-              <h2 className="text-[1vw] max-tablet:text-base max-sm:text-sm  mt-[0.3vw]">
-                Email
-              </h2>
+              <Label>Email</Label>
+
               <InputWithEdit
                 type="email"
                 inputFieldContainerStyles={"sm:w-3/5  "}
@@ -264,10 +252,7 @@ const CommonProfilePage = ({
 
             {(userType === "college-staff" || userType === "company") && (
               <FormField>
-                <h2 className="text-[1vw] max-tablet:text-base max-sm:text-sm  mt-[0.3vw]">
-                  Staff-ID
-                </h2>
-
+                <Label>Staff-ID</Label>
                 <InputWithEdit
                   type="number"
                   placeholder="Staff-ID"
@@ -283,9 +268,8 @@ const CommonProfilePage = ({
             )}
 
             <FormField>
-              <h2 className="text-[1vw] max-tablet:text-base max-sm:text-sm mt-[0.3vw]">
-                Phone
-              </h2>
+              <Label>Phone</Label>
+
               <InputWithEdit
                 type="number"
                 placeholder="Phone Number"
@@ -304,7 +288,7 @@ const CommonProfilePage = ({
               color={"pink"}
               label={"Update Profile Details"}
               additionalStyles={
-                "w-2/5  m-auto font-semibold mt-8 text-[1vw] max-sm:w-10/12 max-sm:text-xs max-sm:p-3  "
+                "w-2/5 m-auto mt-4 max-sm:w-10/12 max-sm:text-xs max-sm:p-3  "
               }
             />
           </WhiteBackground>
@@ -315,3 +299,7 @@ const CommonProfilePage = ({
 };
 
 export default CommonProfilePage;
+
+function Label({ children }) {
+  return <label className="tablet:text-sm text-sm mt-1">{children}</label>;
+}

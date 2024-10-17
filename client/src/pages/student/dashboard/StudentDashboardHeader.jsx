@@ -32,17 +32,24 @@ const StudentDashboardHeader = ({sidemenuExpanded}) => {
   // console.log(showNotification);
   return (
     <NavbarDashboard
-    isLoading={isLoading}
-    userName={student?.personalDetail?.firstName + " "+  student?.personalDetail?.lastName}
-    heading={"Student Dashboard"}
-    navbarButtonHandler={handleStudentSignout}
-    notficationCount={student?.notifications.length}
-    notficationFrom={student?.notifications.from}
-    notficationTitle={student?.notifications.title}
-    notificationBody={student?.notifications.body}
-    sidemenuExpanded = {sidemenuExpanded}
+      isLoading={isLoading}
+      userName={
+        student ?
+        student?.personalDetail?.firstName +
+          " " +
+          student?.personalDetail?.lastName
+          :
+          'Student'
+      }
+      heading={"Student Dashboard"}
+      navbarButtonHandler={handleStudentSignout}
+      notficationCount={student?.notifications.length}
+      notficationFrom={student?.notifications.from}
+      notficationTitle={student?.notifications.title}
+      notificationBody={student?.notifications.body}
+      sidemenuExpanded={sidemenuExpanded}
     />
-  )
+  );
 }
 
 export default StudentDashboardHeader

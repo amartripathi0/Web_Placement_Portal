@@ -33,9 +33,9 @@ const HomePage = () => {
     } else {
       dispatch(getLoginStatus());
 
-      dispatch(RESET_GLOBAL());
+      // dispatch(RESET_GLOBAL());
     }
-  }, [isLoggedin, userType]);
+  }, [isLoggedin, userType]); 
 
   return (
     <div>
@@ -43,8 +43,6 @@ const HomePage = () => {
       <div className={`relative ${isLoading ? "bg-black opacity-0" : ""}`}>
         <Navbar />
         <Outlet />
-
-       
       </div>
     </div>
   );
