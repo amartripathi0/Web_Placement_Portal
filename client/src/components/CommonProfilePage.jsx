@@ -93,7 +93,7 @@ const CommonProfilePage = ({
   }
   return (
     <PurpleBackground
-      additionalStyles={`h-full w-full  px-[2vw]  pt-20 max-tablet:p-[3vw] max-tablet:mt-16 max-sm:mt-16
+      additionalStyles={`h-full w-full px-[2vw]  pt-20 max-tablet:p-[3vw] max-tablet:mt-16 max-sm:mt-16
     // ${isLoading && " opacity-70 bg-gray-400"}  
     `}
     >
