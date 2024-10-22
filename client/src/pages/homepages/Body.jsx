@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Body = () => {
   return (
-    <div className="flex-center max-sm:flex-col max-sm:justify-between  py-20 gap-[10vw] pt-36 max-sm:pb-36 bg-gradient-to-r from-cyan-200  to-pink-300 h-screen">
+    <div className="flex-center max-sm:flex-col max-sm:justify-between  py-20 gap-[10vw] sm:pt-36 max-sm:pb-36 bg-gradient-to-r from-cyan-200  to-pink-300 min-h-screen">
       {/* left side */}
 
       <div className="w-[40%] flex flex-col  gap-[2vw] max-sm:w-4/5 justify-around p-6">
