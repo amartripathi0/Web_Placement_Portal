@@ -74,13 +74,13 @@ const AcademicDetail = () => {
         (isLoading || studentUtil.isLoading) && " bg-gray-400 blur-sm"
       }`}
     >
-      <div
-        
-        className="bg-slate-100 h-full w-full rounded-lg shadow-slate-300 shadow-md flex justify-center items-center p-6 px-20"
-       
-      >
-        <form action="" noValidate
-        onSubmit={handleSubmit(formSubmit)} className="flex flex-col gap-4 bg-white rounded-md h-full w-full shadow-grey-300 shadow-md border p-8">
+      <div className="bg-slate-100 h-full w-full rounded-lg shadow-slate-300 shadow-md flex justify-center items-center p-6 px-20">
+        <form
+          action=""
+          noValidate
+          onSubmit={handleSubmit(formSubmit)}
+          className="flex flex-col gap-4 bg-white rounded-md h-full w-full shadow-grey-300 shadow-md border p-8"
+        >
           <AccountStatus role={student?.role} />
 
           <FormField>

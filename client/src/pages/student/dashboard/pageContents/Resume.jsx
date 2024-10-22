@@ -31,42 +31,37 @@ const Resume = () => {
   const globalAuth = useSelector((state) => state.globalAuth);
 
   useEffect(() => {
-    if (globalAuth.isLoggedin === true) {
+    if (globalAuth.isLoggedin) {
       dispatch(getUserData());
-      // console.log("data fetched");
-      toast.success("Data Fetched Succesfully", {
+      toast.success("Data Fetched Successfully", {
         position: toast.POSITION.TOP_CENTER,
       });
     }
-
-    // dispatch(RESET())
-  }, [globalAuth.isLoggedin, getUserData]);
-
-  useEffect(() => {}, [studentUtil.isSuccess]);
-  function handleInputChange(e) {
-    setFile(e.target.files[0]);
-  }
+  }, [globalAuth.isLoggedin, dispatch]);
 
   useEffect(() => {
     if (studentUtil.isSuccess && !studentUtil.isLoading) {
-      // console.log(studentUtil.message);
       toast.success(studentUtil.message, {
         position: toast.POSITION.TOP_CENTER,
       });
-
       dispatch(getUserData());
       dispatch(RESET_UTILS());
     }
-  }, [studentUtil.isSuccess]);
-  const handleUploadResume = async (e) => {
+  }, [studentUtil.isSuccess, dispatch]);
+
+  const handleInputChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleUploadResume = (e) => {
     e.preventDefault();
 
     if (file.size > 5000000) {
-      toast.error("Please upload file of size less than 5 MB", {
+      toast.error("Please upload a file less than 5 MB", {
         position: toast.POSITION.TOP_CENTER,
       });
     } else if (!file || file.type !== "application/pdf") {
-      toast.error("Please upload a valid pdf file.", {
+      toast.error("Please upload a valid PDF file.", {
         position: toast.POSITION.TOP_CENTER,
       });
     } else {
@@ -78,32 +73,29 @@ const Resume = () => {
 
   return (
     <div
-      className={`${
-        student?.resume === "" && "min-h-full"
-      } bg-purple-100 gap-10 py-10 flex flex-col justify-center items-center ${
-        (isLoading || studentUtil.isLoading) && "  blur-sm bg-gray-400"
+      className={`min-h-screen flex flex-col items-center py-10 ${
+        isLoading || studentUtil.isLoading
+          ? "bg-gray-400 blur-sm"
+          : "bg-purple-100"
       }`}
     >
-      <div className="bg-slate-100  w-[95%] rounded-lg shadow-slate-300 shadow-md flex flex-col justify-center items-center gap-6 p-4">
-        <div className=" bg-white p-2 w-96 text-center rounded-lg ">
-          <h1 className="text-4xl ">Resume</h1>
-        </div>
+      <div className="bg-slate-100 w-[95%] rounded-lg shadow-md flex flex-col justify-center items-center gap-6 p-4">
+        <h1 className="text-xl bg-white p-2 w-96 text-center rounded-lg">
+          Resume
+        </h1>
 
-        <div className="bg-white p-2 rounded-lg w-1/2 px-20">
-          <form action="" className="flex items-center justify-between">
-            <h2 className="text-xl ">Upload your resume: </h2>
-
-            <div className=" flex gap-20">
+        <div className="bg-white p-4 rounded-lg w-1/2">
+          <form className="flex items-center justify-between">
+            <h2 className="text-base">Upload your resume:</h2>
+            <div className="flex items-center gap-6">
               <InputField
                 type="file"
-                xtraStyle="pt-1"
                 name="resume"
                 onChange={handleInputChange}
               />
-
               <button
                 onClick={handleUploadResume}
-                className=" w-30 text-white bg-cyan-500 hover:bg-cyan-600 p-3 pl-6 pr-6 rounded-lg flex items-center justify-center"
+                className="text-white bg-cyan-500 hover:bg-cyan-600 rounded px-4 py-2"
               >
                 Upload
               </button>
@@ -111,24 +103,20 @@ const Resume = () => {
           </form>
         </div>
       </div>
-      <div className="bg-slate-100  w-[95%] h-full p-20 rounded-lg shadow-slate-300 shadow-md ">
-        <div className="bg-white w-full p-10 rounded-md min-h-full flex justify-center items-center ">
+
+      <div className="bg-slate-100 w-[95%] h-full p-4 rounded-lg shadow-md mt-6">
+        <div className="bg-white w-full p-10 rounded-md min-h-full flex justify-center items-center">
           {student?.resume === "" ? (
-            <h1 className="text-2xl font-medium text-center ">
-              Please upload a valid resume in pdf format.
+            <h1 className="text-2xl font-medium text-center">
+              Please upload a valid resume in PDF format.
             </h1>
           ) : (
             <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-              {/* <Viewer fileUrl="https://res.cloudinary.com/dxh6v9voc/raw/upload/v1700587397/Placement_Web_Portal/student/resume/y2ex0cozxmawdaxnuryn.pdf" />; */}
-              <Viewer fileUrl={`${student?.resume && student.resume} `} />;
+              <Viewer fileUrl={student.resume} />
             </Worker>
           )}
         </div>
       </div>
-      {/* <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-<Viewer fileUrl="/path/to/document.pdf" />;
-
-</Worker> */}
     </div>
   );
 };
