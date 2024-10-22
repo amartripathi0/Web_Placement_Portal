@@ -25,6 +25,7 @@ import {
   yearOfPassingValidation,
 } from "../../../../utils/formValidation";
 import Button from "../../../../components/buttons/Button";
+import UserLayout from "../../../../components/layout/UserLayout";
 
 const AcademicDetail = () => {
   const dispatch = useDispatch();
@@ -68,92 +69,93 @@ const AcademicDetail = () => {
     }
   }, [student]);
   // console.log(student);
+
+  if (isLoading || studentUtil.isLoading)
+    return (
+      <section className="bg-gray-400 blur-sm h-screen w-screen flex justify-center items-center">
+        Loading...
+      </section>
+    );
   return (
-    <div
-      className={`h-screen bg-purple-100  flex justify-center items-center p-10 pt-32 ${
-        (isLoading || studentUtil.isLoading) && " bg-gray-400 blur-sm"
-      }`}
-    >
-      <div className="bg-slate-100 h-full w-full rounded-lg shadow-slate-300 shadow-md flex justify-center items-center p-6 px-20">
-        <form
-          action=""
-          noValidate
-          onSubmit={handleSubmit(formSubmit)}
-          className="flex flex-col gap-4 bg-white rounded-md h-full w-full shadow-grey-300 shadow-md border p-8"
-        >
-          <AccountStatus role={student?.role} />
+    <UserLayout slateBgStyles={"w-2/5"}>
+      <form
+        action=""
+        noValidate
+        onSubmit={handleSubmit(formSubmit)}
+        className="flex flex-col gap-4 bg-white rounded-md h-full w-full shadow-grey-300 shadow-md border p-8"
+      >
+        <AccountStatus role={student?.role} />
 
-          <FormField>
-            <Label>Roll Number</Label>
-            <InputWithEdit
-              type="number"
-              placeholder="Roll Number"
-              validationObj={{
-                ...register("rollNumber", rollNumberValidation),
-                validate: (v) => v > 0 || "Please enter a valid Roll number.",
-              }}
-              error={errors.rollNumber?.message}
-            />
-          </FormField>
-          <FormField>
-            <Label>Degrees</Label>
-            <InputWithEdit
-              type="text"
-              placeholder="Degree"
-              validationObj={{
-                ...register("degrees", degreeValidation),
-              }}
-              error={errors.degrees?.message}
-            />
-          </FormField>
-          <FormField>
-            <Label>College</Label>
-            <InputWithEdit
-              type="text"
-              placeholder="College Name"
-              validationObj={{
-                ...register("collegeName", collegeNameValidation),
-              }}
-              error={errors.collegeName?.message}
-            />
-          </FormField>
-
-          <FormField>
-            <Label>CGPA</Label>
-            <InputWithEdit
-              type="number"
-              placeholder="CGPA"
-              validationObj={{
-                ...register("cgpa", cgpaValidation),
-                validate: (v) => v > 0 || "Please enter a valid CGPA.",
-              }}
-              error={errors.cgpa?.message}
-            />
-          </FormField>
-
-          <FormField>
-            <Label>Year Of Passing</Label>
-            <InputWithEdit
-              type="text"
-              placeholder="Year Of Passing"
-              validationObj={{
-                ...register("yearOfPassing", yearOfPassingValidation),
-              }}
-              error={errors.yearOfPassing?.message}
-            />
-          </FormField>
-
-          <Button
-            type={"submit"}
-            color={"pink"}
-            label={"Save Details"}
-            additionalStyles={
-              "w-40 mt-4 mx-auto max-sm:w-10/12 max-sm:text-xs max-sm:p-3  "
-            }
+        <FormField>
+          <Label>Roll Number</Label>
+          <InputWithEdit
+            type="number"
+            placeholder="Roll Number"
+            validationObj={{
+              ...register("rollNumber", rollNumberValidation),
+              validate: (v) => v > 0 || "Please enter a valid Roll number.",
+            }}
+            error={errors.rollNumber?.message}
           />
-        </form>
-      </div>
-    </div>
+        </FormField>
+        <FormField>
+          <Label>Degrees</Label>
+          <InputWithEdit
+            type="text"
+            placeholder="Degree"
+            validationObj={{
+              ...register("degrees", degreeValidation),
+            }}
+            error={errors.degrees?.message}
+          />
+        </FormField>
+        <FormField>
+          <Label>College</Label>
+          <InputWithEdit
+            type="text"
+            placeholder="College Name"
+            validationObj={{
+              ...register("collegeName", collegeNameValidation),
+            }}
+            error={errors.collegeName?.message}
+          />
+        </FormField>
+
+        <FormField>
+          <Label>CGPA</Label>
+          <InputWithEdit
+            type="number"
+            placeholder="CGPA"
+            validationObj={{
+              ...register("cgpa", cgpaValidation),
+              validate: (v) => v > 0 || "Please enter a valid CGPA.",
+            }}
+            error={errors.cgpa?.message}
+          />
+        </FormField>
+
+        <FormField>
+          <Label>Year Of Passing</Label>
+          <InputWithEdit
+            type="text"
+            placeholder="Year Of Passing"
+            validationObj={{
+              ...register("yearOfPassing", yearOfPassingValidation),
+            }}
+            error={errors.yearOfPassing?.message}
+          />
+        </FormField>
+
+        <Button
+          type={"submit"}
+          color={"pink"}
+          label={"Save Details"}
+          additionalStyles={
+            "w-40 mt-4 mx-auto max-sm:w-10/12 max-sm:text-xs max-sm:p-3  "
+          }
+        />
+      </form>
+    </UserLayout>
   );
 };
 

@@ -1,13 +1,17 @@
-import React from 'react'
+import React from "react";
+import cn from "../../utils/cn";
 
-const SlateBackground = ({children , additionalStyles}) => {
+const SlateBackground = ({ children, additionalStyles }) => {
   return (
     <div
-    className={`${additionalStyles}  bg-slate-100 shadow-slate-300 shadow-md`}
+      className={cn(
+        `bg-slate-100 shadow-slate-300 shadow-md`,
+        additionalStyles
+      )}
     >
       {children}
-      </div>
-  )
-}
+    </div>
+  );
+};
 
-export default SlateBackground
+export default SlateBackground;
