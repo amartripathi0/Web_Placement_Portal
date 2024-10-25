@@ -23,7 +23,7 @@ const InputWithEdit = ({
           type={type}
           readOnly={!showEdit ? true : false}
           placeholder={placeholder}
-          className={`h-8 px-2 w-full font-medium text-base text-right outline-none ${
+          className={`h-8 px-2 w-full font-medium text-sm  text-right outline-none ${
             !showEdit && "outline-none"
           } ${inputFieldStyle} `}
           {...validationObj}
