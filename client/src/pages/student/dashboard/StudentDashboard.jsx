@@ -64,7 +64,7 @@ function StudentDashboard() {
         </div>
       ) : (
         <>
-          {!isLoading && <LoadingPage />}
+          {isLoading && <LoadingPage />}
           <div className={`relative flex`}>
             <Sidemenu
               sidemenuState={sidemenuState}
