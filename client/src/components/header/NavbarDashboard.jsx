@@ -5,7 +5,6 @@ import NotificationsPanel from "../notifications-panel";
 import cn from "../../utils/cn";
 
 const NavbarDashboard = ({
-  isLoading,
   userName,
   heading,
   navbarButtonHandler,

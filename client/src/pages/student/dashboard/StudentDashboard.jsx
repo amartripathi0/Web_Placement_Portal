@@ -4,56 +4,30 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Sidemenu, { SidebarItem } from "../../../components/sidemenu/Sidemenu";
 import LoadingPage from "../../LoadingPage";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  RESET_GLOBAL,
-  SET_GLOBAL,
-  getLoginStatus,
-} from "../../../redux/features/common/globalSlice";
-import {
-  RESET,
-  getUserData,
-} from "../../../redux/features/student/auth/authSlice";
-
+import { getLoginStatus } from "../../../redux/features/common/globalSlice";
+import { getUserData } from "../../../redux/features/student/auth/authSlice";
 import { toast } from "react-toastify";
-import {  studentSidebarItems } from "../../../constants";
+import { studentSidebarItems } from "../../../constants";
+import cn from "../../../utils/cn";
 
 function StudentDashboard() {
-  const { isLoading, isError, isSuccess, isLoggedIn, message, student } =
-    useSelector((state) => state.studentAuth);
-  const studentUtil = useSelector((state) => state.studentUtils);
-  const { isLoggedin } = useSelector((state) => state.globalAuth);
+  const { isLoading, isSuccess, isLoggedIn, student } = useSelector(
+    (state) => state.studentAuth
+  );
+  const [sidemenuExpanded, setSidemenuExpanded] = useState(true);
   const globalAuth = useSelector((state) => state.globalAuth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   useEffect(() => {
-    // console.log("check if loggedin");
-    dispatch(getLoginStatus());
-
-    // return () => dispatch(RESET_GLOBAL());
-    // dispatch(RESET_GLOBAL())
-  }, []);
-
-  // useEffect(() => {
-  //   //  console.log("loggedin " , isLoggedin ,"load" , globalAuth.isLoading , "success" , globalAuth.isSuccess);
-  //   if (isLoggedin && globalAuth.isSuccess) {
-  //     dispatch(getUserData());
-  //   } else if (
-  //     !isLoggedIn &&
-  //     globalAuth.isSuccess &&
-  //     globalAuth.userType !== "student"
-  //   ) {
-  //     toast.info("Signed Out successfully", {
-  //       position: toast.POSITION.TOP_RIGHT,
-  //     });
-  //     navigate("/signin");
-  //   }
-  // }, [isLoggedin, globalAuth.isSuccess, globalAuth.userType]);
-
-  useEffect(() => {
-    if (isLoggedIn && isSuccess && isLoggedin && student.role !== "Suspended") {
+    if (
+      isLoggedIn &&
+      isSuccess &&
+      globalAuth.isLoggedin &&
+      globalAuth.userType === "student" &&
+      student.role !== "suspended"
+    ) {
       toast.success(
-        `Welcome ${
+        `Welcome, ${
           student.personalDetail.firstName +
           " " +
           student.personalDetail.lastName
@@ -62,11 +36,22 @@ function StudentDashboard() {
           position: toast.POSITION.TOP_RIGHT,
         }
       );
-      // console.log("welcome");
+    } else if (globalAuth.isLoggedin && globalAuth.isSuccess) {
+      dispatch(getUserData());
+    } else if (
+      !globalAuth.isLoggedin &&
+      globalAuth.isSuccess &&
+      globalAuth.userType !== "student"
+    ) {
+      toast.info("Signed Out successfully", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      navigate("/signin");
+    } else {
+      dispatch(getLoginStatus());
     }
-  }, [isLoggedIn]);
+  }, [getLoginStatus.isLoggedin, globalAuth.isSuccess, globalAuth.userType]);
 
-  const [sidemenuExpanded, setSidemenuExpanded] = useState(true);
   function sidemenuState(val) {
     setSidemenuExpanded(!val);
   }
@@ -84,26 +69,44 @@ function StudentDashboard() {
         >
           {isLoading && <LoadingPage height="screen" width="screen" />}
 
-            <Sidemenu
-              sidemenuState={sidemenuState}
-              emailID={student?.personalDetail.emailID}
-              firstName={student?.personalDetail.firstName}
-              lastName={student?.personalDetail.lastName}
-              profileImgLink={student?.personalDetail.profilePicture}
-            >
-              {studentSidebarItems.map(item => 
-                 (
-                  <SidebarItem key={item.label} text={item.label} icon={item.icon} active  />
-                ))}
-            </Sidemenu>
-
-           {/* sidemenuExpanded ? "w-[85%]" : "w-[97%]" */}
-          <div
-            className={`flex flex-col  absolute  overflow-x-hidden right-0 top-0 min-h-screen 
-             max-tablet:w-[92%] max-sm:w-[84%] 
-            ${sidemenuExpanded ? "w-[85%]" : "w-[95%] "} `}
+          <Sidemenu
+            sidemenuState={sidemenuState}
+            emailID={student?.personalDetail.emailID}
+            firstName={student?.personalDetail.firstName}
+            lastName={student?.personalDetail.lastName}
+            profileImgLink={student?.personalDetail.profilePicture}
+            userType = "student"
           >
-            <StudentDashboardHeader sidemenuExpanded={sidemenuExpanded}/>
+            {studentSidebarItems.map((item) => (
+              <SidebarItem
+                key={item.label}
+                text={item.label}
+                icon={item.icon}
+                active
+              />
+            ))}
+          </Sidemenu>
+
+          <div
+            className={cn(
+              `flex flex-col  absolute  overflow-x-hidden right-0 top-0 min-h-screen max-tablet:w-[92%] max-sm:w-[84%] `,
+              sidemenuExpanded ? "w-[85%]" : "w-[95%]"
+            )}
+          >
+            <StudentDashboardHeader
+              sidemenuExpanded={sidemenuExpanded}
+              userName={
+                student?.personalDetail?.firstName +
+                " " +
+                student?.personalDetail?.lastName
+              }
+              heading={"Student Dashboard"}
+              notficationCount={student?.notifications.length}
+              notficationFrom={student?.notifications.from}
+              notficationTitle={student?.notifications.title}
+              notificationBody={student?.notifications.body}
+              sidemenuExpanded={sidemenuExpanded}
+            />
             <Outlet />
           </div>
         </div>

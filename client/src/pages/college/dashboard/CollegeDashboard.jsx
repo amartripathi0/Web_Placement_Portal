@@ -60,29 +60,7 @@ const CollegeDashboard = () => {
     }
   }, [getLoginStatus.isLoggedin, globalAuth.isSuccess, globalAuth.userType]);
 
-  // useEffect(() => {
-  //   if (
-  //     isLoggedIn &&
-  //     isSuccess &&
-  //     globalAuth.isLoggedin &&
-  //     globalAuth.userType === "college-staff" &&
-  //     collegeStaff.role !== "suspended"
-  //   ) {
-  //     toast.success(
-  //       `Welcome ${
-  //         collegeStaff.personalDetail.firstName +
-  //         " " +
-  //         collegeStaff.personalDetail.lastName
-  //       }`,
-  //       {
-  //         position: toast.POSITION.TOP_RIGHT,
-  //       }
-  //     );
-  //   }
-  // }, [collegeStaff]);
-
   const [sidemenuExpanded, setSidemenuExpanded] = useState(true);
-
   function sidemenuState(val) {
     setSidemenuExpanded(!val);
   }

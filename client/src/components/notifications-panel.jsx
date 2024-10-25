@@ -11,7 +11,7 @@ export default function NotificationsPanel({
       onMouseLeave={() => setShowNotification(false)}
       className="flex flex-col fixed bg-white gap-4 top-20 p-5 rounded-lg right-10 shadow-lg w-80 transition-transform transform hover:scale-105"
     >
-      <h2 className="text-xl font-semibold text-gray-900 p-4 border-b border-gray-300">
+      <h2 className="text-xl font-semibold text-gray-900 p-2 px-4 border-b border-gray-300">
         Notifications
       </h2>
       <div className="flex flex-col gap-3 bg-gray-50 rounded-lg p-4 shadow-md transition-all duration-200">
