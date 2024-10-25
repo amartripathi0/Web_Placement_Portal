@@ -5,16 +5,10 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import {
-  RESET_GLOBAL,
-  SET_GLOBAL,
-  getLoginStatus,
-} from "../../../../redux/features/common/globalSlice";
-import {
   RESET,
   getUserData,
   updateProfileDetail,
 } from "../../../../redux/features/student/auth/authSlice";
-import PurpleBackground from "../../../../components/containers/PurpleBackground";
 import SlateBackground from "../../../../components/containers/SlateBackground";
 import FormField from "../../../../components/containers/FormField";
 import Label from "../../../../components/label";
@@ -68,11 +62,9 @@ const PreviousInternships = () => {
     >
       <form
         onSubmit={handleSubmit(handleUploadInternshipDetails)}
-        className="flex flex-col items-center p-8 mx-auto bg-white gap-8 rounded-md w-3/5 shadow-grey-300 shadow-md"
+        className="flex flex-col items-center p-8 mx-auto bg-white gap-4 rounded-md w-2/3 shadow-grey-300 shadow-md"
       >
-        <div>
-          <h3 className="text-xl font-medium">Internship-Form</h3>
-        </div>
+        <h3 className="text-xl font-medium">Internship Form</h3>
 
         <div className="flex flex-wrap gap-4 justify-between">
           <FormField additionalStyles={"max-w-[48%]"}>
