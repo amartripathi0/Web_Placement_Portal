@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, createContext } from "react";
+import { useState, useContext, createContext } from "react";
 import { ChevronLast, ChevronFirst } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { userPlaceholderImage } from "../../constants";
@@ -11,7 +11,6 @@ const Sidemenu = ({
   lastName,
   profileImgLink,
   sidemenuState,
-  userType
 }) => {
   const [expanded, setExpanded] = useState(true);
 
@@ -28,7 +27,7 @@ const Sidemenu = ({
           }`}
         >
           <NavLink
-            to={`dashboard`}
+            to={``}
             className={`overflow-hidden transition-all  rounded-md max-tablet:hidden ${
               expanded ? "w-16 h-16" : " hidden "
             }`}

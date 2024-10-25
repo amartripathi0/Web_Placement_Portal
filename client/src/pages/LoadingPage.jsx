@@ -10,7 +10,7 @@ const LoadingPage = ({ height = "screen", width = "screen" }) => {
         width
       )}
     >
-      <p className="text-xl font-medium text-fuchsia-900 ">Loading</p>
+      <p className="text-xl font-medium text-fuchsia-900 ">Loading...</p>
       <ClipLoader color="purple" size={22} />
     </div>
   );

@@ -55,62 +55,60 @@ function StudentDashboard() {
   function sidemenuState(val) {
     setSidemenuExpanded(!val);
   }
+
   return (
-    <div>
+    <main>
       {student?.role && student.role === "Suspended" ? (
         <div className="h-screen w-screen  text-6xl flex justify-center items-center bg-slate-100 absolute z-50 top-0 left-0">
           You are Suspended, Contact Admin{" "}
         </div>
       ) : (
-        <div
-          className={`relative flex w-screen h-screen  ${
-            isLoading && " blur-sm -z-10 "
-          }`}
-        >
-          {isLoading && <LoadingPage height="screen" width="screen" />}
+        <>
+          {!isLoading && <LoadingPage />}
+          <div className={`relative flex`}>
+            <Sidemenu
+              sidemenuState={sidemenuState}
+              emailID={student?.personalDetail.emailID}
+              firstName={student?.personalDetail.firstName}
+              lastName={student?.personalDetail.lastName}
+              profileImgLink={student?.personalDetail.profilePicture}
+              userType="student"
+            >
+              {studentSidebarItems.map((item) => (
+                <SidebarItem
+                  key={item.label}
+                  text={item.label}
+                  icon={item.icon}
+                  active
+                />
+              ))}
+            </Sidemenu>
 
-          <Sidemenu
-            sidemenuState={sidemenuState}
-            emailID={student?.personalDetail.emailID}
-            firstName={student?.personalDetail.firstName}
-            lastName={student?.personalDetail.lastName}
-            profileImgLink={student?.personalDetail.profilePicture}
-            userType = "student"
-          >
-            {studentSidebarItems.map((item) => (
-              <SidebarItem
-                key={item.label}
-                text={item.label}
-                icon={item.icon}
-                active
+            <section
+              className={cn(
+                `flex flex-col absolute overflow-x-hidden right-0 min-h-screen max-tablet:w-[92%] max-sm:w-[84%] `,
+                sidemenuExpanded ? "w-[85%]" : "w-[95%]"
+              )}
+            >
+              <StudentDashboardHeader
+                sidemenuExpanded={sidemenuExpanded}
+                userName={
+                  student?.personalDetail?.firstName +
+                  " " +
+                  student?.personalDetail?.lastName
+                }
+                heading={"Student Dashboard"}
+                notficationCount={student?.notifications.length}
+                notficationFrom={student?.notifications.from}
+                notficationTitle={student?.notifications.title}
+                notificationBody={student?.notifications.body}
               />
-            ))}
-          </Sidemenu>
-
-          <div
-            className={cn(
-              `flex flex-col  absolute  overflow-x-hidden right-0 top-0 min-h-screen max-tablet:w-[92%] max-sm:w-[84%] `,
-              sidemenuExpanded ? "w-[85%]" : "w-[95%]"
-            )}
-          >
-            <StudentDashboardHeader
-              sidemenuExpanded={sidemenuExpanded}
-              userName={
-                student?.personalDetail?.firstName +
-                " " +
-                student?.personalDetail?.lastName
-              }
-              heading={"Student Dashboard"}
-              notficationCount={student?.notifications.length}
-              notficationFrom={student?.notifications.from}
-              notficationTitle={student?.notifications.title}
-              notificationBody={student?.notifications.body}
-            />
-            <Outlet />
+              <Outlet />
+            </section>
           </div>
-        </div>
+        </>
       )}
-    </div>
+    </main>
   );
 }
 
