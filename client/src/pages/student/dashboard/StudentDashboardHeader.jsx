@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { FaBell } from "react-icons/fa6";
 import {useDispatch , useSelector}  from 'react-redux'
 import { signout , RESET } from '../../../redux/features/student/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
-import LoadingPage from '../../LoadingPage';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import { RESET_GLOBAL } from '../../../redux/features/common/globalSlice';
 import Button from '../../../components/buttons/Button';
 import NavbarDashboard from '../../../components/header/NavbarDashboard';

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { FaBell } from "react-icons/fa6";
 import {useDispatch , useSelector}  from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import LoadingPage from '../../LoadingPage';
@@ -37,6 +36,7 @@ export const CollegeDashHeader = ({sidemenuExpanded}) => {
     notficationTitle={collegeStaff?.notifications.title}
     notificationBody={collegeStaff?.notifications.body}
     sidemenuExpanded = {sidemenuExpanded}
+    userType="college-staff"
     />
   )
 }
