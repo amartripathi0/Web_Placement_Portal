@@ -4,17 +4,17 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "nanoid";
-import { NavLink } from "react-router-dom";
-import {
-  RESET_GLOBAL,
-  SET_GLOBAL,
-  getLoginStatus,
-} from "../../../../redux/features/common/globalSlice";
 import {
   RESET,
   getUserData,
   updateProfileDetail,
 } from "../../../../redux/features/student/auth/authSlice";
+import UserLayout from "../../../../components/layout/UserLayout";
+import FormField from "../../../../components/containers/FormField";
+import Label from "../../../../components/label";
+import Button from "../../../../components/buttons/Button";
+import SlateBackground from "../../../../components/containers/SlateBackground";
+import ProjectCard from "../../../../components/project-card";
 
 const Project = () => {
   const dispatch = useDispatch();
@@ -56,150 +56,120 @@ const Project = () => {
       dispatch(getUserData());
     }
   }, [updateProfileDetail, isSuccess, dispatch]);
-
   return (
-    <div
-      className={` bg-purple-100 p-10 px-40 flex flex-col gap-7 justify-center items-center ${
-        (isLoading || studentUtil.isLoading) && "  blur-sm bg-gray-400"
-      }`}
+    <UserLayout
+      slateBgStyles={"gap-20 p-10 "}
+      purpleBgStyles={"justify-start flex-col gap-20"}
     >
-      <div className="bg-slate-100 py-20 w-full rounded-lg shadow-slate-300 shadow-md flex justify-center items-center">
-        <form
-          onSubmit={handleSubmit(handleUploadProjectDetails)}
-          className="flex flex-col items-center p-10 gap-12 bg-white rounded-md w-[85%] shadow-grey-300 shadow-md"
-        >
-          <div>
-            <h1 className="text-4xl ">Project-Form</h1>
-          </div>
-
-          <div className=" flex flex-wrap px-16 gap-4  justify-between">
-            <div className="flex items-center  justify-between w-[45%]   py-3 px-6 rounded-md  hover:bg-purple-100 ">
-              <h2 className="text-xl">Project Title</h2>
-              <InputWithEdit
-                type="text"
-                placeholder="Project Title"
-                validationObj={{
-                  ...register("title", {
-                    required: {
-                      value: true,
-                      message: "Please enter the Project Title.",
-                    },
-                  }),
-                }}
-                error={errors.title?.message}
-              />
-            </div>
-
-            <div className="flex items-center   justify-between w-[45%]  py-3 px-6 rounded-md  hover:bg-purple-100 ">
-              <h2 className="text-xl">Project Link</h2>
-              <InputWithEdit
-                type="text"
-                placeholder="Project Link"
-                validationObj={{
-                  ...register("link", {
-                    required: {
-                      value: true,
-                      message: "Please enter your link of your project.",
-                    },
-                  }),
-                }}
-                error={errors.link?.message}
-              />
-            </div>
-            <div className="flex items-center  justify-between w-[45%] py-3 px-6 rounded-md  hover:bg-purple-100 ">
-              <h2 className="text-xl">Project Duration</h2>
-              <InputWithEdit
-                type="text"
-                placeholder="Project Duration"
-                validationObj={{
-                  ...register("duration", {
-                    required: {
-                      value: true,
-                      message: "Please enter the total Project duration.",
-                    },
-                  }),
-                }}
-                error={errors.duration?.message}
-              />
-            </div>
-
-            <div className="flex items-center   justify-between w-[45%]  py-3 px-6 rounded-md  hover:bg-purple-100 ">
-              <h2 className="text-xl">Description</h2>
-              <InputWithEdit
-                type="description"
-                placeholder="Project Description."
-                validationObj={{
-                  ...register("description", {
-                    required: {
-                      value: true,
-                      message: "Please enter your internship experience.",
-                    },
-                  }),
-                }}
-                error={errors.description?.message}
-              />
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            className="w-60  font-semibold text-white bg-pink-500 hover:bg-pink-600 p-3 pl-6 pr-6 rounded-lg flex items-center justify-center"
-          >
-            Save
-          </button>
-        </form>
-      </div>
-
-      <div
-        className={`flex flex-col gap-10 w-full bg-slate-100 full ${
-          student?.pastInternshipsProjects.projects.length !== 0 && "py-20"
-        } rounded-lg shadow-slate-300 shadow-md  justify-center items-center`}
+      <form
+        onSubmit={handleSubmit(handleUploadProjectDetails)}
+        className="flex flex-col items-center p-8 mx-auto bg-white gap-4 rounded-md w-2/3 shadow-grey-300 shadow-md"
       >
-        {student?.pastInternshipsProjects.projects.map((eachProject) => (
-          <div
-            key={nanoid()}
-            className="flex flex-col p-14 px-20 gap-6 bg-white rounded-md w-[85%] shadow-grey-300 shadow-md"
-          >
-            <div className="text-lg font-semibold">
-              Project No:{" "}
-              {student.pastInternshipsProjects.projects.indexOf(eachProject) +
-                1}
-            </div>
-            <div className="flex items-center justify-between w-full ">
-              <div className="flex gap-3 w-1/3 items-center ">
-                <h1 className="text-2xl ">Project Title: </h1>
-                <span className=" font-medium text-2xl ">
-                  {eachProject.title}
-                </span>
-              </div>
+        <h3 className="text-xl font-medium">Project Form</h3>
 
-              <div className="flex gap-3 w-1/3 items-center justify-center">
-                <h1 className="text-2xl ">Link: </h1>
-                <NavLink
-                  to={eachProject.link}
-                  target="_blank"
-                  className="text-2xl  text-blue-700 underline font-medium"
-                >
-                  {eachProject.link}
-                </NavLink>
-              </div>
+        <div className="flex flex-wrap gap-4 justify-between">
+          <FormField additionalStyles={"max-w-[48%]"}>
+            <Label>Project Title</Label>
+            <InputWithEdit
+              type="text"
+              placeholder="Project Title"
+              validationObj={{
+                ...register("title", {
+                  required: {
+                    value: true,
+                    message: "Please enter the Project Title.",
+                  },
+                }),
+              }}
+              error={errors.title?.message}
+            />
+          </FormField>
+          <FormField additionalStyles={"max-w-[48%]"}>
+            <Label> Project Link</Label>
+            <InputWithEdit
+              type="text"
+              placeholder="Project Link"
+              validationObj={{
+                ...register("link", {
+                  required: {
+                    value: true,
+                    message: "Please enter your link of your project.",
+                  },
+                }),
+              }}
+              error={errors.link?.message}
+            />
+          </FormField>
+          <FormField additionalStyles={"max-w-[48%]"}>
+            <Label> Project Duration</Label>
+            <InputWithEdit
+              type="text"
+              placeholder="Project Duration"
+              validationObj={{
+                ...register("duration", {
+                  required: {
+                    value: true,
+                    message: "Please enter the total Project duration.",
+                  },
+                }),
+              }}
+              error={errors.duration?.message}
+            />
+          </FormField>
+          <FormField additionalStyles={"max-w-[48%]"}>
+            <Label> Description</Label>
+            <InputWithEdit
+              type="text"
+              placeholder="Project Description."
+              validationObj={{
+                ...register("description", {
+                  required: {
+                    value: true,
+                    message: "Please enter your internship experience.",
+                  },
+                }),
+              }}
+              error={errors.description?.message}
+            />
+          </FormField>
 
-              <div className="flex gap-3 w-1/3 justify-end items-center">
-                <h1 className="text-2xl"> Duration:</h1>
-                <span className="font-medium text-2xl">
-                  {" "}
-                  {eachProject.duration}
-                </span>
-              </div>
-            </div>
-            <p className="text-xl mt-5 ">
-              Description:{" "}
-              <span className="font-medium">{eachProject.description}</span>
-            </p>
-          </div>
-        ))}
-      </div>
-    </div>
+          <Button
+            type={"submit"}
+            color={"pink"}
+            label={"Save Details"}
+            additionalStyles={
+              "w-40 mt-4 mx-auto max-sm:w-10/12 max-sm:text-xs max-sm:p-3  "
+            }
+          />
+        </div>
+      </form>
+
+      {student?.pastInternshipsProjects.projects.length > 0 ? (
+        <SlateBackground
+          additionalStyles={
+            "flex flex-col gap-6 w-full justify-center items-center mt-10 bg-neutral-50 p-6 w-4/5 mx-auto"
+          }
+        >
+          {student?.pastInternshipsProjects.projects.map((eachProject) => (
+            <ProjectCard
+              key={nanoid()}
+              index={
+                student.pastInternshipsProjects.projects.indexOf(eachProject) +
+                1
+              }
+              link={eachProject.link}
+              title={eachProject.title}
+              duration={eachProject.duration}
+              description={eachProject.description}
+            />
+          ))}
+        </SlateBackground>
+      ) : (
+        <div className={"bg-neutral-50 mt-10 w-2/3 mx-auto p-10 flex-center "}>
+          You don't have any project. Please fill up above form to add one.
+        </div>
+      )}
+    </UserLayout>
   );
 };
 
