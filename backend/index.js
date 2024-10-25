@@ -74,13 +74,16 @@ app.get(
             }
           } else {
             res.status(401)
-            throw new Error('Session Expired, Please signin again.')
+            throw new Error('Unauthorized Access! Please signin again.')
           }
+        }
+        else{
+            res.status(400).json("")
         }
       } catch (error) {
         if (error.message === 'invalid token') {
           res.status(401)
-          throw new Error('Session Expired, Please signin again.')
+          throw new Error('Session Expired! Please SignIn again.')
         } else {
           console.log(error)
           next(error)
