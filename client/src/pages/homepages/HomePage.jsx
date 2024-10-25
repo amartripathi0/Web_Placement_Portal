@@ -8,43 +8,34 @@ import {
 } from "../../redux/features/common/globalSlice";
 import { useSelector, useDispatch } from "react-redux";
 import LoadingPage from "../LoadingPage";
-import { toast } from "react-toastify";
 
 const HomePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoggedin, isSuccess, isLoading, userType, message } = useSelector(
+  const { isLoggedin, isSuccess, isLoading, userType } = useSelector(
     (state) => state.globalAuth
   );
-  const { isLoggedIn } = useSelector((state) => state.studentAuth);
-
   useEffect(() => {
-    // console.log("u", userType);
     if (isLoggedin && isSuccess && userType !== "") {
       navigate(userType);
-      // if(userType === 'student'){
-      // }
-      // else if(userType === 'college-staff'){
-      //   // navigate(userType)
-      // }
-      // else if(userType === 'company'){
-      //   // navigate(userType)
-      // }
     } else {
       dispatch(getLoginStatus());
-
-      // dispatch(RESET_GLOBAL());
     }
-  }, [isLoggedin, userType]); 
+  }, [isLoggedin, userType]);
 
   return (
-    <div>
-      {isLoading && <LoadingPage height="screen" width="screen" />}
-      <div className={`relative ${isLoading ? "bg-black opacity-0" : ""}`}>
-        <Navbar />
-        <Outlet />
-      </div>
-    </div>
+    <main>
+      {isLoading ? (
+        <LoadingPage height="screen" width="screen" />
+      ) : (
+        !isLoggedin && (
+          <section className={`relative`}>
+            <Navbar />
+            <Outlet />
+          </section>
+        )
+      )}
+    </main>
   );
 };
 

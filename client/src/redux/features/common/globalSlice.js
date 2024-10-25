@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -10,17 +9,16 @@ export const getLoginStatus = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axios.get(BACKEND_URL);
-      // console.log(response.data);
       return response.data;
     } catch (error) {
       const message =
-      (error.response &&
-        error.response.data &&
-        error.response.data.message) ||
-      error.message ||
-      error.toString();
-        // console.log("message" , message);
-    return thunkAPI.rejectWithValue(message);
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      // console.log("message" , message);
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
@@ -28,10 +26,9 @@ export const getLoginStatus = createAsyncThunk(
 const initialState = {
   isLoggedin: false,
   userType: "",
-  isLoading: false,
-  isSuccess : false,
-  message : ""
-
+  isLoading: true,
+  isSuccess: false,
+  message: "",
 };
 export const globalSlice = createSlice({
   name: "globalAuth",
@@ -43,12 +40,12 @@ export const globalSlice = createSlice({
       state.isLoggedin = false;
       state.isSuccess = false;
     },
-    SET_GLOBAL(state , action) {
+    SET_GLOBAL(state, action) {
       // console.log("set" , action);
       state.userType = action.payload?.message;
       state.isLoading = false;
       state.isLoggedin = true;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -60,22 +57,27 @@ export const globalSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.userType = action.payload?.message;
-        
+
         // console.log(action.payload);
       })
       .addCase(getLoginStatus.rejected, (state, action) => {
         state.isLoggedin = false;
         state.isLoading = false;
         state.isSuccess = true;
-        // console.log("globalAuthReject" , action.payload);
-        toast.error(`${action.payload}`, {
-          position : toast.POSITION.TOP_CENTER
-        })
+        state.message = action.payload;        
+        if (
+          action.payload !==
+          "Request failed with status code 400"
+        ) {
+          toast.error(`${action.payload}`, {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        }
       });
   },
 });
 
-export const {RESET_GLOBAL , SET_GLOBAL} = globalSlice.actions;
+export const { RESET_GLOBAL, SET_GLOBAL } = globalSlice.actions;
 
 export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 
