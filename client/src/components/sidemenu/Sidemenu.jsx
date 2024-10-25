@@ -11,8 +11,8 @@ const Sidemenu = ({
   lastName,
   profileImgLink,
   sidemenuState,
+  userType
 }) => {
-  // console.log(profileImgLink);
   const [expanded, setExpanded] = useState(true);
 
   return (
@@ -28,7 +28,7 @@ const Sidemenu = ({
           }`}
         >
           <NavLink
-            to="/dashboard"
+            to={`dashboard`}
             className={`overflow-hidden transition-all  rounded-md max-tablet:hidden ${
               expanded ? "w-16 h-16" : " hidden "
             }`}
