@@ -105,7 +105,6 @@ function StudentDashboard() {
               notficationFrom={student?.notifications.from}
               notficationTitle={student?.notifications.title}
               notificationBody={student?.notifications.body}
-              sidemenuExpanded={sidemenuExpanded}
             />
             <Outlet />
           </div>

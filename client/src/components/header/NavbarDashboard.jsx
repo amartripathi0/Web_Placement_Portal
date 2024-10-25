@@ -6,14 +6,12 @@ import cn from "../../utils/cn";
 
 const NavbarDashboard = ({
   userName,
-  heading,
   navbarButtonHandler,
   notficationCount,
   notficationFrom,
   notficationTitle,
   notificationBody,
   sidemenuExpanded,
-  userType,
 }) => {
   const [showNotification, setShowNotification] = useState(false);
 

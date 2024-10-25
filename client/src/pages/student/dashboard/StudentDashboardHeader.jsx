@@ -29,7 +29,6 @@ const StudentDashboardHeader = ({
   return (
     <NavbarDashboard
       userName={userName}
-      heading={"Student Dashboard"}
       navbarButtonHandler={handleStudentSignout}
       notficationCount={notficationCount}
       notficationFrom={notficationFrom}
