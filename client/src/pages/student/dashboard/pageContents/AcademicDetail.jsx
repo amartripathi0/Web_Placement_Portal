@@ -3,16 +3,7 @@ import InputWithEdit from "../../../../components/inputField/InputWithEdit";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  RESET_GLOBAL,
-  SET_GLOBAL,
-  getLoginStatus,
-} from "../../../../redux/features/common/globalSlice";
-import {
-  RESET,
-  getUserData,
-  updateProfileDetail,
-} from "../../../../redux/features/student/auth/authSlice";
+import { updateProfileDetail } from "../../../../redux/features/student/auth/authSlice";
 import AccountStatus from "../../../../components/AccountStatus";
 import FormField from "../../../../components/containers/FormField";
 import Label from "../../../../components/label";
@@ -26,13 +17,27 @@ import {
 } from "../../../../utils/formValidation";
 import Button from "../../../../components/buttons/Button";
 import UserLayout from "../../../../components/layout/UserLayout";
+import { useNavigate } from "react-router-dom";
 
 const AcademicDetail = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoading, isError, isSuccess, isLoggedIn, message, student } =
-    useSelector((state) => state.studentAuth);
   const globalAuth = useSelector((state) => state.globalAuth);
-  const studentUtil = useSelector((state) => state.studentUtils);
+  const { isSuccess, isLoggedIn, student } = useSelector(
+    (state) => state.studentAuth
+  );
+  useEffect(() => {
+    if (!globalAuth.isLoggedin && !globalAuth.isLoading) {
+      navigate("/signin");
+    }
+    if (isLoggedIn && isSuccess) {
+      setValue("rollNumber", student?.educationalDetails.rollNumber);
+      setValue("degrees", student?.educationalDetails.degrees);
+      setValue("collegeName", student?.educationalDetails.collegeName);
+      setValue("cgpa", student?.educationalDetails.cgpa);
+      setValue("yearOfPassing", student?.educationalDetails.yearOfPassing);
+    }
+  }, [globalAuth.isLoggedin, student]);
 
   const form = useForm();
   const {
@@ -49,33 +54,6 @@ const AcademicDetail = () => {
     });
   }
 
-  useEffect(() => {
-    if (globalAuth.isLoggedin === true) {
-      dispatch(getUserData());
-      // console.log("data fetched");
-      toast.success("Data Fetched Succesfully", {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    }
-    // dispatch(RESET())
-  }, [globalAuth.isLoggedin]);
-  useEffect(() => {
-    if (isLoggedIn && isSuccess) {
-      setValue("rollNumber", student?.educationalDetails.rollNumber);
-      setValue("degrees", student?.educationalDetails.degrees);
-      setValue("collegeName", student?.educationalDetails.collegeName);
-      setValue("cgpa", student?.educationalDetails.cgpa);
-      setValue("yearOfPassing", student?.educationalDetails.yearOfPassing);
-    }
-  }, [student]);
-  // console.log(student);
-
-  if (isLoading || studentUtil.isLoading)
-    return (
-      <section className="bg-gray-400 blur-sm h-screen w-screen flex justify-center items-center">
-        Loading...
-      </section>
-    );
   return (
     <UserLayout slateBgStyles={"w-2/5"}>
       <form

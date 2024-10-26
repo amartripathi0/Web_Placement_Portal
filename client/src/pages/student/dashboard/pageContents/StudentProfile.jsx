@@ -1,37 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  updateProfileDetail,
-  RESET,
-  getUserData,
-} from "../../../../redux/features/student/auth/authSlice";
-import {
-  uploadProfilePicture,
-  RESET_UTILS,
-} from "../../../../redux/features/student/utilsServices/utilSlice";
-import { toast } from "react-toastify";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { updateProfileDetail } from "../../../../redux/features/student/auth/authSlice";
+import { uploadProfilePicture } from "../../../../redux/features/student/utilsServices/utilSlice";
 import CommonProfilePage from "../../../../components/CommonProfilePage";
+import { useNavigate } from "react-router-dom";
+
 const StudentProfile = () => {
-  const { isLoading, isError, isSuccess, isLoggedIn, message, student } =
-    useSelector((state) => state.studentAuth);
+  const { isLoading, isSuccess, isLoggedIn, student } = useSelector(
+    (state) => state.studentAuth
+  );
   const globalAuth = useSelector((state) => state.globalAuth);
-  const dispatch = useDispatch();
-  const studentUtil = useSelector((state) => state.studentUtils);
-
-
+  const navigate = useNavigate();
   useEffect(() => {
-    if (globalAuth.isLoggedin) {
-      dispatch(getUserData());
-      toast.success("Data Fetched Succesfully", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+    if (!globalAuth.isLoggedin && !globalAuth.isLoading) {
+      navigate("/signin");
     }
-
-    if (studentUtil.isSuccess) {
-      dispatch(RESET_UTILS());
-    }
-    // dispatch(RESET())
-  }, [globalAuth.isLoggedin, studentUtil.isSuccess]);
+  }, [globalAuth.isLoggedin]);
 
   return (
     <CommonProfilePage
@@ -41,7 +25,7 @@ const StudentProfile = () => {
       userAccountStatus={student?.role}
       userProfilePicture={student?.personalDetail.profilePicture}
       uploadProfilePicture={uploadProfilePicture}
-      updateProfileDetail = {updateProfileDetail}
+      updateProfileDetail={updateProfileDetail}
       firstName={student?.personalDetail.firstName}
       lastName={student?.personalDetail.lastName}
       fathersName={student?.personalDetail.fathersName}

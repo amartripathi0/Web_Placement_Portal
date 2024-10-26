@@ -35,9 +35,9 @@ const Resume = () => {
   useEffect(() => {
     if (globalAuth.isLoggedin) {
       dispatch(getUserData());
-      toast.success("Data Fetched Successfully", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      // toast.success("Data Fetched Successfully", {
+      //   position: toast.POSITION.TOP_CENTER,
+      // });
     }
   }, [globalAuth.isLoggedin, dispatch]);
 
