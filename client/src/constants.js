@@ -25,7 +25,7 @@ import {
   MdLock,
   MdLockReset,
 } from "react-icons/md";
-import { Book, Lock, LockIcon, Text, User, User2, User2Icon, UserCog2 } from "lucide-react";
+import { Book, Lock, LockIcon, Text, User, User2, User2Icon, UserCog2, Users } from "lucide-react";
 
 export const constants = {
   logo,
@@ -135,59 +135,42 @@ export const studentSidebarItems = [
 export const collegeStaffSidebarItems = [
   {
     label: "Profile",
-    icon: (
-      <FaRegUser className="h-5 w-4 max-tablet:w-8 max-tablet:h-8  max-sm:h-6 max-sm:w-6  " />
-    ),
+    icon: FaUserCheck,
   },
   {
     label: "Students",
-    icon: (
-      <LuGraduationCap className="h-6 w-6 -ml-1 max-tablet:w-8 max-tablet:h-8  max-sm:h-6 max-sm:w-6  " />
-    ),
+    icon: Users,
   },
   {
     label: "Companies",
-    icon: (
-      <IoNewspaperOutline className="h-5 w-5 max-tablet:w-8 max-tablet:h-8  max-sm:h-6 max-sm:w-6 " />
-    ),
+    icon: IoNewspaperOutline,
   },
   {
     label: "Reset Password",
-    icon: (
-      <MdLockReset className="h-6 w-6 -ml-1 max-tablet:w-8 max-tablet:h-8  max-sm:h-6 max-sm:w-6 " />
-    ),
+    icon: LuLock,
   },
 ];
+
 export const companySidebarItems = [
   {
     label: "Profile",
-    icon: (
-      <FaRegUser className="h-5 w-5 max-tablet:w-8 max-tablet:h-8  max-sm:h-6 max-sm:w-6  " />
-    ),
+    icon: FaUserCheck,
   },
   {
     label: "Students",
-    icon: (
-      <LuGraduationCap className="h-6 w-6 -ml-1 max-tablet:w-8 max-tablet:h-8  max-sm:h-6 max-sm:w-6  " />
-    ),
+    icon: LuGraduationCap,
   },
   {
     label: "Job Posts",
-    icon: (
-      <IoNewspaperOutline className="h-5 w-5 max-tablet:w-8 max-tablet:h-8  max-sm:h-6 max-sm:w-6 " />
-    ),
+    icon: IoNewspaperOutline,
   },
   {
     label: "Applicants",
-    icon: (
-      <IoNewspaperOutline className="h-5 w-5 max-tablet:w-8 max-tablet:h-8  max-sm:h-6 max-sm:w-6 " />
-    ),
+    icon: IoNewspaperOutline,
   },
   {
     label: "Reset Password",
-    icon: (
-      <MdLockReset className="h-6 w-6 -ml-1 max-tablet:w-8 max-tablet:h-8  max-sm:h-6 max-sm:w-6 " />
-    ),
+    icon: LuLock,
   },
 ];
 
