@@ -7,6 +7,7 @@ import UserLayout from "../../../../components/layout/UserLayout";
 import { uploadResume } from "../../../../redux/features/student/utilsServices/utilSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { RESET_GLOBAL } from "../../../../redux/features/common/globalSlice";
 
 const Resume = () => {
   const [file, setFile] = useState("");
@@ -18,6 +19,7 @@ const Resume = () => {
   useEffect(() => {
     if (!globalAuth.isLoggedin && !globalAuth.isLoading) {
       navigate("/signin");
+      dispatch(RESET_GLOBAL);
     }
   }, [globalAuth.isLoggedin]);
 

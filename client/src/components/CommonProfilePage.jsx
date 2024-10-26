@@ -94,11 +94,8 @@ const CommonProfilePage = ({
   return (
     <PurpleBackground
       additionalStyles={`h-full w-full px-[2vw]  pt-20 max-tablet:p-[3vw] max-tablet:mt-16 max-sm:mt-16
-    // ${isLoading && " opacity-70 bg-gray-400"}  
     `}
     >
-      {isLoading && <LoadingPage height="full" width="full" />}
-
       <SlateBackground
         additionalStyles={"h-[96%] w-[96%] p-[2vw] flex-center max-sm:p-0"}
       >

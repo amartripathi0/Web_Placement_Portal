@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateProfileDetail } from "../../../../redux/features/student/auth/authSlice";
 import { uploadProfilePicture } from "../../../../redux/features/student/utilsServices/utilSlice";
 import CommonProfilePage from "../../../../components/CommonProfilePage";
 import { useNavigate } from "react-router-dom";
+import { RESET_GLOBAL } from "../../../../redux/features/common/globalSlice";
 
 const StudentProfile = () => {
   const { isLoading, isSuccess, isLoggedIn, student } = useSelector(
@@ -11,9 +12,11 @@ const StudentProfile = () => {
   );
   const globalAuth = useSelector((state) => state.globalAuth);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   useEffect(() => {
     if (!globalAuth.isLoggedin && !globalAuth.isLoading) {
       navigate("/signin");
+      dispatch(RESET_GLOBAL);
     }
   }, [globalAuth.isLoggedin]);
 

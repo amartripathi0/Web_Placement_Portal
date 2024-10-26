@@ -18,6 +18,7 @@ import {
 import Button from "../../../../components/buttons/Button";
 import UserLayout from "../../../../components/layout/UserLayout";
 import { useNavigate } from "react-router-dom";
+import { RESET_GLOBAL } from "../../../../redux/features/common/globalSlice";
 
 const AcademicDetail = () => {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const AcademicDetail = () => {
   useEffect(() => {
     if (!globalAuth.isLoggedin && !globalAuth.isLoading) {
       navigate("/signin");
+      dispatch(RESET_GLOBAL);
     }
     if (isLoggedIn && isSuccess) {
       setValue("rollNumber", student?.educationalDetails.rollNumber);
