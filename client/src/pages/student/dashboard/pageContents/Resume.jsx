@@ -1,55 +1,25 @@
 import React, { useEffect, useState } from "react";
-import InputField from "../../../../components/inputField/InputField";
-import axios from "axios";
 import { Worker } from "@react-pdf-viewer/core";
 import { Viewer } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import { useDispatch, useSelector } from "react-redux";
 import UserLayout from "../../../../components/layout/UserLayout";
-
-import {
-  RESET_GLOBAL,
-  SET_GLOBAL,
-  getLoginStatus,
-} from "../../../../redux/features/common/globalSlice";
-import {
-  RESET,
-  getUserData,
-  updateProfileDetail,
-} from "../../../../redux/features/student/auth/authSlice";
-import {
-  uploadResume,
-  RESET_UTILS,
-} from "../../../../redux/features/student/utilsServices/utilSlice";
+import { uploadResume } from "../../../../redux/features/student/utilsServices/utilSlice";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Resume = () => {
-  const studentUtil = useSelector((state) => state.studentUtils);
+  const [file, setFile] = useState("");
+  const { student } = useSelector((state) => state.studentAuth);
+  const globalAuth = useSelector((state) => state.globalAuth);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [file, setFile] = useState("");
-  const { isLoading, isError, isSuccess, isLoggedIn, message, student } =
-    useSelector((state) => state.studentAuth);
-  const globalAuth = useSelector((state) => state.globalAuth);
-
   useEffect(() => {
-    if (globalAuth.isLoggedin) {
-      dispatch(getUserData());
-      // toast.success("Data Fetched Successfully", {
-      //   position: toast.POSITION.TOP_CENTER,
-      // });
+    if (!globalAuth.isLoggedin && !globalAuth.isLoading) {
+      navigate("/signin");
     }
-  }, [globalAuth.isLoggedin, dispatch]);
-
-  useEffect(() => {
-    if (studentUtil.isSuccess && !studentUtil.isLoading) {
-      toast.success(studentUtil.message, {
-        position: toast.POSITION.TOP_CENTER,
-      });
-      dispatch(getUserData());
-      dispatch(RESET_UTILS());
-    }
-  }, [studentUtil.isSuccess, dispatch]);
+  }, [globalAuth.isLoggedin]);
 
   const handleInputChange = (e) => {
     setFile(e.target.files[0]);
@@ -57,7 +27,6 @@ const Resume = () => {
 
   const handleUploadResume = (e) => {
     e.preventDefault();
-
     if (file.size > 5000000) {
       toast.error("Please upload a file less than 5 MB", {
         position: toast.POSITION.TOP_CENTER,
@@ -72,7 +41,6 @@ const Resume = () => {
       dispatch(uploadResume(formdata));
     }
   };
-  console.log(student?.resume);
   return (
     <UserLayout
       slateBgStyles={"w-full h-full p-10"}
