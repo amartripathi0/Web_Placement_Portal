@@ -26,36 +26,36 @@ const NavbarDashboard = ({
         {userName}
       </h1>
 
-        <div className="flex justify-between items-center h-full gap-10  ">
-          {/* Notification bell and count */}
-          <div
-            className="relative flex-center max-sm:hidden"
-            onMouseEnter={() => setShowNotification(true)}
-            onClick={() => setShowNotification(false)}
-          >
-            {/*notification count  */}
-            <div className="rounded-full bg-red-500 text-white  absolute -top-2 left-2 flex-center text-xs size-4 px-1 aspect-square font-medium">
-              {notficationCount ? notficationCount + "+" : 10}
-            </div>
-            <FaBell className="text-white size-5 mt-1" />
+      <div className="flex justify-between items-center h-full gap-10  ">
+        {/* Notification bell and count */}
+        <div
+          className="relative flex-center max-sm:hidden"
+          onMouseEnter={() => setShowNotification(true)}
+          onClick={() => setShowNotification(false)}
+        >
+          {/*notification count  */}
+          <div className="rounded-full bg-red-500 text-white  absolute -top-2 left-2 flex-center text-xs size-4 px-1 aspect-square font-medium">
+            {notficationCount ? notficationCount + "+" : 10}
           </div>
-
-          <Button
-            label={"Sign Out"}
-            onClickHandler={navbarButtonHandler}
-            color={"pink"}
-            additionalStyles={"font-medium max-sm:text-sm "}
-          />
+          <FaBell className="text-white size-5 mt-1" />
         </div>
 
-        {showNotification && (
-          <NotificationsPanel
-            notficationTitle={notficationTitle}
-            setShowNotification={setShowNotification}
-            notificationBody={notificationBody}
-            notficationFrom={notficationFrom}
-          />
-        )}
+        <Button
+          label={"Sign Out"}
+          onClickHandler={navbarButtonHandler}
+          color={"pink"}
+          additionalStyles={"font-medium max-sm:text-sm"}
+        />
+      </div>
+
+      {showNotification && (
+        <NotificationsPanel
+          notficationTitle={notficationTitle}
+          setShowNotification={setShowNotification}
+          notificationBody={notificationBody}
+          notficationFrom={notficationFrom}
+        />
+      )}
     </nav>
   );
 };

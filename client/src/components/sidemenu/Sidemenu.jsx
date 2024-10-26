@@ -17,13 +17,13 @@ const Sidemenu = ({
   return (
     <aside
       className={`h-full fixed top-0 left-0 z-40 max-tablet:w-[8%] max-sm:w-[16%] ${
-        expanded ? "w-[15%]" : "w-[5%] gap-10"
+        expanded ? "w-[15%]" : "w-[5%] gap-2"
       } `}
     >
       <nav className="h-full flex flex-col max- bg-white border-r shadow-sm ">
         <div
           className={` flex justify-between items-center p-4 ${
-            expanded ? "p-4" : "py-6 "
+            expanded ? "p-4" : "py-7"
           }`}
         >
           <NavLink
@@ -86,7 +86,7 @@ const Sidemenu = ({
   );
 };
 
-export function SidebarItem({ icon, text }) {
+export function SidebarItem({ icon: Icon, text }) {
   const { expanded } = useContext(SidebarContext);
   const ch1 = text.split(" ")[0].toLowerCase();
   const ch2 = text.split(" ")[1];
@@ -99,11 +99,14 @@ export function SidebarItem({ icon, text }) {
       to={link}
       className={({ isActive }) =>
         isActive
-          ? "text-sm bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800  relative flex items-center py-2 px-3 max-tablet:p-1  max-sm:my-1 max-sm:pl-1 max-sm:py-3  border-green-300 border my-1 font-medium rounded-md cursor-pointer transition-colors group "
+          ? "text-sm bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800  relative flex items-center py-2 px-3 max-tablet:p-1  max-sm:my-1 max-sm:pl-1 max-sm:py-3 border my-1 font-medium rounded-md cursor-pointer transition-colors group "
           : "text-sm hover:bg-indigo-50 text-gray-600  relative flex items-center py-2 px-3 max-tablet:p-1 max-sm:my-1 max-sm:pl-1 max-sm:py-3 my-1 font-medium rounded-md cursor-pointer transition-colors group"
       }
     >
-      {icon}
+      <Icon
+        className="size-6 sm:size-7 tablet:size-30"
+        size={expanded ? 23 : 18}
+      />
 
       <span
         className={`overflow-hidden transition-all duration-100 max-tablet:h-6  
@@ -115,20 +118,6 @@ export function SidebarItem({ icon, text }) {
       >
         {text}
       </span>
-
-      {!expanded && (
-        <div
-          className={`
-            
-            absolute left-full  rounded-md px-2 py-1 ml-6
-            bg-indigo-200 text-indigo-800 text-sm
-            invisible opacity-20 -translate-x-3 transition-all
-            group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
-        `}
-        >
-          {text}
-        </div>
-      )}
     </NavLink>
   );
 }
