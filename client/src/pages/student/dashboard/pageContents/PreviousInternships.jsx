@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "@reduxjs/toolkit";
 import {
-  RESET,
   getUserData,
   updateProfileDetail,
 } from "../../../../redux/features/student/auth/authSlice";
@@ -15,46 +14,48 @@ import Label from "../../../../components/label";
 import Button from "../../../../components/buttons/Button";
 import UserLayout from "../../../../components/layout/UserLayout";
 import InternshipCard from "../../../../components/internship-card";
+import { RESET_GLOBAL } from "../../../../redux/features/common/globalSlice";
+import { useNavigate } from "react-router-dom";
 
 const PreviousInternships = () => {
   const dispatch = useDispatch();
-  const { isLoading, isError, isSuccess, isLoggedIn, message, student } =
-    useSelector((state) => state.studentAuth);
-  const globalAuth = useSelector((state) => state.globalAuth);
-  const studentUtil = useSelector((state) => state.studentUtils);
-
   const form = useForm();
   const {
     handleSubmit,
     register,
-    setValue,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitSuccessful },
   } = form;
-  function handleUploadInternshipDetails(data) {
-    console.log(data);
-    const internshipData = { typ: "internships", value: data };
-    dispatch(updateProfileDetail(internshipData));
+  const { isSuccess, message, student } = useSelector(
+    (state) => state.studentAuth
+  );
+  const globalAuth = useSelector((state) => state.globalAuth);
+  const navigate = useNavigate();
 
-    dispatch(RESET());
-  }
   useEffect(() => {
-    if (globalAuth.isLoggedIn) {
+    if (!globalAuth.isLoggedin && !globalAuth.isLoading) {
+      navigate("/signin");
+      dispatch(RESET_GLOBAL);
+    } else if (isSuccess && isSubmitSuccessful) {
       dispatch(getUserData());
-
-      dispatch(RESET());
-    }
-  }, [globalAuth.isLoggedIn]);
-
-  useEffect(() => {
-    if (isSuccess) {
       toast.success(message, {
         position: toast.POSITION.TOP_CENTER,
       });
-
-      dispatch(getUserData());
     }
-  }, [updateProfileDetail, isSuccess, dispatch]);
+  }, [
+    globalAuth.isLoggedin,
+    isSuccess,
+    dispatch,
+    isSubmitSuccessful,
+    navigate,
+    globalAuth.isLoading,
+  ]);
 
+  function handleUploadInternshipDetails(data) {
+    const internshipData = { typ: "internships", value: data };
+    dispatch(updateProfileDetail(internshipData));
+    reset();
+  }
   return (
     <UserLayout
       slateBgStyles={"gap-20 p-10 "}
