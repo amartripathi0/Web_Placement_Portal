@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
 import Navbar from "../../components/header/Navbar";
 import { Outlet, useNavigate } from "react-router-dom";
-import {
-  RESET_GLOBAL,
-  SET_GLOBAL,
-  getLoginStatus,
-} from "../../redux/features/common/globalSlice";
+import { getLoginStatus } from "../../redux/features/common/globalSlice";
 import { useSelector, useDispatch } from "react-redux";
 import LoadingPage from "../LoadingPage";
 
@@ -25,16 +21,11 @@ const HomePage = () => {
 
   return (
     <main>
-      {isLoading ? (
-        <LoadingPage height="screen" width="screen" />
-      ) : (
-        !isLoggedin && (
-          <section className={`relative`}>
-            <Navbar />
-            <Outlet />
-          </section>
-        )
-      )}
+      {isLoading && <LoadingPage />}
+      <section className={`relative`}>
+        <Navbar />
+        <Outlet />
+      </section>
     </main>
   );
 };
