@@ -8,7 +8,6 @@ const PasswordInput = ({
   errorMessageStyle,
   labelClass,
   inputFieldContainerStyles,
-  handlePassChange,
   labelName,
   label,
   ref,
@@ -16,7 +15,8 @@ const PasswordInput = ({
   error,
 }) => {
   const [showPass, setShowPass] = useState(false);
-  function togglePassHide() {
+  function togglePassHide(e) {
+    e.preventDefault();
     setShowPass((prev) => !prev);
   }
 
@@ -31,19 +31,18 @@ const PasswordInput = ({
 
       <div
         className={cn(
-          inputFieldStyle ? inputFieldStyle : "h-10 w-full",
+          inputFieldStyle ? inputFieldStyle : "h-10 w-4/5",
           "border focus-within:border-neutral-900 border-neutral-500 focus-within:bg-neutral-100 text-sm rounded flex-center"
         )}
       >
         <input
           type={showPass ? "text" : "password"}
           placeholder={placeholder}
-          onChange={handlePassChange}
           {...validationObj}
           className="w-11/12 h-full outline-none focus:bg-neutral-100 pl-3 rounded font-medium"
         />
 
-        <button onClick={togglePassHide}>
+        <button onClick={(e) => togglePassHide(e)}>
           {showPass ? (
             <AiFillEyeInvisible size={25} className="mx-2" />
           ) : (
