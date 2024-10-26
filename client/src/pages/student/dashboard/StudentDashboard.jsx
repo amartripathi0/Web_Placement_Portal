@@ -18,32 +18,16 @@ function StudentDashboard() {
   const globalAuth = useSelector((state) => state.globalAuth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
-    if (
-      isLoggedIn &&
-      isSuccess &&
-      globalAuth.isLoggedin &&
-      globalAuth.userType === "student" &&
-      student.role !== "suspended"
-    ) {
-      toast.success(
-        `Welcome, ${
-          student.personalDetail.firstName +
-          " " +
-          student.personalDetail.lastName
-        }`,
-        {
-          position: toast.POSITION.TOP_RIGHT,
-        }
-      );
-    } else if (globalAuth.isLoggedin && globalAuth.isSuccess) {
+    if (globalAuth.isLoggedin && globalAuth.isSuccess) {
       dispatch(getUserData());
     } else if (
       !globalAuth.isLoggedin &&
       globalAuth.isSuccess &&
       globalAuth.userType !== "student"
     ) {
-      toast.info("Signed Out successfully", {
+      toast.error("Unauthorized Access! Please SignIn", {
         position: toast.POSITION.TOP_RIGHT,
       });
       navigate("/signin");
@@ -58,7 +42,7 @@ function StudentDashboard() {
 
   return (
     <main>
-      {student?.role && student.role === "Suspended" ? (
+      {student?.role === "Suspended" ? (
         <div className="h-screen w-screen  text-6xl flex justify-center items-center bg-slate-100 absolute z-50 top-0 left-0">
           You are Suspended, Contact Admin{" "}
         </div>
