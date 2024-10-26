@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signin, RESET } from "../../../redux/features/student/auth/authSlice";
+import { signin } from "../../../redux/features/student/auth/authSlice";
 import { toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
 import { SET_GLOBAL } from "../../../redux/features/common/globalSlice";
 import CommonLoginForm from "../../../components/CommonLoginForm";
 
 const LoginStudent = () => {
-  const studentUtil = useSelector((state) => state.studentUtils);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoading, isLoggedIn, isError, isSuccess, message } = useSelector(
@@ -16,11 +14,8 @@ const LoginStudent = () => {
   );
 
   const handleStudentLoginSubmit = (data, event) => {
-    
-    // console.log(data);
     dispatch(signin(data));
   };
-  // console.log(message);
   useEffect(() => {
     if (isLoggedIn && isSuccess) {
       toast.success(message, {
@@ -30,20 +25,17 @@ const LoginStudent = () => {
       navigate("/student");
     }
     if (isError) {
-      // console.log(message);
       toast.error(message, {
         position: toast.POSITION.TOP_RIGHT,
       });
     }
-
-    dispatch(RESET());
   }, [isLoggedIn, isSuccess, isError, navigate]);
 
   return (
-    <CommonLoginForm 
+    <CommonLoginForm
       isLoading={isLoading}
       onLoginFormSubmitHandler={handleStudentLoginSubmit}
-      userType={'student'}
+      userType={"student"}
       loginFormHeading={"Student Login Form "}
     />
   );
