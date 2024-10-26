@@ -5,12 +5,12 @@ import { userPlaceholderImage } from "../../constants";
 
 const SidebarContext = createContext();
 const Sidemenu = ({
-  children,
   emailID,
   firstName,
   lastName,
   profileImgLink,
   sidemenuState,
+  sidebarItems,
 }) => {
   const [expanded, setExpanded] = useState(true);
 
@@ -55,7 +55,16 @@ const Sidemenu = ({
         </div>
 
         <SidebarContext.Provider value={{ expanded }}>
-          <ul className="flex-1 px-3 max-tablet:mt-16 ">{children}</ul>
+          <ul className="flex-1 px-3 max-tablet:mt-16 ">
+            {sidebarItems.map((item) => (
+              <SidebarItem
+                key={item.label}
+                text={item.label}
+                icon={item.icon}
+                active
+              />
+            ))}
+          </ul>
         </SidebarContext.Provider>
 
         <div className="border-t flex p-3 max-sm:p-2 w-full ">
