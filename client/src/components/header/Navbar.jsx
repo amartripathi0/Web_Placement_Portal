@@ -16,7 +16,7 @@ function Navbar() {
             max-sm:px-5 fixed top-0 left-0 max-sm:h-16   z-40   border-b-1 border-black bg-gray-900 
             "
       >
-        <Link to="/" className="h-3/5 border-none">
+        <Link to="/" className="h-1/2 border-none">
           <img
             src={constants.logo}
             alt="logo"
@@ -26,7 +26,7 @@ function Navbar() {
           />
         </Link>
 
-        <div className="flex gap-2 text-md text-white font-semibold max-sm:hidden">
+        <div className="flex gap-2 text-sm text-white font-medium max-sm:hidden">
           {navBarLink.map((navLink) => {
             return (
               <NavLink
