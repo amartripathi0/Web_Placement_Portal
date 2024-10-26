@@ -1,23 +1,45 @@
-import React from 'react'
+import React from "react";
+import cn from "../../utils/cn";
 
 const InputField = ({
-  type , placeholder , inputFieldContainerStyles , labelName , label ,labelClass, validationObj , errorMessageStyle , inputFieldStyle , error , name , onChange
+  type,
+  placeholder,
+  inputFieldContainerStyles,
+  labelName,
+  label,
+  labelClass,
+  validationObj,
+  errorMessageStyle,
+  inputFieldStyle,
+  error,
+  name,
+  onChange,
 }) => {
   return (
-    <div className={`${inputFieldContainerStyles} flex flex-col gap-1 `}>
-    <label htmlFor= {labelName} className={`${labelClass} text-md font-medium ml-2`}>{label}</label>
-      <input type={type} 
-      placeholder={placeholder}
-      name = {name}
-      onChange={onChange}
-      className={`${inputFieldStyle ? inputFieldStyle:  "h-12 w-full"} border-black border-2 font-semibold rounded-md pl-3 `}
-      {...validationObj}
-     
+    <div className={cn(inputFieldContainerStyles, "flex flex-col gap-1")}>
+      <label
+        htmlFor={labelName}
+        className={cn(labelClass, "text-sm font-medium ml-2")}
+      >
+        {label}
+      </label>
+      <input
+        type={type}
+        placeholder={placeholder}
+        name={name}
+        onChange={onChange}
+        className={cn(
+          inputFieldStyle ? inputFieldStyle : "h-10 w-full",
+          "border focus:border-neutral-700 border-neutral-500 focus:bg-neutral-50 text-sm rounded flex-center px-2"
+        )}
+        {...validationObj}
       />
 
-    <p className={` ${errorMessageStyle ? errorMessageStyle : "h-5 font-medium text-base"} text-red-500  ml-2`}> {error}</p>
+      <p className={cn("text-red-500 text-xs ml-2", errorMessageStyle)}>
+        {error}
+      </p>
     </div>
-  )
-}
+  );
+};
 
-export default InputField
+export default InputField;

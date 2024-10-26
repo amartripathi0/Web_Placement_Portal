@@ -32,7 +32,7 @@ const PasswordInput = ({
       <div
         className={cn(
           inputFieldStyle ? inputFieldStyle : "h-10 w-full",
-          " border focus-within:border-neutral-900 border-neutral-500 focus-within:bg-neutral-100 text-sm rounded flex-center"
+          "border focus-within:border-neutral-900 border-neutral-500 focus-within:bg-neutral-100 text-sm rounded flex-center"
         )}
       >
         <input
@@ -52,13 +52,7 @@ const PasswordInput = ({
         </button>
       </div>
 
-      <p
-        className={cn(
-          errorMessageStyle ? errorMessageStyle : "text-red-500 text-xs",
-          " ml-2"
-        )}
-      >
-        {" "}
+      <p className={cn("text-red-500 text-xs ml-2", errorMessageStyle)}>
         {error}
       </p>
     </div>
