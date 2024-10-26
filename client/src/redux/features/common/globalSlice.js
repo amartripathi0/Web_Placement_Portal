@@ -41,8 +41,8 @@ export const globalSlice = createSlice({
       state.isSuccess = false;
     },
     SET_GLOBAL(state, action) {
-      // console.log("set" , action);
-      state.userType = action.payload?.message;
+      console.log("set" , action);
+      state.userType = action.payload;
       state.isLoading = false;
       state.isLoggedin = true;
     },
