@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { nanoid } from "nanoid";
 import {
-  RESET,
   getUserData,
   updateProfileDetail,
 } from "../../../../redux/features/student/auth/authSlice";
@@ -15,47 +14,49 @@ import Label from "../../../../components/label";
 import Button from "../../../../components/buttons/Button";
 import SlateBackground from "../../../../components/containers/SlateBackground";
 import ProjectCard from "../../../../components/project-card";
+import { useNavigate } from "react-router-dom";
+import { RESET_GLOBAL } from "../../../../redux/features/common/globalSlice";
 
 const Project = () => {
   const dispatch = useDispatch();
-  const { isLoading, isError, isSuccess, isLoggedIn, message, student } =
-    useSelector((state) => state.studentAuth);
+  const { isSuccess, message, student } = useSelector(
+    (state) => state.studentAuth
+  );
   const globalAuth = useSelector((state) => state.globalAuth);
-  const studentUtil = useSelector((state) => state.studentUtils);
-
+  const navigate = useNavigate();
   const form = useForm();
   const {
     handleSubmit,
     register,
-    setValue,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitSuccessful },
   } = form;
 
-  function handleUploadProjectDetails(data) {
-    const projectData = { typ: "projects", value: data };
-    // console.log(projectData);
-    dispatch(updateProfileDetail(projectData));
-
-    dispatch(RESET());
-  }
-
   useEffect(() => {
-    if (globalAuth.isLoggedIn) {
+    if (!globalAuth.isLoggedin && !globalAuth.isLoading) {
+      navigate("/signin");
+      dispatch(RESET_GLOBAL);
+    } else if (isSuccess && isSubmitSuccessful) {
       dispatch(getUserData());
-
-      dispatch(RESET());
-    }
-  }, [globalAuth.isLoggedIn]);
-
-  useEffect(() => {
-    if (isSuccess) {
       toast.success(message, {
         position: toast.POSITION.TOP_CENTER,
       });
-
-      dispatch(getUserData());
     }
-  }, [updateProfileDetail, isSuccess, dispatch]);
+  }, [
+    globalAuth.isLoggedin,
+    isSuccess,
+    dispatch,
+    isSubmitSuccessful,
+    navigate,
+    globalAuth.isLoading,
+  ]);
+
+  function handleUploadProjectDetails(data) {
+    const projectData = { typ: "projects", value: data };
+    dispatch(updateProfileDetail(projectData));
+    reset();
+  }
+
   return (
     <UserLayout
       slateBgStyles={"gap-20 p-10 "}
