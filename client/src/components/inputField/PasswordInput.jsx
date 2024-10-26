@@ -21,7 +21,7 @@ const PasswordInput = ({
   }
 
   return (
-    <div className={cn(inputFieldContainerStyles, "flex flex-col gap-1 w-64")}>
+    <div className={cn("flex flex-col gap-1 w-64", inputFieldContainerStyles)}>
       <label
         htmlFor={labelName}
         className={cn(labelClass, "text-sm font-medium ml-2")}
@@ -33,7 +33,7 @@ const PasswordInput = ({
         className={cn(
           inputFieldStyle ? inputFieldStyle : "h-10",
           "border focus-within:border-neutral-900 border-neutral-500 focus-within:bg-neutral-100 text-sm rounded flex-center"
-        )}  
+        )}
       >
         <input
           type={showPass ? "text" : "password"}
