@@ -16,7 +16,7 @@ const InputField = ({
   onChange,
 }) => {
   return (
-    <div className={cn(inputFieldContainerStyles, "flex flex-col gap-1")}>
+    <div className={cn(inputFieldContainerStyles, "flex flex-col gap-1 w-64")}>
       <label
         htmlFor={labelName}
         className={cn(labelClass, "text-sm font-medium ml-2")}
