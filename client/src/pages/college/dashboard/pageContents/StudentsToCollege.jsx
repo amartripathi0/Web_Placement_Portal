@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { apiContext } from "../CollegeDashboard";
@@ -10,6 +10,9 @@ const StudentsToCollege = () => {
   const globalAuth = useSelector((state) => state.globalAuth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [searchVal, setSearchVal] = useState("");
+  const [debouncedInputValue, setDebouncedInputValue] = useState("");
+
   const { isSuccess, collegeStaff } = useSelector(
     (state) => state.collegeStaffUtil
   );
@@ -20,34 +23,62 @@ const StudentsToCollege = () => {
     }
   }, [globalAuth.isLoggedin]);
 
+  function handleSetSearchValue(e) {
+    setSearchVal(e.target.value);
+  }
+  useEffect(() => {
+    const delayInputTimeoutId = setTimeout(
+      () => setDebouncedInputValue(searchVal),
+      500
+    );
+    return () => clearTimeout(delayInputTimeoutId);
+  }, [searchVal]);
+  console.log(debouncedInputValue);
   return (
     <div
-      className={`bg-purple-100 flex flex-col justify-center pt-28 items-center gap-8`}
+      className={`bg-purple-100 min-h-screen flex flex-col pt-28 items-center gap-8`}
     >
-      <SearchBar />
-      <StudentList collegeStaff={collegeStaff} setAPIURL={setAPIURL} />
+      <SearchBar handleSetSearchValue={handleSetSearchValue} />
+      <StudentList
+        collegeStaff={collegeStaff}
+        setAPIURL={setAPIURL}
+        searchVal={debouncedInputValue}
+      />
     </div>
   );
 };
 
-const SearchBar = () => (
+const SearchBar = ({ handleSetSearchValue }) => (
   <div className="flex justify-center bg-slate-100 w-4/5 py-2  rounded-lg shadow-slate-300 shadow-md">
-    <div className="bg-white flex-center py-2 w-2/5 gap-4 rounded">
+    <div className="bg-white flex-center py-2 w-1/2 gap-4 rounded">
       <h3 className="text-base">Enter Student's Name : </h3>
-      <InputField placeholder="Enter the student's name" labelName="" />
+      <InputField
+        placeholder="Enter the student's name here"
+        labelName=""
+        onChange={(e) => handleSetSearchValue(e)}
+        inputFieldContainerStyles={"w-1/2"}
+      />
     </div>
   </div>
 );
 
-const StudentList = ({ collegeStaff, setAPIURL }) => (
+const StudentList = ({ collegeStaff, setAPIURL, searchVal }) => (
   <div className="flex flex-col bg-slate-100 w-[90%] rounded-lg p-6 shadow-slate-300 shadow-md items-center justify-evenly gap-8">
-    {collegeStaff?.studentDetails.map((eachStudent) => (
-      <StudentCard
-        key={eachStudent._id}
-        eachStudent={eachStudent}
-        setAPIURL={setAPIURL}
-      />
-    ))}
+    {collegeStaff?.studentDetails
+      .filter((eachStudent) =>
+        (
+          eachStudent.personalDetail.firstName +
+          " " +
+          eachStudent.personalDetail.lastName
+        ).startsWith(searchVal)
+      )
+      .map((eachStudent) => (
+        <StudentCard
+          key={eachStudent._id}
+          eachStudent={eachStudent}
+          setAPIURL={setAPIURL}
+        />
+      ))}
   </div>
 );
 

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import StudentDashboardHeader from "./StudentDashboardHeader";
 import { Outlet, useNavigate } from "react-router-dom";
-import Sidemenu, { SidebarItem } from "../../../components/sidemenu/Sidemenu";
+import Sidemenu from "../../../components/sidemenu/Sidemenu";
 import LoadingPage from "../../LoadingPage";
 import { useDispatch, useSelector } from "react-redux";
-import { getLoginStatus } from "../../../redux/features/common/globalSlice";
+import { getLoginStatus, RESET_GLOBAL } from "../../../redux/features/common/globalSlice";
 import { getUserData } from "../../../redux/features/student/auth/authSlice";
 import { toast } from "react-toastify";
 import { studentSidebarItems } from "../../../constants";
@@ -31,6 +31,7 @@ function StudentDashboard() {
         position: toast.POSITION.TOP_RIGHT,
       });
       navigate("/signin");
+      dispatch(RESET_GLOBAL)
     } else {
       dispatch(getLoginStatus());
     }
@@ -56,17 +57,8 @@ function StudentDashboard() {
               firstName={student?.personalDetail.firstName}
               lastName={student?.personalDetail.lastName}
               profileImgLink={student?.personalDetail.profilePicture}
-              userType="student"
-            >
-              {studentSidebarItems.map((item) => (
-                <SidebarItem
-                  key={item.label}
-                  text={item.label}
-                  icon={item.icon}
-                  active
-                />
-              ))}
-            </Sidemenu>
+              sidebarItems={studentSidebarItems}
+            />
 
             <section
               className={cn(
@@ -81,7 +73,6 @@ function StudentDashboard() {
                   " " +
                   student?.personalDetail?.lastName
                 }
-                heading={"Student Dashboard"}
                 notficationCount={student?.notifications.length}
                 notficationFrom={student?.notifications.from}
                 notficationTitle={student?.notifications.title}
