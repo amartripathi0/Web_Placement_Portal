@@ -21,7 +21,7 @@ const CompanySchema = new Schema(
     },
     company: {
       type: String,
-      requried: true,
+      required: true,
       default: ''
     },
     role: {

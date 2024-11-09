@@ -20,7 +20,7 @@ const collegeStaffSchema = new mongoose.Schema(
     ],
     designation: {
       type: String,
-      enum: ['TPO Head', 'Assitant Professor', 'Placement Coordinator'],
+      enum: ['TPO Head', 'Assistant Professor', 'Placement Coordinator'],
       required: true,
       default: 'Placement Coordinator'
     },
