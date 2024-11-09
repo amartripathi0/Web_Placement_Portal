@@ -46,19 +46,19 @@ export const authCardDetails = {
     {
       imgSrc:
         "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/logo-design-template-35b0a3e2315d19a46c046165f315b000.jpg?ts=1592240511",
-      btnLabel: "Student SignUp",
+      btnLabel: "Student Signup",
       redirectRoute: "student",
     },
     {
       imgSrc:
         "https://media.istockphoto.com/id/876177980/vector/university-vector.jpg?s=612x612&w=0&k=20&c=FqW7PHJFlpzTfK3ax3zPhxgTCgCnVQaPnnmTRPmdjjc=",
-      btnLabel: "College Staff SignUp",
+      btnLabel: "College Staff Signup",
       redirectRoute: "college-staff",
     },
     {
       imgSrc:
         "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/American_Broadcasting_Company_Logo.svg/767px-American_Broadcasting_Company_Logo.svg.png",
-      btnLabel: "Company SignUp",
+      btnLabel: "Company Signup",
       redirectRoute: "company",
     },
   ],

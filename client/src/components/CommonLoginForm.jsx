@@ -52,9 +52,9 @@ const CommonLoginForm = ({
             className="h-full w-full flex-center bg-white flex flex-col gap-8 p-8"
           >
             {/* heading */}
-            <h1 className="text-lg text-center font-medium">
+            <h3 className="text-lg text-center font-medium">
               {loginFormHeading}
-            </h1>
+            </h3>
 
             {/* Input fields */}
             <div className="flex flex-col gap-[1vw]  ">
