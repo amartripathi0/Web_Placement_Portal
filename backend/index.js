@@ -38,59 +38,44 @@ connectToMongoDB(dbURL)
 // routes
 app.get(
   '/',
-  asyncHandler(
-    (async = (req, res, next) => {
-      try {
-        const token = req.cookies.token
-        const userType = req.cookies.userType
-
-        if (token && userType) {
-          if (userType === 'student') {
-            const isVerified = jwt.verify(
-              token,
-              process.env.JWT_SECRET_KEY_STUDENT
-            )
-
-            if (isVerified) {
-              res.status(200).json({ message: userType })
-            }
-          } else if (userType === 'college-staff') {
-            // console.log(userType);
-            const isVerified = jwt.verify(
-              token,
-              process.env.JWT_SECRET_KEY_COLLEGE
-            )
-            // console.log(isVerified);
-            if (isVerified) {
-              res.status(200).json({ message: userType })
-            }
-          } else if (userType === 'company') {
-            const isVerified = jwt.verify(
-              token,
-              process.env.JWT_SECRET_KEY_COMPANY
-            )
-            if (isVerified) {
-              res.status(200).json({ message: userType })
-            }
-          } else {
-            res.status(401)
-            throw new Error('Unauthorized Access! Please signin again.')
-          }
-        }
-        else{
-            res.status(400).json("")
-        }
-      } catch (error) {
-        if (error.message === 'invalid token') {
-          res.status(401)
-          throw new Error('Session Expired! Please SignIn again.')
-        } else {
-          console.log(error)
-          next(error)
-        }
+  asyncHandler(async (req, res, next) => {
+    try {
+      const token = req.cookies.token;
+      const userType = req.cookies.userType;
+      
+      if (!token && !userType) {
+        return res.status(200).json({ message: 'visitor' });
       }
-    })
-  )
+
+      if (token && userType) {
+        let isVerified;
+        if (userType === 'student') {
+          isVerified = jwt.verify(token, process.env.JWT_SECRET_KEY_STUDENT);
+        } else if (userType === 'college-staff') {
+          isVerified = jwt.verify(token, process.env.JWT_SECRET_KEY_COLLEGE);
+        } else if (userType === 'company') {
+          isVerified = jwt.verify(token, process.env.JWT_SECRET_KEY_COMPANY);
+        } else {
+          return res.status(401).json({ message: 'Unauthorized Access! Please signin again.' });
+        }
+
+        if (isVerified) {
+          return res.status(200).json({ message: userType });
+        } else {
+          return res.status(401).json({ message: 'Unauthorized Access! Please signin again.' });
+        }
+      } else {
+        return res.status(400).json({ message: 'Bad Request: Missing token or userType.' });
+      }
+    } catch (error) {
+      if (error.message === 'invalid token') {
+        return res.status(401).json({ message: 'Session Expired! Please SignIn again.' });
+      } else {
+        console.log(error);
+        next(error);
+      }
+    }
+  })
 )
 
 app.get('/test', (req, res) => {
