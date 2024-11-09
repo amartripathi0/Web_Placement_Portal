@@ -12,7 +12,7 @@ function Navbar() {
   return (
     <>
       <nav
-        className="flex-btwn-center h-20 w-screen px-10 backdrop-blur-sm backdrop-filter
+        className="flex-btwn-center h-20 w-screen px-24 backdrop-blur-sm backdrop-filter
             max-sm:px-5 fixed top-0 left-0 max-sm:h-16   z-40   border-b-1 border-black bg-gray-900 
             "
       >
@@ -46,12 +46,11 @@ function Navbar() {
           })}
         </div>
 
-        <div className="flex gap-3 font-semibold  relative ">
+        <div className="flex gap-3 font-semibold relative">
           {!mobileMenuOpen && (
             <div className="flex-center ">
-                {/* if pathname is signin show signup button */}
-              {pathname === "/signin"
-               ? 
+              {/* if pathname is signin show signup button */}
+              {pathname === "/signin" ? (
                 <NavLink to="/signup">
                   <Button
                     label={"Signup"}
@@ -59,41 +58,37 @@ function Navbar() {
                     additionalStyles={"max-sm:text-sm max-sm:py-2"}
                   />
                 </NavLink>
-              : 
-            
-              (
-              (pathname === "/signup") 
-              ?
-               ( <NavLink to="/signin">
+              ) : pathname === "/signup" ? (
+                <NavLink to="/signin">
                   <Button
                     label="Login"
                     color={"blue"}
                     additionalStyles={"px-4 max-sm:text-sm max-sm:px-2 "}
                   />
-                </NavLink>)
-              :
-               
-               ( pathname.startsWith('/signin') ||  pathname.startsWith('/signup') || pathname.startsWith('/')  ) && 
-                <div className="flex-center gap-3">
-                  <NavLink to="/signin">
-                    <Button
-                      label="Login"
-                      color={"blue"}
-                      additionalStyles={"px-4 max-sm:text-sm max-sm:px-2 "}
-                    />
-                  </NavLink>
+                </NavLink>
+              ) : (
+                (pathname.startsWith("/signin") ||
+                  pathname.startsWith("/signup") ||
+                  pathname.startsWith("/")) && (
+                  <div className="flex-center gap-3">
+                    <NavLink to="/signin">
+                      <Button
+                        label="Login"
+                        color={"blue"}
+                        additionalStyles={"px-4 max-sm:text-sm max-sm:px-2 "}
+                      />
+                    </NavLink>
 
-                  <NavLink to="/signup">
-                    <Button
-                      label={"Signup"}
-                      color={"pink"}
-                      additionalStyles={"max-sm:text-sm max-sm:py-2"}
-                    />
-                  </NavLink>
-                </div>
-              )
-              
-              }
+                    <NavLink to="/signup">
+                      <Button
+                        label={"Signup"}
+                        color={"pink"}
+                        additionalStyles={"max-sm:text-sm max-sm:py-2"}
+                      />
+                    </NavLink>
+                  </div>
+                )
+              )}
             </div>
           )}
 

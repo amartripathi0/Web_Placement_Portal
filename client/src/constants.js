@@ -26,11 +26,13 @@ import {
   MdLockReset,
 } from "react-icons/md";
 import { Book, Lock, LockIcon, Text, User, User2, User2Icon, UserCog2, Users } from "lucide-react";
-
+import computerGifImg from './assets/image_processing20200421-9716-1wjcx8i.gif'
+import studentChar from './assets/character_student.gif'
 export const constants = {
   logo,
 };
-
+export const computerGif = computerGifImg;
+export const studentGIF = studentChar;
 export const navBarLink = [
   { label: "Home", link: "/" },
   { label: "About", link: "/about" },

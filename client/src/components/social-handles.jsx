@@ -3,7 +3,7 @@ import { socialHandles } from "../constants";
 
 export default function SocialHandles({ nameDisable }) {
   return (
-    <nav className="flex space-x-4">
+    <div className="flex space-x-4">
       {socialHandles.map((socialHandle) => (
         <SocialHandle
           key={socialHandle.name}
@@ -13,7 +13,7 @@ export default function SocialHandles({ nameDisable }) {
           nameDisable={nameDisable}
         />
       ))}
-    </nav>
+    </div>
   );
 }
 
