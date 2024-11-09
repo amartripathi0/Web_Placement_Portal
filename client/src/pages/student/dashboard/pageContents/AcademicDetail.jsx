@@ -16,7 +16,7 @@ import {
   yearOfPassingValidation,
 } from "../../../../utils/formValidation";
 import Button from "../../../../components/buttons/Button";
-import UserLayout from "../../../../components/layout/UserLayout";
+import StudentPageLayout from "../../../../components/layout/StudentPageLayout";
 import { useNavigate } from "react-router-dom";
 import { RESET_GLOBAL } from "../../../../redux/features/common/globalSlice";
 
@@ -57,7 +57,7 @@ const AcademicDetail = () => {
   }
 
   return (
-    <UserLayout slateBgStyles={"w-2/5"}>
+    <StudentPageLayout slateBgStyles={"w-2/5"}>
       <form
         action=""
         noValidate
@@ -135,7 +135,7 @@ const AcademicDetail = () => {
           }
         />
       </form>
-    </UserLayout>
+    </StudentPageLayout>
   );
 };
 

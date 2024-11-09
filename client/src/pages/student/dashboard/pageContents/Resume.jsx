@@ -3,7 +3,7 @@ import { Worker } from "@react-pdf-viewer/core";
 import { Viewer } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 import { useDispatch, useSelector } from "react-redux";
-import UserLayout from "../../../../components/layout/UserLayout";
+import StudentPageLayout from "../../../../components/layout/StudentPageLayout";
 import { uploadResume } from "../../../../redux/features/student/utilsServices/utilSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -44,7 +44,7 @@ const Resume = () => {
     }
   };
   return (
-    <UserLayout
+    <StudentPageLayout
       slateBgStyles={"w-full h-full p-10"}
       purpleBgStyles={"justify-start"}
     >
@@ -82,7 +82,7 @@ const Resume = () => {
           )
         )}
       </div>
-    </UserLayout>
+    </StudentPageLayout>
   );
 };
 

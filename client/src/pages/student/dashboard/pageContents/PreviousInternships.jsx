@@ -12,7 +12,7 @@ import SlateBackground from "../../../../components/containers/SlateBackground";
 import FormField from "../../../../components/containers/FormField";
 import Label from "../../../../components/label";
 import Button from "../../../../components/buttons/Button";
-import UserLayout from "../../../../components/layout/UserLayout";
+import StudentPageLayout from "../../../../components/layout/StudentPageLayout";
 import InternshipCard from "../../../../components/internship-card";
 import { RESET_GLOBAL } from "../../../../redux/features/common/globalSlice";
 import { useNavigate } from "react-router-dom";
@@ -57,7 +57,7 @@ const PreviousInternships = () => {
     reset();
   }
   return (
-    <UserLayout
+    <StudentPageLayout
       slateBgStyles={"gap-20 p-10 "}
       purpleBgStyles={"justify-start flex-col gap-20"}
     >
@@ -171,7 +171,7 @@ const PreviousInternships = () => {
           You don't have any internship. Please fill up above form to add one.
         </div>
       )}
-    </UserLayout>
+    </StudentPageLayout>
   );
 };
 

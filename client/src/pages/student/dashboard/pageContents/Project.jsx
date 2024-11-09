@@ -8,7 +8,7 @@ import {
   getUserData,
   updateProfileDetail,
 } from "../../../../redux/features/student/auth/authSlice";
-import UserLayout from "../../../../components/layout/UserLayout";
+import StudentPageLayout from "../../../../components/layout/StudentPageLayout";
 import FormField from "../../../../components/containers/FormField";
 import Label from "../../../../components/label";
 import Button from "../../../../components/buttons/Button";
@@ -58,7 +58,7 @@ const Project = () => {
   }
 
   return (
-    <UserLayout
+    <StudentPageLayout
       slateBgStyles={"gap-20 p-10 "}
       purpleBgStyles={"justify-start flex-col gap-20"}
     >
@@ -170,7 +170,7 @@ const Project = () => {
           You don't have any project. Please fill up above form to add one.
         </div>
       )}
-    </UserLayout>
+    </StudentPageLayout>
   );
 };
 

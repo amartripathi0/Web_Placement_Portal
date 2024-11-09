@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import PasswordInput from "../../../../components/inputField/PasswordInput";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import UserLayout from "../../../../components/layout/UserLayout";
+import StudentPageLayout from "../../../../components/layout/StudentPageLayout";
 import {
   signin,
   RESET,
@@ -32,7 +32,7 @@ const ResetPassword = () => {
     // console.log(data);
   }
   return (
-    <UserLayout
+    <StudentPageLayout
       slateBgStyles={"p-4 sm:p-8 tablet:p-10 w-full tablet:w-4/5 lg:w-2/5"}
     >
       <form
@@ -111,7 +111,7 @@ const ResetPassword = () => {
           additionalStyles={"bg-blue-500"}
         />
       </form>
-    </UserLayout>
+    </StudentPageLayout>
   );
 };
 
