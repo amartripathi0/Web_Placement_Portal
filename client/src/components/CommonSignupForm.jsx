@@ -173,7 +173,8 @@ const CommonSignupForm = ({
                 type={"submit"}
                 label={"Signup"}
                 color={"pink"}
-                additionalStyles={"max-sm:w-full font-semibold text-white "}
+                additionalStyles={"w-full sm:w-40 font-semibold text-white "}
+                isLoading={isLoading}
               />
             </div>
           </form>

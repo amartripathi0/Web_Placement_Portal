@@ -1,13 +1,13 @@
 import React from "react";
 import Navbar from "./header/Navbar";
 import PurpleBackground from "./containers/PurpleBackground";
-import LoadingPage from "../pages/LoadingPage";
 import SlateBackground from "./containers/SlateBackground";
 import { IoMdArrowBack } from "react-icons/io";
 import InputField from "./inputField/InputField";
 import PasswordInput from "./inputField/PasswordInput";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { Loader } from "lucide-react";
 
 const CommonLoginForm = ({
   onLoginFormSubmitHandler,
@@ -31,8 +31,6 @@ const CommonLoginForm = ({
         additionalStyles={"tablet:pt-20 pt-14"}
         isLoading={isLoading}
       >
-        {isLoading && <LoadingPage height="screen" width="screen" />}
-
         <SlateBackground
           additionalStyles={
             "p-6 tablet:p-16 relative flex-col-center rounded-lg"
@@ -99,9 +97,11 @@ const CommonLoginForm = ({
 
               <button
                 type="submit"
-                className="font-medium bg-blue-500 text-white border-black w-full text-sm flex-center py-2 rounded"
+                className="font-medium bg-blue-500 text-white w-full text-sm flex-center gap-2 py-2 rounded"
+                disabled={isLoading}
               >
-                Submit
+                {isLoading ? "Logging..." : "Login"}
+                {isLoading && <Loader size={16} className="animate-spin" />}
               </button>
               <p className=" font-medium text-sm">
                 Don't have an account?
