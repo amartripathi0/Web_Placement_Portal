@@ -55,7 +55,7 @@ const InputWithEdit = ({
         <button
           onClick={toggleEdit}
           className={cn(
-            "border-r-white border-y-white h-full px-1.5 flex justify-center items-center bg-neutral-100",
+            "border-r-white border-y-white h-full p-1.5 flex justify-center items-center opacity-70 bg-neutral-100",
             showEdit && "border border-l-neutral-700 bg-neutral-200"
           )}
         >

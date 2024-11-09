@@ -1,83 +1,25 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputWithEdit from "../../../../components/inputField/InputWithEdit";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingPage from "../../../LoadingPage";
-import { FiSearch } from "react-icons/fi";
-
-import {
-  updateProfileDetail,
-  RESET,
-  getUserData,
-} from "../../../../redux/features/student/auth/authSlice";
-import {
-  uploadProfilePicture,
-  RESET_UTILS,
-} from "../../../../redux/features/student/utilsServices/utilSlice";
-import { toast } from "react-toastify";
-import InputField from "../../../../components/inputField/InputField";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import {
   getStudentDetails,
   updateStudentDetails,
 } from "../../../../redux/features/college/utilServices/collegeUtilSlice";
+import CollegePageLayout from "../../../../components/layout/CollegePageLayout";
+import { toast } from "react-toastify";
 
 const StudentDetailToClg = () => {
-  const {id: studentId} = useParams();
-  console.log(studentId)
-  const { isLoading, isError, isSuccess, isLoggedIn, student } = useSelector(
-    (state) => state.collegeStaffUtil
-  );
-  const globalAuth = useSelector((state) => state.globalAuth);
+  const { id: studentId } = useParams();
+  const { isSuccess, student } = useSelector((state) => state.collegeStaffUtil);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const form = useForm();
-  const {
-    handleSubmit,
-    register,
-    setValue,
-    formState: { errors },
-  } = form;
+  const { handleSubmit, register, setValue } = form;
 
   const [studStatus, setStudStatus] = useState("Allowed");
 
-  function handleUpdateStudentData(data) {
-    const studentData = {
-      id: studentId,
-      personalDetail: {
-        firstName: data?.firstName,
-        lastName: data?.lastName,
-        emailID: data?.emailID,
-        fathersName: data?.fathersName,
-        mothersName: data?.mothersName,
-        phone: data?.phone,
-        profilePicture: student?.personalDetail.profilePicture,
-      },
-      educationalDetails: {
-        rollNumber: data.rollNumber,
-        collegeName: data.collegeName,
-        cgpa: data.cgpa,
-        yearOfPassing: data.yearOfPassing,
-        degrees: student?.educationalDetails.degrees,
-      },
-
-      resume: student?.resume,
-
-      role: studStatus,
-
-      placementStatus: {
-        isPlaced: student?.isPlaced,
-        companyName: data.companyName,
-        packageOffered: data.packageOffered,
-        status: data.status,
-      },
-
-      applicationStatus: student?.applicationStatus,
-
-      pastInternshipsProjects: student?.pastInternshipsProjects,
-    };
-    dispatch(updateStudentDetails(studentData));
-  }
   useEffect(() => {
     if (studentId) {
       dispatch(getStudentDetails(studentId));
@@ -96,430 +38,174 @@ const StudentDetailToClg = () => {
       setValue("emailID", student?.personalDetail.emailID);
       setValue("phone", student?.personalDetail.phone);
       setStudStatus(student?.role);
-
       setValue("rollNumber", student?.educationalDetails.rollNumber);
       setValue("collegeName", student?.educationalDetails.collegeName);
       setValue("cgpa", student?.educationalDetails.cgpa);
       setValue("yearOfPassing", student?.educationalDetails.yearOfPassing);
-
       setValue("isPlaced", student?.placementStatus.isPlaced);
-
       setValue("companyName", student?.placementStatus.companyName);
       setValue("packageOffered", student?.placementStatus.packageOffered);
       setValue("status", student?.placementStatus.status);
     }
   }, [student]);
 
-  console.log("student", student);
+  const handleUpdateStudentData = (data) => {
+    const studentData = {
+      id: studentId,
+      personalDetail: {
+        firstName: data?.firstName,
+        lastName: data?.lastName,
+        emailID: data?.emailID,
+        fathersName: data?.fathersName,
+        mothersName: data?.mothersName,
+        phone: data?.phone,
+        profilePicture: student?.personalDetail.profilePicture,
+      },
+      educationalDetails: {
+        rollNumber: data.rollNumber,
+        collegeName: data.collegeName,
+        cgpa: data.cgpa,
+        yearOfPassing: data.yearOfPassing,
+        degrees: student?.educationalDetails.degrees,
+      },
+      resume: student?.resume,
+      role: studStatus,
+      placementStatus: {
+        isPlaced: student?.isPlaced,
+        companyName: data.companyName,
+        packageOffered: data.packageOffered,
+        status: data.status,
+      },
+      applicationStatus: student?.applicationStatus,
+      pastInternshipsProjects: student?.pastInternshipsProjects,
+    };
+    dispatch(updateStudentDetails(studentData));
+  };
 
   return (
-    <div
-      className={` bg-pink-100 flex flex-col py-3 items-center ${
-        (isLoading || globalAuth.isLoading) && " blur-sm"
-      }`}
-    >
+    <CollegePageLayout>
       <form
         onSubmit={handleSubmit(handleUpdateStudentData)}
-        className=" flex  flex-wrap bg-slate-100 w-[90%]  rounded-lg px-5 py-5 shadow-slate-300 shadow-md  items-center justify-evenly gap-3"
+        className="flex flex-wrap bg-slate-100 rounded-lg p-4 shadow-slate-300 shadow-md items-center justify-evenly gap-4"
       >
-        <div className="w-full flex  gap-3 ">
-          <div className="flex w-full gap-3 ">
-            <div className="bg-white flex justify-between items-center gap-3  px-3 pt-3 pb-1 text-base w-1/2">
-              {/* Photo - Resume*/}
-              <div className=" items-center flex flex-col ">
-                <img
-                  src={""}
-                  alt=""
-                  className="border-4 rounded-md  h-32 w-32 mb-2"
-                />
-
-                <NavLink
-                  to={student?.resume}
-                  target="_blank"
-                  className=" underline cursor:pointer text-blue-600"
-                >
-                  Resume
-                </NavLink>
-              </div>
-
-              <div className="w-3/4 flex-col justify-between">
-                {/* Email */}
-                <div className="flex gap-2  items-center justify-between">
-                  <p className="text-sm">Email: </p>
-
-                  <InputWithEdit
-                    type="text"
-                    customStyle="w-40 "
-                    validationObj={{
-                      ...register("emailID"),
-                    }}
-                  />
-                </div>
-
-                {/* phone */}
-                <div className="flex gap-2  items-center justify-between">
-                  <p className="text-sm">Phone: </p>
-                  <InputWithEdit
-                    type="number"
-                    customStyle="w-40 "
-                    validationObj={{
-                      ...register("phone"),
-                    }}
-                  />
-                </div>
-
-                {/* Status */}
-                <div className="flex  gap-1 w-full  justify-between items-center">
-                  <p className="text-sm">Status: </p>
-                  <label
-                    className={`font-medium -ml-2  ${
-                      studStatus === "Allowed"
-                        ? "text-green-500"
-                        : "text-red-500"
-                    }`}
-                  >
-                    {" "}
-                    {studStatus}{" "}
-                  </label>
-
-                  <select
-                    onChange={(e) => setStudStatus(e.target.value)}
-                    className="w-32 px-2 py-1 rounded-lg  font-medium text-sm"
-                  >
-                    <option value="Allowed" defaultValue>
-                      Allowed
-                    </option>
-                    <option value="Debarred" defaultValue>
-                      Debarred
-                    </option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            {/* personal detail */}
-            <div className="bg-white flex flex-col text-base p-2 gap-1 rounded-lg w-1/2 ">
-              <p className="font-semibold text-lg ">Personal Detail</p>
-
-              <div className="flex  items-center justify-between  gap-2 ">
-                <p className="text-sm">First Name:</p>
-                <InputWithEdit
-                  type="text"
-                  customStyle="w-56 text-right "
-                  validationObj={{
-                    ...register("firstName"),
-                  }}
-                />
-              </div>
-              <div className="flex  items-center justify-between  gap-2  ">
-                <p className="text-sm">Last Name:</p>
-                <InputWithEdit
-                  type="text"
-                  customStyle="w-56 "
-                  validationObj={{
-                    ...register("lastName"),
-                  }}
-                />
-              </div>
-
-              <div className="flex  items-center justify-between  gap-2 ">
-                <p className="text-sm">Father's Name:</p>
-                <InputWithEdit
-                  type="text"
-                  customStyle="w-56 "
-                  validationObj={{
-                    ...register("fathersName"),
-                  }}
-                />
-              </div>
-
-              <div className="flex  items-center justify-between  gap-2 ">
-                <p className="text-sm">Mother Name:</p>
-                <InputWithEdit
-                  type="text"
-                  customStyle="w-56 "
-                  validationObj={{
-                    ...register("mothersName"),
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white flex flex-col items-center justify-around text-base  px-3  rounded-lg w-1/5 ">
-            <p className="font-medium text-sm">
-              Click on the button to update :-
-              <li>Personal details</li>
-              <li>Educational details</li>
-              <li>Placement details</li>
-            </p>
-            <button className="w-40 font-semibold text-white bg-pink-500 hover:bg-pink-600 p-2 rounded-lg flex items-center justify-center text-sm">
-              Update Details
-            </button>
-          </div>
+        <div className="w-full flex gap-3">
+          <StudentInfo student={student} register={register} studStatus={studStatus} setStudStatus={setStudStatus} />
+          <UpdateButton />
         </div>
-
         <div className="w-full flex justify-between gap-3">
-          {/* educational detail */}
-          <div className="bg-white flex flex-col text-base p-2 gap-1 rounded-lg  w-1/2">
-            <p className="font-semibold text-lg ">Educational Detail</p>
-
-            <div className="flex  items-center justify-between  gap-2 ">
-              <p className="text-sm">College Name:</p>
-              <InputWithEdit
-                type="text"
-                customStyle="w-56 "
-                validationObj={{
-                  ...register("collegeName"),
-                }}
-              />
-            </div>
-
-            <div className="flex gap-2  items-center justify-between">
-              <p className="text-sm">Roll Number: </p>
-              <InputWithEdit
-                type="number"
-                customStyle="w-56 "
-                validationObj={{
-                  ...register("rollNumber"),
-                }}
-              />
-            </div>
-            <div className="flex gap-2  items-center justify-between">
-              <p className="text-sm">CGPA : </p>
-              <InputWithEdit
-                type="number"
-                customStyle="w-56 "
-                validationObj={{
-                  ...register("cgpa"),
-                }}
-              />
-            </div>
-            <div className="flex gap-2  items-center justify-between">
-              <p className="text-sm">Year Of Passing : </p>
-              <InputWithEdit
-                type="number"
-                customStyle="w-56 "
-                validationObj={{
-                  ...register("yearOfPassing"),
-                }}
-              />
-            </div>
-          </div>
-
-          {/* placement status */}
-          <div className="bg-white flex flex-col text-base p-2 gap-1 rounded-lg  w-1/2">
-            <p className="font-semibold text-lg ">Placement Status</p>
-
-            <div className="flex  items-center justify-between  gap-2 ">
-              <p className="text-sm">Status:</p>
-              <InputWithEdit
-                type="text"
-                customStyle="w-56 "
-                validationObj={{
-                  ...register("isPlaced"),
-                }}
-              />
-            </div>
-
-            <div className="flex gap-2  items-center justify-between">
-              <p className="text-sm">Company Name </p>
-              <InputWithEdit
-                type="text"
-                customStyle="w-56 "
-                validationObj={{
-                  ...register("companyName"),
-                }}
-              />
-            </div>
-            <div className="flex gap-2  items-center justify-between">
-              <p className="text-sm">Package Offered (LPA): </p>
-              <InputWithEdit
-                type="number"
-                customStyle="w-56 "
-                validationObj={{
-                  ...register("packageOffered"),
-                }}
-              />
-            </div>
-            <div className="flex gap-2  items-center justify-between">
-              <p className="text-sm">Placement Status : </p>
-              <InputWithEdit
-                type="text"
-                customStyle="w-56 "
-                validationObj={{
-                  ...register("status"),
-                }}
-              />
-            </div>
-          </div>
+          <EducationalDetail register={register} />
+          <PlacementStatus register={register} />
         </div>
-        {/* Internship Data */}
-
-        <div className="bg-white  w-full flex flex-col gap-2 p-2">
-          <p className="font-semibold text-lg ">Internships</p>
-
-          <div className="flex gap-2">
-            {student?.pastInternshipsProjects?.internships.map((internData) => (
-              <div
-                key={
-                  student?.pastInternshipsProjects?.internships.indexOf(
-                    internData
-                  ) + internData.company
-                }
-                className="bg-purple-50 w-1/4  flex flex-col text-base p-2 gap-1 rounded-lg "
-              >
-                <p className="font-semibold text-base ml-1">
-                  {student?.pastInternshipsProjects?.internships.indexOf(
-                    internData
-                  ) + 1}
-                </p>
-
-                <div className="flex  items-center justify-between  gap-2 ">
-                  <p className="text-sm">Company Name:</p>
-                  <InputWithEdit
-                    type="text"
-                    customStyle="w-40 bg-purple-50"
-                    value={
-                      student?.pastInternshipsProjects.internships[
-                        student?.pastInternshipsProjects?.internships.indexOf(
-                          internData
-                        )
-                      ].company
-                    }
-                    name="company"
-                  />
-                </div>
-                <div className="flex  items-center justify-between  gap-2 ">
-                  <p className="text-sm">Role:</p>
-                  <InputWithEdit
-                    type="text"
-                    customStyle="w-40 bg-purple-50"
-                    value={
-                      student?.pastInternshipsProjects.internships[
-                        student?.pastInternshipsProjects?.internships.indexOf(
-                          internData
-                        )
-                      ].role
-                    }
-                    name="role"
-                  />
-                </div>
-
-                <div className="flex  items-center justify-between  gap-2 ">
-                  <p className="text-sm">Duration:</p>
-                  <InputWithEdit
-                    type="text"
-                    customStyle="w-40 bg-purple-50"
-                    value={
-                      student?.pastInternshipsProjects.internships[
-                        student?.pastInternshipsProjects?.internships.indexOf(
-                          internData
-                        )
-                      ].duration
-                    }
-                    name="duration"
-                  />
-                </div>
-
-                <div className="flex  items-center justify-between  gap-2 ">
-                  <p className="text-sm">Description:</p>
-                  <InputWithEdit
-                    type="text"
-                    customStyle="w-40 bg-purple-50"
-                    value={
-                      student?.pastInternshipsProjects.internships[
-                        student?.pastInternshipsProjects?.internships.indexOf(
-                          internData
-                        )
-                      ].description
-                    }
-                    name="description"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Projects */}
-        <div className="bg-white  w-full flex flex-col gap-2 p-2">
-          <p className="font-semibold text-lg  ">Projects</p>
-          <div className="flex gap-2">
-            {student?.pastInternshipsProjects?.projects.map((projectData) => (
-              <div
-                className="bg-blue-50  flex flex-col text-base p-2 gap-1 rounded-lg w-1/4"
-                key={projectData.title}
-              >
-                <p className="font-semibold text-base ml-1">
-                  {student?.pastInternshipsProjects?.projects.indexOf(
-                    projectData
-                  ) + 1}
-                </p>
-
-                <div className="flex  items-center justify-between  gap-2 bg-blue-50 ">
-                  <p className="text-sm">Project Title:</p>
-                  <InputWithEdit
-                    type="text"
-                    customStyle="w-40  bg-blue-50 "
-                    value={
-                      student?.pastInternshipsProjects.projects[
-                        student?.pastInternshipsProjects?.projects.indexOf(
-                          projectData
-                        )
-                      ].title
-                    }
-                  />
-                </div>
-                <div className="flex  items-center justify-between  gap-2 ">
-                  <p className="text-sm">Link:</p>
-                  <InputWithEdit
-                    type="text"
-                    customStyle="w-40  bg-blue-50"
-                    value={
-                      student?.pastInternshipsProjects.projects[
-                        student?.pastInternshipsProjects?.projects.indexOf(
-                          projectData
-                        )
-                      ].link
-                    }
-                  />
-                </div>
-
-                <div className="flex  items-center justify-between  gap-2 ">
-                  <p className="text-sm">Duration:</p>
-                  <InputWithEdit
-                    type="text"
-                    customStyle="w-40 bg-blue-50"
-                    value={
-                      student?.pastInternshipsProjects.projects[
-                        student?.pastInternshipsProjects?.projects.indexOf(
-                          projectData
-                        )
-                      ].duration
-                    }
-                  />
-                </div>
-
-                <div className="flex  items-center justify-between  gap-2 ">
-                  <p className="text-sm">Description:</p>
-                  <InputWithEdit
-                    type="text"
-                    customStyle="w-40 bg-blue-50"
-                    value={
-                      student?.pastInternshipsProjects.projects[
-                        student?.pastInternshipsProjects?.projects.indexOf(
-                          projectData
-                        )
-                      ].description
-                    }
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <InternshipData internships={student?.pastInternshipsProjects?.internships} />
+        <ProjectData projects={student?.pastInternshipsProjects?.projects} />
       </form>
+    </CollegePageLayout>
+  );
+};
+
+const StudentInfo = ({ student, register, studStatus, setStudStatus }) => (
+  <div className="flex w-4/5 gap-3 bg-white justify-between items-center px-3 pt-3 pb-1 text-base">
+    <div className="items-center flex flex-col">
+      <img src={student?.personalDetail.profilePicture || ""} alt="" className="border-4 rounded-md h-32 w-32 mb-2" />
+      <NavLink to={student?.resume} target="_blank" className="underline cursor:pointer text-blue-600">Resume</NavLink>
+    </div>
+    <div className="w-3/4 flex-col justify-between">
+      <InputField label="Email" type="text" register={register("emailID")} />
+      <InputField label="Phone" type="number" register={register("phone")} />
+      <StatusSelect studStatus={studStatus} setStudStatus={setStudStatus} />
+    </div>
+  </div>
+);
+
+const InputField = ({ label, type, register }) => (
+  <div className="flex gap-4 items-center justify-between">
+    <p className="text-sm">{label}:</p>
+    <InputWithEdit type={type} customStyle="w-40" validationObj={register} />
+  </div>
+);
+
+const StatusSelect = ({ studStatus, setStudStatus }) => (
+  <div className="flex gap-1 w-full justify-between items-center">
+    <p className="text-sm">Status:</p>
+    <label className={`font-medium -ml-2 ${studStatus === "Allowed" ? "text-green-500" : "text-red-500"}`}>{studStatus}</label>
+    <select onChange={(e) => setStudStatus(e.target.value)} className="w-32 px-2 py-1 rounded-lg font-medium text-sm">
+      <option value="Allowed">Allowed</option>
+      <option value="Debarred">Debarred</option>
+    </select>
+  </div>
+);
+
+const UpdateButton = () => (
+  <div className="bg-white flex flex-col items-center justify-around text-base px-3 rounded-lg w-1/4">
+    <p className="font-medium text-sm">Click on the button to update :-<li>Personal details</li><li>Educational details</li><li>Placement details</li></p>
+    <button className="w-40 font-semibold text-white bg-pink-500 hover:bg-pink-600 p-3 rounded-lg flex items-center justify-center text-sm">Update Details</button>
+  </div>
+);
+
+const EducationalDetail = ({ register }) => (
+  <div className="bg-white flex flex-col text-base p-4 gap-1 rounded-lg w-1/2">
+    <p className="font-semibold text-lg">Educational Detail</p>
+    <InputField label="College Name" type="text" register={register("collegeName")} />
+    <InputField label="Roll Number" type="number" register={register("rollNumber")} />
+    <InputField label="CGPA" type="number" register={register("cgpa")} />
+    <InputField label="Year Of Passing" type="number" register={register("yearOfPassing")} />
+  </div>
+);
+
+const PlacementStatus = ({ register }) => (
+  <div className="bg-white flex flex-col text-base p-4 gap-1 rounded-lg w-1/2">
+    <p className="font-semibold text-lg">Placement Status</p>
+    <InputField label="Status" type="text" register={register("isPlaced")} />
+    <InputField label="Company Name" type="text" register={register("companyName")} />
+    <InputField label="Package Offered (LPA)" type="number" register={register("packageOffered")} />
+    <InputField label="Placement Status" type="text" register={register("status")} />
+  </div>
+);
+
+const InternshipData = ({ internships }) => (
+  <div className="bg-white w-full flex flex-col gap-4 p-4">
+    <p className="font-semibold text-lg">Internships</p>
+    <div className="grid grid-cols-3 gap-4">
+      {internships?.map((internData, index) => (
+        <InternshipCard key={internData.company} internData={internData} index={index} />
+      ))}
+    </div>
+  </div>
+);
+
+const InternshipCard = ({ internData, index }) => {
+  const { register } = useForm(); 
+  return (
+    <div className="bg-pink-100 hover:border hover:border-pink-500 flex flex-col text-base p-3 gap-1 rounded-lg">
+      <p className="font-semibold text-base ml-1">{index + 1}</p>
+      <InputField label="Company Name" type="text" register={register("company")} />
+      <InputField label="Role" type="text" register={register("role")} />
+      <InputField label="Duration" type="text" register={register("duration")} />
+      <InputField label="Description" type="text" register={register("description")} />
+    </div>
+  );
+};
+
+const ProjectData = ({ projects }) => (
+  <div className="bg-white w-full flex flex-wrap flex-col gap-4 p-4">
+    <p className="font-semibold text-lg">Projects</p>
+    <div className="grid grid-cols-3 gap-4">
+      {projects?.map((projectData, index) => (
+        <ProjectCard key={projectData.title} projectData={projectData} index={index} />
+      ))}
+    </div>
+  </div>
+);
+
+const ProjectCard = ({ projectData, index }) => {
+  const { register } = useForm(); 
+  return (
+    <div className="bg-blue-50 flex flex-col text-base p-4 gap-1 rounded-lg hover:border-blue-500 hover:border">
+      <p className="font-semibold text-base ml-1">{index + 1}</p>
+      <InputField label="Project Title" type="text" register={register("title")} />
+      <InputField label="Link" type="text" register={register("link")} />
+      <InputField label="Duration" type="text" register={register("duration")} />
+      <InputField label="Description" type="text" register={register("description")} />
     </div>
   );
 };
