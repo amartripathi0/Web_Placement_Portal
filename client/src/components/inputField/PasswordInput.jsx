@@ -39,14 +39,14 @@ const PasswordInput = ({
           type={showPass ? "text" : "password"}
           placeholder={placeholder}
           {...validationObj}
-          className="w-11/12 h-full outline-none focus:bg-neutral-100 pl-3 rounded font-medium"
+          className="w-11/12 h-full outline-none focus:bg-neutral-100 pl-2 rounded rounded-r-none font-medium"
         />
 
-        <button onClick={(e) => togglePassHide(e)}>
+        <button onClick={(e) => togglePassHide(e)} className="bg-neutral-200 h-full rounded-r px-2">
           {showPass ? (
-            <AiFillEyeInvisible size={25} className="mx-2" />
+            <AiFillEyeInvisible size={25}/>
           ) : (
-            <AiFillEye size={25} className="mx-2" />
+            <AiFillEye size={25} />
           )}
         </button>
       </div>
